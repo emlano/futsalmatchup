@@ -15,6 +15,7 @@ An app aimed primarily at Futsal players, who have trouble finding players or or
 
 ## Tech Stack
 * Flutter
+* **TODO**
 
 ## Resources
 * [Wireframe model](https://www.figma.com/file/2ZCrVxiTen6sdnMP7w1eqk/Wireframe?type=design&t=gXQiWuqADrC4b7G4-6)
