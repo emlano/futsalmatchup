@@ -1,6 +1,9 @@
 const express = require("express");
 const app = express();
+const port = 3000;
 
-app.listen(2000, () => {
-    console.log("Connected at port 2000");
+app.use(express.json());
+
+app.listen(port, () => {
+    console.log(`Connected at port ${port}`);
 })
