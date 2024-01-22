@@ -6,6 +6,12 @@ A Futsal Team creation and stadium booking application.
 
 An app aimed primarily at Futsal players, who have trouble finding players or organizing games, creating teams to do all that from a single app. App uses a ML method known as **Collaborative Recommendation** to make its recommendation to teams seeking players.
 
+## Todo
+* ⏳ Frontend
+* 🟢 Backend
+* 🟠 Database
+* 🔴 Machine Learning Model
+
 ## Features
 
 * Players profile
@@ -15,7 +21,9 @@ An app aimed primarily at Futsal players, who have trouble finding players or or
 
 ## Tech Stack
 * Flutter
-* **TODO**
+* NodeJS
+* ExpressJS
+* mySQL
 
 ## Resources
 * [Wireframe model](https://www.figma.com/file/2ZCrVxiTen6sdnMP7w1eqk/Wireframe?type=design&t=gXQiWuqADrC4b7G4-6)
