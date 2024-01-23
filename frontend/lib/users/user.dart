@@ -28,4 +28,11 @@ abstract class User {
       'phoneNo': phoneNo
     };
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) || other is User && userId == other.userId;
+
+  @override
+  int get hashCode => userId.hashCode;
 }
