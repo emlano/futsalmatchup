@@ -1,14 +1,15 @@
 import 'package:frontend/stadium/booking.dart';
 
 class Stadium {
-  late String id;
+  late final String id;
   late String name;
   late String location;
   late List<Booking> schedule;
 
   Stadium(this.id, this.location, this.name, this.schedule);
 
-  Stadium.create(this.id, this.location, this.name) : schedule = List.empty();
+  Stadium.create(this.id, this.location, this.name)
+      : schedule = List.empty(growable: true);
 
   Stadium.fromMap(Map<String, dynamic> map) {
     id = map['id']!;
@@ -17,7 +18,8 @@ class Stadium {
 
     List<Map<String, Map<String, int>>> bookingList = map['schedule'];
 
-    schedule = bookingList.map((e) => Booking.fromMap(e)).toList();
+    schedule =
+        bookingList.map((e) => Booking.fromMap(e)).toList(growable: true);
   }
 
   Map<String, dynamic> toMap() {
@@ -30,6 +32,7 @@ class Stadium {
   }
 
   addBooking(DateTime start, DateTime end) {
+    // TODO Change this to Booking maybe
     Booking booking = Booking(start, end);
 
     if (_clashes(booking)) return; // TODO: Handle this better
@@ -44,6 +47,9 @@ class Stadium {
 
     return false;
   }
+
+  @override
+  String toString() => toMap().toString();
 
   @override
   bool operator ==(Object other) =>

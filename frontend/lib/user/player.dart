@@ -41,4 +41,7 @@ class Player extends User {
 
     return map;
   }
+
+  @override
+  String toString() => toMap().toString();
 }

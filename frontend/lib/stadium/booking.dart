@@ -49,6 +49,9 @@ class Booking {
   }
 
   @override
+  String toString() => toMap().toString();
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) || other is Booking && range == other.range;
 

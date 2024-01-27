@@ -1,6 +1,6 @@
 abstract class User {
   // More instance variables may be added as requirements grow
-  String userId;
+  final String userId;
   String username;
   String password;
   String phoneNo;
@@ -28,6 +28,9 @@ abstract class User {
       'phoneNo': phoneNo
     };
   }
+
+  @override
+  String toString() => toMap().toString();
 
   @override
   bool operator ==(Object other) =>
