@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
 
 class Booking {
-  late DateTimeRange bookingRange;
+  late final DateTimeRange range;
 
   Booking(DateTime start, DateTime end) {
-    bookingRange = DateTimeRange(start: start, end: end);
+    range = DateTimeRange(start: start, end: end);
   }
 
   Booking.fromMap(Map<String, Map<String, int>> map) {
     DateTime start = _dateFromMap(map['start']!);
     DateTime end = _dateFromMap(map['end']!);
 
-    bookingRange = DateTimeRange(start: start, end: end);
+    range = DateTimeRange(start: start, end: end);
   }
 
   Map<String, Map<String, int>> toMap() {
-    return {
-      'start': _dateToMap(bookingRange.start),
-      'end': _dateToMap(bookingRange.end)
-    };
+    return {'start': _dateToMap(range.start), 'end': _dateToMap(range.end)};
+  }
+
+  static DateTime dateFromInts(
+      int year, int month, int day, int hour, int minute) {
+    return DateTime(year, month, day, hour, minute);
   }
 
   DateTime _dateFromMap(Map<String, int> map) {
@@ -35,4 +37,21 @@ class Booking {
       'minute': datetime.minute
     };
   }
+
+  DateTime get start => range.start;
+  DateTime get end => range.end;
+
+  bool overlaps(Booking other) {
+    if (this == other) return true;
+    if (start.isBefore(other.start) && end.isAfter(other.start)) return true;
+    if (start.isAfter(other.end) && end.isBefore(other.end)) return true;
+    return false;
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) || other is Booking && range == other.range;
+
+  @override
+  int get hashCode => range.hashCode;
 }

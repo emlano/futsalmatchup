@@ -3,17 +3,17 @@ import 'package:frontend/user/manager.dart';
 import 'package:frontend/user/player.dart';
 
 void main() {
-  test("Test User methods", () {
-    String id = '1234';
-    String username = 'emilano';
-    String password = 'password';
-    String phoneNo = '123456789';
-    double sport = 19.99;
-    double skill = 20.01;
-    double overall = 25.55;
-    String city = 'Colombo';
-    bool aval = true;
+  String id = '1234';
+  String username = 'emilano';
+  String password = 'password';
+  String phoneNo = '123456789';
+  double sport = 19.99;
+  double skill = 20.01;
+  double overall = 25.55;
+  String city = 'Colombo';
+  bool aval = true;
 
+  test("Test User methods", () {
     // Create maps for a player and a manager
     Map<String, dynamic> playerMap = {
       'userId': '${id}5',
