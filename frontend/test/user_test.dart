@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:frontend/users/manager.dart';
-import 'package:frontend/users/player.dart';
+import 'package:frontend/user/manager.dart';
+import 'package:frontend/user/player.dart';
 
 void main() {
   test("Test User methods", () {

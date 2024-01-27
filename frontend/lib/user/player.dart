@@ -1,4 +1,4 @@
-import 'package:frontend/users/user.dart';
+import 'package:frontend/user/user.dart';
 
 class Player extends User {
   double skill;

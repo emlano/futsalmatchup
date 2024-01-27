@@ -1,4 +1,4 @@
-import 'package:frontend/users/user.dart';
+import 'package:frontend/user/user.dart';
 
 class Manager extends User {
   Manager(String userId, String username, String password, String phoneNo)
