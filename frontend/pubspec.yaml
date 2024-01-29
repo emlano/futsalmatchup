@@ -78,15 +78,15 @@ flutter:
   fonts:
     - family: DancingScript
       fonts:
-        - asset: fonts/DancingScript-VariableFont_wght.ttf
+        - asset: assets/fonts/DancingScript-VariableFont_wght.ttf
           style: italic
           
     - family: Inter
       fonts:
-        - asset: fonts/Inter-VariableFont_slnt,wght.ttf
+        - asset: assets/fonts/Inter-VariableFont_slnt,wght.ttf
     
     - family: Football
       fonts:
-        - asset: fonts/football.ttf
+        - asset: assets/fonts/football.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
