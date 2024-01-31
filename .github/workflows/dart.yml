@@ -25,13 +25,13 @@ jobs:
       with:
         flutter-version: '3.7.7'
 
-    - run: cd frontend/ 
+    - run: cd frontend/; 
            flutter pub get
     
-    - run: cd frontend/
+    - run: cd frontend/;
            flutter test
     
-    - run: cd frontend/
+    - run: cd frontend/;
            flutter build apk
    
     - run: cd frontend/
