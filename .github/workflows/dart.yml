@@ -34,5 +34,5 @@ jobs:
     - run: cd frontend/;
            flutter build apk
    
-    - run: cd frontend/
+    - run: cd frontend/;
            flutter build appbundle
