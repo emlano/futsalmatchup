@@ -24,8 +24,15 @@ jobs:
     - uses: subosito/flutter-action@v2
       with:
         flutter-version: '3.7.7'
+
+    - run: cd frontend/ 
+           flutter pub get
+    
     - run: cd frontend/
-    - run: flutter pub get
-    - run: flutter test
-    - run: flutter build apk
-    - run: flutter build appbundle
+           flutter test
+    
+    - run: cd frontend/
+           flutter build apk
+   
+    - run: cd frontend/
+           flutter build appbundle
