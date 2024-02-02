@@ -52,6 +52,23 @@ class CreateTeamPage extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     )
+                    const SizedBox(height: 20),
+                    Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: Colors.teal.shade100,
+                          radius: 50,
+                        )
+                        const Text(
+                          '+',
+                          style: TextStyle(
+                            fontSize: 40,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      ],
+                    )
                   ],
                 ),
               )
