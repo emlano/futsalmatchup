@@ -65,32 +65,35 @@ class LoginScreenState extends State<LoginScreen> {
         ),
         const SizedBox(height: 100),
         Column(children: [
-         const Text(
-              "If you are a new user...",
-              style: TextStyle(
-                color: Colors.black54,
-                fontFamily: "Inter",
-              ),
+          const Text(
+            "If you are a new user...",
+            style: TextStyle(
+              color: Colors.black54,
+              fontFamily: "Inter",
+            ),
           ),
           ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor: Colors.teal,
-                minimumSize: const Size(200, 40),
-                maximumSize: const Size(300, 40),
-              ),
-              child: const Row(mainAxisAlignment: MainAxisAlignment.center,children: [
-                Icon(Icons.add_circle),
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.white,
+              backgroundColor: Colors.teal,
+              minimumSize: const Size(200, 40),
+              maximumSize: const Size(300, 40),
+            ),
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.group_add),
                 SizedBox(width: 10),
                 Text(
-                    "Sign Up",
+                  "Sign Up",
                   style: TextStyle(
                     fontFamily: "Inter",
                     fontWeight: FontWeight.bold,
                   ),
                 )
-              ],),
+              ],
+            ),
           ),
           const SizedBox(height: 50),
           const Text(
@@ -108,17 +111,20 @@ class LoginScreenState extends State<LoginScreen> {
               minimumSize: const Size(200, 40),
               maximumSize: const Size(300, 40),
             ),
-            child: const Row(mainAxisAlignment: MainAxisAlignment.center,children: [
-              Icon(Icons.account_circle),
-              SizedBox(width: 10),
-              Text(
-                "Log in",
-                style: TextStyle(
-                  fontFamily: "Inter",
-                  fontWeight: FontWeight.bold,
-                ),
-              )
-            ],),
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.account_circle),
+                SizedBox(width: 10),
+                Text(
+                  "Log in",
+                  style: TextStyle(
+                    fontFamily: "Inter",
+                    fontWeight: FontWeight.bold,
+                  ),
+                )
+              ],
+            ),
           ),
         ])
       ]),
