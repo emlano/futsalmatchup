@@ -4,6 +4,7 @@ import 'stadium_details_page.dart';
 class StadiumAvailabilityPage extends StatefulWidget {
   const StadiumAvailabilityPage({Key? key}) : super(key: key);
 
+  @override
   _StadiumAvailabilityPageState createState() => _StadiumAvailabilityPageState();
 }
 
@@ -24,6 +25,7 @@ class _StadiumAvailabilityPageState extends State<StadiumAvailabilityPage> {
 
   List<String> filteredStadiums = [];
 
+  @override
   void initState() {
     super.initState();
     filteredStadiums.addAll(stadiums);
@@ -38,6 +40,7 @@ class _StadiumAvailabilityPageState extends State<StadiumAvailabilityPage> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
