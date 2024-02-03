@@ -15,7 +15,7 @@ class CreateTeamPage extends StatelessWidget {
               'assets/app_logo.png',
               width: 40,
               height: 40,
-            )
+            ),
             const SizedBox(width: 8),
             const Text("Futsal MatchUp"),
           ],
@@ -35,7 +35,7 @@ class CreateTeamPage extends StatelessWidget {
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 )
-              )
+              ),
               const SizedBox(height: 20),
               Container(
                 padding: const EdgeInsets.all(16),
@@ -52,7 +52,7 @@ class CreateTeamPage extends StatelessWidget {
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
-                    )
+                    ),
                     const SizedBox(height: 20),
                     Stack(
                       alignment: Alignment.center,
@@ -60,7 +60,7 @@ class CreateTeamPage extends StatelessWidget {
                         CircleAvatar(
                           backgroundColor: Colors.teal.shade100,
                           radius: 50,
-                        )
+                        ),
                         const Text(
                           '+',
                           style: TextStyle(
@@ -69,14 +69,14 @@ class CreateTeamPage extends StatelessWidget {
                           ),
                         )
                       ],
-                    )
+                    ),
                     const SizedBox(height: 10),
                     const Text(
                       'Add Team Logo',
                       style: TextStyle(
                         fontSize: 16,
                       )
-                    )
+                    ),
                     const SizedBox(height: 20),
                     TextField(
                       onChanged: (value) {
@@ -86,7 +86,7 @@ class CreateTeamPage extends StatelessWidget {
                         hintText: 'Enter your Team Name',
                         border: OutlineInputBorder()
                       ),
-                    )
+                    ),
                     const SizedBox(height: 20),
                     ElevatedButton(
                         onPressed: () {
@@ -96,7 +96,7 @@ class CreateTeamPage extends StatelessWidget {
                               MaterialPageRoute(
                                 builder: (context) => TeamRosterPage(teamName: teamName!),
                             ),
-                          ),
+                            );
                           }
                           else {
                             ScaffoldMessenger.of(context).showSnackBar(
@@ -113,6 +113,7 @@ class CreateTeamPage extends StatelessWidget {
                       'Create Team',
                       style: TextStyle(color: Colors.black), // Black font color
                       ),
+                    ),
                   ],
                 ),
               )
@@ -120,6 +121,6 @@ class CreateTeamPage extends StatelessWidget {
           ),
         )
       ),
-    )
+    );
   }
 }
