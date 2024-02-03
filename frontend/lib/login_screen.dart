@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/IconFonts/IconFonts.dart';
+import 'package:frontend/IconFonts/icon_fonts.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key, required this.title});
@@ -30,7 +30,7 @@ class LoginScreenState extends State<LoginScreen> {
             ),
           ),
           leading: const Icon(
-            IconFont.soccer_ball,
+            IconFont.soccerBall,
             size: 35,
           )),
       body: Column(children: [
@@ -43,26 +43,90 @@ class LoginScreenState extends State<LoginScreen> {
               autoPlay: true,
               autoPlayCurve: Curves.fastEaseInToSlowEaseOut,
               enlargeCenterPage: true,
-              enlargeFactor: 1),
+              enlargeFactor: 0.5),
           items: [0, 1, 2].map((i) {
             return Builder(
               builder: (BuildContext context) {
                 return Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                  decoration: const BoxDecoration(color: Colors.white),
-                  child: Column(
-                    children: [
-                      CarouselData.images[i],
-                      const SizedBox(height: 10),
-                      CarouselData.texts[i]
-                    ],
-                  ),
-                );
+                    margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                    decoration: const BoxDecoration(color: Colors.transparent),
+                    child: FittedBox(
+                      child: Column(
+                        children: [
+                          CarouselData.images[i],
+                          const SizedBox(height: 10),
+                          CarouselData.texts[i]
+                        ],
+                      ),
+                    ));
               },
             );
           }).toList(),
         ),
-        const SizedBox(height: 25),
+        const SizedBox(height: 100),
+        Column(children: [
+          const Text(
+            "If you are a new user...",
+            style: TextStyle(
+              color: Colors.black54,
+              fontFamily: "Inter",
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.white,
+              backgroundColor: Colors.teal,
+              minimumSize: const Size(200, 40),
+              maximumSize: const Size(300, 40),
+            ),
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.group_add),
+                SizedBox(width: 10),
+                Text(
+                  "Sign Up",
+                  style: TextStyle(
+                    fontFamily: "Inter",
+                    fontWeight: FontWeight.bold,
+                  ),
+                )
+              ],
+            ),
+          ),
+          const SizedBox(height: 50),
+          const Text(
+            "Registered users can...",
+            style: TextStyle(
+              color: Colors.black54,
+              fontFamily: "Inter",
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.white,
+              backgroundColor: Colors.teal,
+              minimumSize: const Size(200, 40),
+              maximumSize: const Size(300, 40),
+            ),
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.account_circle),
+                SizedBox(width: 10),
+                Text(
+                  "Log in",
+                  style: TextStyle(
+                    fontFamily: "Inter",
+                    fontWeight: FontWeight.bold,
+                  ),
+                )
+              ],
+            ),
+          ),
+        ])
       ]),
     );
   }
@@ -70,7 +134,7 @@ class LoginScreenState extends State<LoginScreen> {
 
 class CarouselData {
   static final List<Image> images = [
-    'assets/images/img1.jpg',
+    'assets/images/img1.png',
     'assets/images/img2.png',
     'assets/images/img3.png'
   ].map((i) {
@@ -78,6 +142,7 @@ class CarouselData {
       i,
       width: 200,
       height: 200,
+      isAntiAlias: true,
     );
   }).toList();
 

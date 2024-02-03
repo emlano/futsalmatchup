@@ -11,7 +11,7 @@
 ///      fonts:
 ///       - asset: fonts/MyFlutterApp.ttf
 ///
-/// 
+///
 /// * RPG Awesome, Copyright (c) 2014, Daniela Howe
 ///         Author:    Daniela Howe & Ivan Montiel
 ///         License:   SIL (http://scripts.sil.org/OFL)
@@ -25,5 +25,6 @@ class IconFont {
   static const _kFontFam = 'Football';
   static const String? _kFontPkg = null;
 
-  static const IconData soccer_ball = IconData(0xeaa8, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData soccerBall =
+      IconData(0xeaa8, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }
