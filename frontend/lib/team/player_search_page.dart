@@ -69,4 +69,88 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
     ],
     ),
     ),
-  },}
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                children: [
+                  const Text(
+                    'Search Players',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  TextField(
+                    onChanged: (value) {
+                      filterPlayers(value);
+                    },
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(Icons.search),
+                      hintText: 'Search by player name or city',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () {
+                      // Filter players by city
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.teal.shade100,
+                    ),
+                    child: const Text(
+                      'Filter by City',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            Expanded(
+              child: ListView.builder(
+                itemCount: filteredPlayers.length,
+                itemBuilder: (context, index) {
+                  final player = filteredPlayers[index];
+                  return ListTile(
+                    leading: CircleAvatar(
+                      backgroundColor: Colors.teal.shade100,
+                      backgroundImage: NetworkImage(player['profilePicUrl']),
+                    ),
+                    title: Text(player['name']),
+                    subtitle: Text(
+                      player['city'],
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                    trailing: ElevatedButton(
+                      onPressed: () {
+                        // Invite player to join team
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.teal.shade100,
+                      ),
+                      child: const Text(
+                        'Invite to Join Team',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
