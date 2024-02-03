@@ -47,5 +47,53 @@ class TeamRosterPage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
               ),
               ),
+              const SizedBox(height: 20),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: teamPlayers.length,
+                        itemBuilder: (context, index) {
+                          final player = teamPlayers[index];
+                          return ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor: Colors.teal.shade100,
+                              backgroundImage: NetworkImage(player['profilePicUrl']),
+                            ),
+                            title: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(player['name']),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const PlayerSearchPage()),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.teal.shade100,
+                      ),
+                      child: const Text(
+                        '+ Find Players',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+    );
   }
 }
