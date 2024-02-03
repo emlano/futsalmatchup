@@ -69,6 +69,49 @@ class CreateTeamPage extends StatelessWidget {
                         )
                       ],
                     )
+                    const SizedBox(height: 10),
+                    const Text(
+                      'Add Team Logo',
+                      style: TextStyle(
+                        fontSize: 16,
+                      )
+                    )
+                    const SizedBox(height: 20),
+                    TextField(
+                      onChanged: (value) {
+                        teamName = value;
+                      },
+                      decoration: const InputDecoration(
+                        hintText: 'Enter your Team Name',
+                        border: OutlineInputBorder()
+                      ),
+                    )
+                    const SizedBox(height: 20),
+                    ElevatedButton(
+                        onPressed: () {
+                          if (teamName != null && teamName!.isNotEmpty) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => TeamRosterPage(teamName: teamName!),
+                            ),
+                          ),
+                          }
+                          else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                            content: Text('Please enter a team name.'),
+                            ),
+                          );
+                          }
+                        },
+                      style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.teal.shade100, // Light teal background color
+                      ),
+                      child: const Text(
+                      'Create Team',
+                      style: TextStyle(color: Colors.black), // Black font color
+                      ),
                   ],
                 ),
               )
