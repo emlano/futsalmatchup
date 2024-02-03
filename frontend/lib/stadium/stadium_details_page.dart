@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     home: StadiumDetailsPage(
       stadiumName: 'CR7 Futsal & Indoor Cricket Court',
       stadiumImagePath: 'assets/stadium1.png',
@@ -19,6 +19,7 @@ class StadiumDetailsPage extends StatefulWidget {
     Key? key,
   }) : super(key: key);
 
+  @override
   _StadiumDetailsPageState createState() => _StadiumDetailsPageState();
 }
 
@@ -26,6 +27,7 @@ class _StadiumDetailsPageState extends State<StadiumDetailsPage> {
   late String _selectedDay;
   late List<String> _timeSlots;
 
+  @override
   void initState() {
     super.initState();
     _selectedDay = 'Mon';
@@ -39,6 +41,7 @@ class _StadiumDetailsPageState extends State<StadiumDetailsPage> {
     ];
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
