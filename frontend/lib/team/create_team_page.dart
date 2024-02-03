@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'team_roster_page.dart';
 
+void main() { //for testing
+  runApp(MaterialApp(home: CreateTeamPage()));
+}
+
 class CreateTeamPage extends StatelessWidget {
   const CreateTeamPage({Key? key}) : super(key: key);
 
