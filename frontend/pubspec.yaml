@@ -84,6 +84,10 @@ flutter:
     - family: Inter
       fonts:
         - asset: assets/fonts/Inter-VariableFont_slnt,wght.ttf
+
+    - family: Lobster
+      fonts:
+        - asset: assets/fonts/Lobster-Regular.ttf
     
     - family: Football
       fonts:
