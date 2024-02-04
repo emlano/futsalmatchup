@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/ui/login/login_screen.dart';
+import 'package:frontend/views/login/login-page.dart';
+import 'package:frontend/views/login/login_screen.dart';
+import 'package:frontend/views/login/signin_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,6 +20,10 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const LoginScreen(title: 'Futsal MatchUp'),
+      routes: {
+        "login-page": (context) => const LoginPage(),
+        "signin-page": (context) => const SigninPage(),
+      },
     );
   }
 }

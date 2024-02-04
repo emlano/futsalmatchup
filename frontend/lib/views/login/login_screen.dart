@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/IconFonts/icon_fonts.dart';
+
+import 'package:frontend/resources//icon_fonts.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key, required this.title});
@@ -15,24 +16,26 @@ class LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.teal,
-          centerTitle: true,
-          title: Text(
-            widget.title,
-            style: const TextStyle(
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.teal,
+        centerTitle: true,
+        title: const Text(
+          'Futsal MatchUp',
+          style: TextStyle(
               fontSize: 32,
               fontWeight: FontWeight.bold,
               letterSpacing: 0,
               wordSpacing: 5,
-              fontFamily: 'DancingScript',
-            ),
+              fontFamily: 'DancingScript'
           ),
-          leading: const Icon(
-            IconFont.soccerBall,
-            size: 35,
-          )),
+        ),
+        leading: const Icon(
+          IconFont.soccerBall,
+          size: 35,
+        ),
+      ),
       body: Column(children: [
         const SizedBox(
           height: 50,
@@ -73,7 +76,7 @@ class LoginScreenState extends State<LoginScreen> {
             ),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () { Navigator.pushNamed(context, 'signin-page'); },
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,
               backgroundColor: Colors.teal,
@@ -86,7 +89,7 @@ class LoginScreenState extends State<LoginScreen> {
                 Icon(Icons.group_add),
                 SizedBox(width: 10),
                 Text(
-                  "Sign Up",
+                  "Sign up",
                   style: TextStyle(
                     fontFamily: "Inter",
                     fontWeight: FontWeight.bold,
@@ -104,7 +107,7 @@ class LoginScreenState extends State<LoginScreen> {
             ),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () { Navigator.pushNamed(context, 'login-page'); },
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,
               backgroundColor: Colors.teal,
