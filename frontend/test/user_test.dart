@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:frontend/user/manager.dart';
-import 'package:frontend/user/player.dart';
+import 'package:frontend/logic/user/manager.dart';
+import 'package:frontend/logic/user/player.dart';
 
 void main() {
   String id = '1234';

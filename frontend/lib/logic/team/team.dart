@@ -1,4 +1,4 @@
-import 'package:frontend/user/player.dart';
+import 'package:frontend/logic/user/player.dart';
 
 class Team {
   late final String id;

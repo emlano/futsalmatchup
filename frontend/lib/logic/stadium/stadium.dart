@@ -1,4 +1,4 @@
-import 'package:frontend/stadium/booking.dart';
+import 'package:frontend/logic/stadium/booking.dart';
 
 class Stadium {
   late final String id;

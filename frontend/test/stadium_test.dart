@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:frontend/stadium/booking.dart';
-import 'package:frontend/stadium/stadium.dart';
+import 'package:frontend/logic/stadium/booking.dart';
+import 'package:frontend/logic/stadium/stadium.dart';
 
 void main() {
   List<Booking> bookingList = List.generate(10,

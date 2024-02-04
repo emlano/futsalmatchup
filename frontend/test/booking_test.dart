@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:frontend/stadium/booking.dart';
+import 'package:frontend/logic/stadium/booking.dart';
 
 void main() {
   int year = 2000;
