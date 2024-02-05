@@ -1,12 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-
-import 'package:frontend/resources//icon_fonts.dart';
+import 'package:frontend/models/inter_text.dart';
+import 'package:frontend/models/filled_button.dart';
+import 'package:frontend/models/header_app_bar.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key, required this.title});
-
   final String title;
+  const LoginScreen({super.key, required this.title});
 
   @override
   State<LoginScreen> createState() => LoginScreenState();
@@ -17,25 +17,7 @@ class LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.teal,
-        centerTitle: true,
-        title: const Text(
-          'Futsal MatchUp',
-          style: TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 0,
-              wordSpacing: 5,
-              fontFamily: 'DancingScript'
-          ),
-        ),
-        leading: const Icon(
-          IconFont.soccerBall,
-          size: 35,
-        ),
-      ),
+      appBar: TitleAppBar(),
       body: Column(children: [
         const SizedBox(
           height: 50,
@@ -68,66 +50,27 @@ class LoginScreenState extends State<LoginScreen> {
         ),
         const SizedBox(height: 100),
         Column(children: [
-          const Text(
-            "If you are a new user...",
-            style: TextStyle(
+          const InterText(
+              text: "Have an account?",
+              size: 14,
               color: Colors.black54,
-              fontFamily: "Inter",
-            ),
+              weight: FontWeight.w100
           ),
-          ElevatedButton(
-            onPressed: () { Navigator.pushNamed(context, 'signin-page'); },
-            style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.white,
-              backgroundColor: Colors.teal,
-              minimumSize: const Size(200, 40),
-              maximumSize: const Size(300, 40),
-            ),
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.group_add),
-                SizedBox(width: 10),
-                Text(
-                  "Sign up",
-                  style: TextStyle(
-                    fontFamily: "Inter",
-                    fontWeight: FontWeight.bold,
-                  ),
-                )
-              ],
-            ),
-          ),
-          const SizedBox(height: 50),
-          const Text(
-            "Registered users can...",
-            style: TextStyle(
+          FilledIconButton(
+              text: "Log in",
+              icon: Icons.account_circle,
+              onPressed: () { Navigator.pushNamed(context, 'login-page'); }),
+          const SizedBox(height: 30),
+          const InterText(
+              text: "New user?",
+              size: 14,
               color: Colors.black54,
-              fontFamily: "Inter",
-            ),
+              weight: FontWeight.w100
           ),
-          ElevatedButton(
-            onPressed: () { Navigator.pushNamed(context, 'login-page'); },
-            style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.white,
-              backgroundColor: Colors.teal,
-              minimumSize: const Size(200, 40),
-              maximumSize: const Size(300, 40),
-            ),
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.account_circle),
-                SizedBox(width: 10),
-                Text(
-                  "Log in",
-                  style: TextStyle(
-                    fontFamily: "Inter",
-                    fontWeight: FontWeight.bold,
-                  ),
-                )
-              ],
-            ),
+          FilledIconButton(
+              text: "Sign in",
+              icon: Icons.group_add,
+              onPressed: () { Navigator.pushNamed(context, 'signin-page'); }
           ),
         ])
       ]),
