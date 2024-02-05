@@ -11,6 +11,7 @@ class PasswordInputBox extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 40),
       child: TextFormField(
+        scrollPadding: const EdgeInsets.only(bottom: 100),
         controller: controller,
         decoration: const InputDecoration(
           icon: Icon(
