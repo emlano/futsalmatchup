@@ -42,6 +42,3 @@ jobs:
     
     - run: cd frontend/;
            flutter build linux
-
-    - run: cd frontend/;
-            flutter build linux
