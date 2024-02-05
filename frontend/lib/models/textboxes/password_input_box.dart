@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class PasswordInputBox extends StatelessWidget {
+  final TextEditingController controller;
 
-  const PasswordInputBox({super.key});
+  const PasswordInputBox({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 40),
       child: TextFormField(
+        controller: controller,
         decoration: const InputDecoration(
           icon: Icon(
             Icons.password,

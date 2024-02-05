@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class PhoneInputBox extends StatelessWidget {
-  const PhoneInputBox({super.key});
+  final TextEditingController controller;
+
+  const PhoneInputBox({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 40),
       child: TextFormField(
+        controller: controller,
         decoration: const InputDecoration(
           icon: Icon(
             Icons.phone,

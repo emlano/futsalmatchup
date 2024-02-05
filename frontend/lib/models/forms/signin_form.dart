@@ -14,7 +14,18 @@ class SigninForm extends StatefulWidget {
 }
 
 class SigninFormState extends State<SigninForm> {
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController phoneNoController = TextEditingController();
   final _fromKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    usernameController.dispose();
+    passwordController.dispose();
+    phoneNoController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +33,19 @@ class SigninFormState extends State<SigninForm> {
         key: _fromKey,
         child: Column(
           children: [
-            const PhoneInputBox(),
-            const TextInputBox(
+            PhoneInputBox(
+              controller: phoneNoController,
+            ),
+            TextInputBox(
+              controller: usernameController,
               name: "Username",
               desc: "Enter your username",
               icon: Icons.account_circle,
               length: 15,
             ),
-            const PasswordInputBox(),
+            PasswordInputBox(
+              controller: passwordController,
+            ),
             const SizedBox(height: 10),
             FilledIconButton(
               text: "Sign in",
@@ -39,6 +55,9 @@ class SigninFormState extends State<SigninForm> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text("Processing!"))
                   );
+                  print("Username : ${usernameController.text}");
+                  print("Password : ${passwordController.text}");
+                  print("Phone no. : ${phoneNoController.text}");
                 }
               }
             )
