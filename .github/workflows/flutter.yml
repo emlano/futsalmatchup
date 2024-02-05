@@ -32,9 +32,6 @@ jobs:
 # Runs the tests
     - run: cd frontend/;
            flutter test
-# Builds application
+# Builds application in linux env
     - run: cd frontend/;
-           flutter build apk
-# Creates an app bundle
-    - run: cd frontend/;
-           flutter build appbundle
+           flutter build linux
