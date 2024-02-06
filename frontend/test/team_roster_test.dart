@@ -1,0 +1,20 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:frontend/views/team/team_roster_page.dart';
+
+void main() {
+  testWidgets('TeamRosterPage UI Test', (WidgetTester tester) async {
+
+    const teamName = 'Test Team';
+    final List<Map<String, dynamic>> teamPlayers = [
+      {"name": 'Player 1', "profilePicUrl": 'assets/images/player_icon.png'},
+      {"name": 'Player 2', "profilePicUrl": 'assets/images/player_icon.png'},
+    ];
+
+    await tester.pumpWidget(MaterialApp(home: TeamRosterPage(teamName: teamName)));
+
+    expect(find.text('Team: $teamName'), findsOneWidget);
+    expect(find.text('Team Members'), findsOneWidget);
+    expect(find.text('+ Find Players'), findsOneWidget);
+  });
+}
