@@ -17,10 +17,10 @@ class _StadiumAvailabilityPageState extends State<StadiumAvailabilityPage> {
   ];
 
   Map<String, String> stadiumImagePaths = {
-    'CR7 Futsal & Indoor Cricket Court': 'assets/stadium1.png',
-    'Colombo Futsal Club': 'assets/stadium2.png',
-    'Uni Sports Center - Alfred House': 'assets/stadium3.png',
-    'Club Fusion Boralesgamuwa': 'assets/stadium4.png',
+    'CR7 Futsal & Indoor Cricket Court': 'assets/images/stadium_icon.png',
+    'Colombo Futsal Club': 'assets/images/stadium_icon.png',
+    'Uni Sports Center - Alfred House': 'assets/images/stadium_icon.png',
+    'Club Fusion Boralesgamuwa': 'assets/images/stadium_icon.png',
   };
 
   List<String> filteredStadiums = [];
