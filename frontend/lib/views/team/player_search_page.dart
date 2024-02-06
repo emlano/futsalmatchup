@@ -56,19 +56,19 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-        title: Row(
-        children: [
-        Image.asset(
-        'assets/app_logo.png',
-        width: 40,
-        height: 40,
-        color: Colors.teal,
-    ),
-    const SizedBox(width: 8),
-    const Text('Futsal MatchUp'),
-    ],
-    ),
-    ),
+          title: Row(
+            children: [
+            Image.asset(
+              'assets/icons/app_icon.png',
+              width: 40,
+              height: 40,
+              color: Colors.teal,
+            ),
+            const SizedBox(width: 8),
+            const Text('Futsal MatchUp'),
+            ],
+          ),
+        ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
