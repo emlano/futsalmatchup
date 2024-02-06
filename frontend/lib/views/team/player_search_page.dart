@@ -11,27 +11,27 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
     {
       "name": "Nadil",
       "city": "Bambalapitya",
-      "profilePicUrl": ""
+      "profilePicUrl": "assets/images/player_icon.png"
     },
     {
       "name": "Lenmini",
       "city": "Dehiwala",
-      "profilePicUrl": ""
+      "profilePicUrl": "assets/images/player_icon.png"
     },
     {
       "name": "Rimaz",
       "city": "Dehiwala",
-      "profilePicUrl": ""
+      "profilePicUrl": "assets/images/player_icon.png"
     },
     {
       "name": "Ahmed",
       "city": "Kollupitiya",
-      "profilePicUrl": ""
+      "profilePicUrl": "assets/images/player_icon.png"
     },
     {
       "name": "Rachel",
       "city": "Boralesgamuwa",
-      "profilePicUrl": ""
+      "profilePicUrl": "assets/images/player_icon.png"
     },
   ];
   List<Map<String, dynamic>> filteredPlayers = [];
@@ -125,7 +125,7 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
                   return ListTile(
                     leading: CircleAvatar(
                       backgroundColor: Colors.teal.shade100,
-                      backgroundImage: NetworkImage(player['profilePicUrl']),
+                      backgroundImage: AssetImage(player['profilePicUrl']),
                     ),
                     title: Text(player['name']),
                     subtitle: Text(
