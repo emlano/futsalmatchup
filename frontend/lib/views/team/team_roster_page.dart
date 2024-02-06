@@ -8,11 +8,11 @@ class TeamRosterPage extends StatelessWidget {
 
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> teamPlayers = [
-      {"name": 'Nadil', "profilePicPath": ''},
-      {"name": 'Ahmed', "profilePicPath": ''},
-      {"name": 'Rimaz', "profilePicPath": ''},
-      {"name": 'Lenmini', "profilePicPath": ''},
-      {"name": 'Rachel', "profilePicPath": ''},
+      {"name": 'Nadil', "profilePicPath": 'assets/images/player_icon.png'},
+      {"name": 'Ahmed', "profilePicPath": 'assets/images/player_icon.png'},
+      {"name": 'Rimaz', "profilePicPath": 'assets/images/player_icon.png'},
+      {"name": 'Lenmini', "profilePicPath": 'assets/images/player_icon.png'},
+      {"name": 'Rachel', "profilePicPath": 'assets/images/player_icon.png'},
     ];
 
     return Scaffold(
@@ -61,7 +61,7 @@ class TeamRosterPage extends StatelessWidget {
                           return ListTile(
                             leading: CircleAvatar(
                               backgroundColor: Colors.teal.shade100,
-                              backgroundImage: NetworkImage(player['profilePicUrl']),
+                              backgroundImage: AssetImage(player['profilePicUrl']),
                             ),
                             title: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
