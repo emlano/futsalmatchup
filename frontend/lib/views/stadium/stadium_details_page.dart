@@ -4,7 +4,7 @@ void main() {
   runApp(const MaterialApp(
     home: StadiumDetailsPage(
       stadiumName: 'CR7 Futsal & Indoor Cricket Court',
-      stadiumImagePath: 'assets/stadium1.png',
+      stadiumImagePath: 'assets/images/stadium_icon.png',
     ),
   ));
 }
