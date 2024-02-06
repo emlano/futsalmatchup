@@ -47,7 +47,7 @@ class _StadiumAvailabilityPageState extends State<StadiumAvailabilityPage> {
         title: Row(
           children: [
             Image.asset(
-              'assets/app_logo.png',
+              'assets/icons/app_icon.png',
               width: 40,
               height: 40,
             ),
