@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'stadium_details_page.dart';
 
 void main() {
-  runApp(StadiumPage());
+  runApp(const StadiumPage());
 }
 
 class StadiumPage extends StatelessWidget {
+  const StadiumPage({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Stadium Availability',
       home: StadiumAvailabilityPage(),
     );
