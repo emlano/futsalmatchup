@@ -6,6 +6,7 @@ class TeamRosterPage extends StatelessWidget {
 
   const TeamRosterPage({Key? key, required this.teamName}) : super(key: key);
 
+  @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> teamPlayers = [
       {"name": 'Nadil', "profilePicUrl": 'assets/images/player_icon.png'},
@@ -42,19 +43,25 @@ class TeamRosterPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
-                'Team: $teamName',
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+              Center(
+                child: Text(
+                  teamName,
+                  style: const TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.teal,
+                  ),
                 ),
               ),
-              const Text(
-                'Team Members',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-              ),
+              const SizedBox(height: 10),
+              const Center(
+                child: Text(
+                  'Team Members',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               const SizedBox(height: 20),
               Expanded(
