@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/models/header_app_bar.dart';
 
 void main() {
   runApp(const MaterialApp(
@@ -44,19 +45,7 @@ class _StadiumDetailsPageState extends State<StadiumDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          children: [
-            Image.asset(
-              'assets/icons/app_icon.png',
-              width: 40,
-              height: 40,
-            ),
-            const SizedBox(width: 8),
-            const Text('Futsal MatchUp'),
-          ],
-        ),
-      ),
+      appBar: TitleAppBar(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
