@@ -55,20 +55,27 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Row(
-            children: [
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: Row(
+          children: [
             Image.asset(
               'assets/icons/app_icon.png',
               width: 40,
               height: 40,
-              color: Colors.teal,
             ),
             const SizedBox(width: 8),
-            const Text('Futsal MatchUp'),
-            ],
-          ),
+            const Text(
+              "Futsal MatchUp",
+              style: TextStyle(
+                color: Colors.teal,
+              ),
+            ),
+          ],
         ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -87,6 +94,7 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
+                      color: Colors.teal,
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -97,7 +105,12 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
                     decoration: const InputDecoration(
                       prefixIcon: Icon(Icons.search),
                       hintText: 'Search by player name or city',
-                      border: OutlineInputBorder(),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.teal),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 20),
