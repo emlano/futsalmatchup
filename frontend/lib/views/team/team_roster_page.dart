@@ -16,19 +16,27 @@ class TeamRosterPage extends StatelessWidget {
     ];
 
     return Scaffold(
-        appBar: AppBar(
-          title: Row(
-            children: [
-              Image.asset(
-                'assets/icons/app_icon.png',
-                width: 40,
-                height: 40,
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: Row(
+          children: [
+            Image.asset(
+              'assets/icons/app_icon.png',
+              width: 40,
+              height: 40,
+            ),
+            const SizedBox(width: 8),
+            const Text(
+              "Futsal MatchUp",
+              style: TextStyle(
+                color: Colors.teal,
               ),
-              const SizedBox(width: 8),
-              const Text('Futsal MatchUp'),
-            ],
-          ),
+            ),
+          ],
         ),
+      ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
