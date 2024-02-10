@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/models/header_app_bar.dart';
+import 'package:frontend/models/textboxes/text_input_box.dart';
 
 class PlayerSearchPage extends StatefulWidget {
   const PlayerSearchPage({Key? key}) : super(key: key);
@@ -8,6 +9,9 @@ class PlayerSearchPage extends StatefulWidget {
 }
 
 class _PlayerSearchPageState extends State<PlayerSearchPage> {
+  final TextEditingController playerNameController = TextEditingController();
+  final TextEditingController cityController = TextEditingController();
+
   final List<Map<String, dynamic>> players = [
     {
       "name": "Nadil",
@@ -80,22 +84,21 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  TextField(
-                    onChanged: (value) {
-                      filterPlayers(value);
-                    },
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(Icons.search),
-                      hintText: 'Search by player name or city',
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.teal),
-                      ),
-                    ),
+                  TextInputBox(
+                    controller: playerNameController,
+                    name: "Player Name",
+                    desc: "Enter player name",
+                    icon: Icons.person,
+                    length: 20,
                   ),
                   const SizedBox(height: 20),
+                  TextInputBox(
+                    controller: cityController,
+                    name: "City",
+                    desc: "Enter city",
+                    icon: Icons.location_city,
+                    length: 20,
+                  ),
                   ElevatedButton(
                     onPressed: () {
                       // Filter players by city
