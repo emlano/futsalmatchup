@@ -99,18 +99,6 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
                     icon: Icons.location_city,
                     length: 20,
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Filter players by city
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.teal.shade100,
-                    ),
-                    child: const Text(
-                      'Filter by City',
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  ),
                 ],
               ),
             ),
