@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'team_roster_page.dart';
+import 'package:frontend/models/header_app_bar.dart';
 
 void main() { //for testing
   runApp(const MaterialApp(home: CreateTeamPage()));
@@ -13,26 +14,7 @@ class CreateTeamPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Row(
-          children: [
-            Image.asset(
-              'assets/icons/app_icon.png',
-              width: 40,
-              height: 40,
-            ),
-            const SizedBox(width: 8),
-            const Text(
-                "Futsal MatchUp",
-              style: TextStyle(
-                color: Colors.teal,
-              ),
-            ),
-          ],
-        ),
-      ),
+      appBar: TitleAppBar(),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: SingleChildScrollView(
