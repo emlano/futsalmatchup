@@ -12,7 +12,10 @@ class CreateTeamPage extends StatelessWidget {
     String? teamName;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
         title: Row(
           children: [
             Image.asset(
@@ -21,7 +24,12 @@ class CreateTeamPage extends StatelessWidget {
               height: 40,
             ),
             const SizedBox(width: 8),
-            const Text("Futsal MatchUp"),
+            const Text(
+                "Futsal MatchUp",
+              style: TextStyle(
+                color: Colors.teal,
+              ),
+            ),
           ],
         ),
       ),
@@ -38,6 +46,7 @@ class CreateTeamPage extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
+                  color: Colors.teal,
                 )
               ),
               const SizedBox(height: 20),
@@ -55,6 +64,7 @@ class CreateTeamPage extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
+                        color: Colors.black,
                       ),
                     ),
                     const SizedBox(height: 20),
@@ -70,6 +80,7 @@ class CreateTeamPage extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 40,
                             fontWeight: FontWeight.bold,
+                            color: Colors.black,
                           ),
                         )
                       ],
@@ -79,6 +90,7 @@ class CreateTeamPage extends StatelessWidget {
                       'Add Team Logo',
                       style: TextStyle(
                         fontSize: 16,
+                        color: Colors.black,
                       )
                     ),
                     const SizedBox(height: 20),
@@ -111,11 +123,13 @@ class CreateTeamPage extends StatelessWidget {
                           }
                         },
                       style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.teal.shade100, // Light teal background color
+                        backgroundColor: Colors.teal.shade100,
                       ),
                       child: const Text(
-                      'Create Team',
-                      style: TextStyle(color: Colors.black), // Black font color
+                        'Create Team',
+                        style: TextStyle(
+                            color: Colors.black
+                        ),
                       ),
                     ),
                   ],
