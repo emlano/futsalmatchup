@@ -47,13 +47,15 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
     super.initState();
   }
 
-  void filterPlayers(String query) {
+  void filterPlayers(String query, bool filterByName) {
     setState(() {
-      filteredPlayers = players
-          .where((player) =>
-      player['name'].toLowerCase().contains(query.toLowerCase()) ||
-          player['city'].toLowerCase().contains(query.toLowerCase()))
-          .toList();
+      filteredPlayers = players.where((player) {
+        if (filterByName) {
+          return player['name'].toLowerCase().contains(query.toLowerCase());
+        } else {
+          return player['city'].toLowerCase().contains(query.toLowerCase());
+        }
+      }).toList();
     });
   }
 
@@ -90,6 +92,7 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
                     desc: "Enter player name",
                     icon: Icons.person,
                     length: 20,
+                    onChanged: (query) => filterPlayers(query, true)
                   ),
                   const SizedBox(height: 20),
                   TextInputBox(
@@ -98,6 +101,7 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
                     desc: "Enter city",
                     icon: Icons.location_city,
                     length: 20,
+                    onChanged: (query) => filterPlayers(query, false),
                   ),
                 ],
               ),
