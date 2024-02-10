@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'stadium_details_page.dart';
 import 'package:frontend/models/header_app_bar.dart';
+import 'package:frontend/models/textboxes/text_input_box.dart';
 
 void main() {
   runApp(const StadiumPage());
@@ -42,6 +43,8 @@ class _StadiumAvailabilityPageState extends State<StadiumAvailabilityPage> {
 
   List<String> filteredStadiums = [];
 
+  TextEditingController searchController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -51,8 +54,7 @@ class _StadiumAvailabilityPageState extends State<StadiumAvailabilityPage> {
   void filterStadiums(String query) {
     setState(() {
       filteredStadiums = stadiums
-          .where((stadium) =>
-          stadium.toLowerCase().contains(query.toLowerCase()))
+          .where((stadium) => stadium.toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
   }
@@ -66,21 +68,23 @@ class _StadiumAvailabilityPageState extends State<StadiumAvailabilityPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Select a Stadium',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+            Center(
+              child: Text(
+                'Select a Stadium',
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             const SizedBox(height: 16),
-            TextField(
+            TextInputBox(
+              controller: searchController,
+              name: "Stadium",
+              desc: "Enter stadium name",
+              icon: Icons.stadium,
+              length: 20,
               onChanged: filterStadiums,
-              decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.search),
-                hintText: 'Search for a stadium',
-                border: OutlineInputBorder(),
-              ),
             ),
             const SizedBox(height: 16),
             Expanded(
