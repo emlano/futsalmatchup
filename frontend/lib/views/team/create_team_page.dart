@@ -100,7 +100,12 @@ class CreateTeamPage extends StatelessWidget {
                       },
                       decoration: const InputDecoration(
                         hintText: 'Enter your Team Name',
-                        border: OutlineInputBorder()
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.teal),
+                        ),
                       ),
                     ),
                     const SizedBox(height: 20),
