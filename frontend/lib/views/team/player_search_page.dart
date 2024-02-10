@@ -136,9 +136,20 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
                 itemBuilder: (context, index) {
                   final player = filteredPlayers[index];
                   return ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor: Colors.teal.shade100,
-                      backgroundImage: AssetImage(player['profilePicUrl']),
+                    leading: Container(
+                      width: 48,
+                      height: 48,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 2.0,
+                        ),
+                      ),
+                      child: CircleAvatar(
+                        backgroundColor: Colors.transparent,
+                        backgroundImage: AssetImage(player['profilePicUrl']),
+                      ),
                     ),
                     title: Text(player['name']),
                     subtitle: Text(
