@@ -68,7 +68,7 @@ class _StadiumAvailabilityPageState extends State<StadiumAvailabilityPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Center(
+            const Center(
               child: Text(
                 'Select a Stadium',
                 style: TextStyle(
