@@ -26,7 +26,7 @@ class StadiumDetailsPage extends StatefulWidget {
 
 class _StadiumDetailsPageState extends State<StadiumDetailsPage> {
   late String _selectedDay;
-  Map<String, List<String>> _dayTimeSlots = {
+  final Map<String, List<String>> _dayTimeSlots = {
     'Mon': [
       '8am - 9am', '9am - 10am', '10am - 11am',
       '11am - 12pm', '12pm - 1pm', '1pm - 2pm'
