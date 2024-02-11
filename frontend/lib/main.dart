@@ -3,7 +3,6 @@ import 'package:frontend/views/login/login_page.dart';
 import 'package:frontend/views/login/login_screen.dart';
 import 'package:frontend/views/login/signin_page.dart';
 import 'package:frontend/views/profile/player_profile.dart';
-import 'package:frontend/views/profile/player_ratings.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,9 +20,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
         useMaterial3: true,
       ),
-      //home: const LoginScreen(title: 'Futsal MatchUp'),
-      //home: PlayerProfileScreen(),
-      //home: PlayerRatingsPage(),
+      home: const LoginScreen(title: 'Futsal MatchUp'),
+      // home: PlayerProfileScreen(),
       routes: {
         "login-page": (context) => const LoginPage(),
         "signin-page": (context) => const SigninPage(),
