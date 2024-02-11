@@ -102,7 +102,7 @@ class _StadiumDetailsPageState extends State<StadiumDetailsPage> {
                 ),
               ),
               const SizedBox(height: 16),
-              Center(
+              const Center(
                 child: Text(
                   'Schedule',
                   style: TextStyle(
