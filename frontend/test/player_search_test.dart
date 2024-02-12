@@ -8,7 +8,7 @@ void main() {
 
     // Verify the presence of widgets on PlayerSearchPage
     expect(find.text('Search Players'), findsOneWidget);
-    expect(find.text('Search by player name or city'), findsOneWidget);
-    expect(find.text('Filter by City'), findsOneWidget);
+    expect(find.text('Player Name'), findsOneWidget);
+    expect(find.text('City'), findsOneWidget);
   });
 }
