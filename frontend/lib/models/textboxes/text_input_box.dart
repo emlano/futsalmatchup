@@ -6,8 +6,9 @@ class TextInputBox extends StatelessWidget {
   final String desc;
   final IconData icon;
   final int length;
+  final ValueChanged<String>? onChanged;
 
-  const TextInputBox({super.key, required this.name, required this.desc, required this.icon, required this.length, required this.controller});
+  const TextInputBox({super.key, required this.name, required this.desc, required this.icon, required this.length, required this.controller, this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +17,7 @@ class TextInputBox extends StatelessWidget {
       child: TextFormField(
         scrollPadding: const EdgeInsets.only(bottom: 100),
         controller: controller,
+        onChanged: onChanged ?? (value) {},
         decoration: InputDecoration(
           icon: Icon(
               icon,

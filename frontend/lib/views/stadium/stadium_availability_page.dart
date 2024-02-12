@@ -1,5 +1,23 @@
 import 'package:flutter/material.dart';
 import 'stadium_details_page.dart';
+import 'package:frontend/models/header_app_bar.dart';
+import 'package:frontend/models/textboxes/text_input_box.dart';
+
+void main() {
+  runApp(const StadiumPage());
+}
+
+class StadiumPage extends StatelessWidget {
+  const StadiumPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      title: 'Stadium Availability',
+      home: StadiumAvailabilityPage(),
+    );
+  }
+}
 
 class StadiumAvailabilityPage extends StatefulWidget {
   const StadiumAvailabilityPage({Key? key}) : super(key: key);
@@ -17,13 +35,15 @@ class _StadiumAvailabilityPageState extends State<StadiumAvailabilityPage> {
   ];
 
   Map<String, String> stadiumImagePaths = {
-    'CR7 Futsal & Indoor Cricket Court': 'assets/stadium1.png',
-    'Colombo Futsal Club': 'assets/stadium2.png',
-    'Uni Sports Center - Alfred House': 'assets/stadium3.png',
-    'Club Fusion Boralesgamuwa': 'assets/stadium4.png',
+    'CR7 Futsal & Indoor Cricket Court': 'assets/images/stadium_icon.png',
+    'Colombo Futsal Club': 'assets/images/stadium_icon.png',
+    'Uni Sports Center - Alfred House': 'assets/images/stadium_icon.png',
+    'Club Fusion Boralesgamuwa': 'assets/images/stadium_icon.png',
   };
 
   List<String> filteredStadiums = [];
+
+  TextEditingController searchController = TextEditingController();
 
   @override
   void initState() {
@@ -34,8 +54,7 @@ class _StadiumAvailabilityPageState extends State<StadiumAvailabilityPage> {
   void filterStadiums(String query) {
     setState(() {
       filteredStadiums = stadiums
-          .where((stadium) =>
-          stadium.toLowerCase().contains(query.toLowerCase()))
+          .where((stadium) => stadium.toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
   }
@@ -43,39 +62,29 @@ class _StadiumAvailabilityPageState extends State<StadiumAvailabilityPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          children: [
-            Image.asset(
-              'assets/app_logo.png',
-              width: 40,
-              height: 40,
-            ),
-            const SizedBox(width: 8),
-            const Text('Futsal MatchUp'),
-          ],
-        ),
-      ),
+      appBar: TitleAppBar(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Select a Stadium',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+            const Center(
+              child: Text(
+                'Select a Stadium',
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             const SizedBox(height: 16),
-            TextField(
+            TextInputBox(
+              controller: searchController,
+              name: "Stadium",
+              desc: "Enter stadium name",
+              icon: Icons.stadium,
+              length: 20,
               onChanged: filterStadiums,
-              decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.search),
-                hintText: 'Search for a stadium',
-                border: OutlineInputBorder(),
-              ),
             ),
             const SizedBox(height: 16),
             Expanded(
