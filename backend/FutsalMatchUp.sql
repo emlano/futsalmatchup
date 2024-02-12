@@ -6,11 +6,11 @@ CREATE TABLE players (
     username VARCHAR(100),
     password VARCHAR(100),
     phone_no VARCHAR(100),
-    skill DOUBLE,
-    sportsmanship DOUBLE,
-    overall DOUBLE,
-    city VARCHAR(100),
-    availability BOOLEAN,
+    player_skill_rating DOUBLE,
+    player_sportsmanship_rating DOUBLE,
+    player_overall_rating DOUBLE,
+    player_city VARCHAR(100),
+    player_availability BOOLEAN,
     player_position VARCHAR(50),
     team_id INT,
     -- player_profile_pic BLOB
@@ -22,6 +22,7 @@ CREATE TABLE managers (
     username VARCHAR(100),
     password VARCHAR(100),
     phone_no VARCHAR(100),
+    manager_position VARCHAR(100),
     stadium_id INT, 
     FOREIGN KEY (stadium_id) REFERENCES stadiums(stadium_id) 
 );
