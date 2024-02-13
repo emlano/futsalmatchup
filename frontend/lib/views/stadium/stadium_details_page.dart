@@ -1,15 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/models/header_app_bar.dart';
 
-void main() {
-  runApp(const MaterialApp(
-    home: StadiumDetailsPage(
-      stadiumName: 'CR7 Futsal & Indoor Cricket Court',
-      stadiumImagePath: 'assets/images/stadium_icon.png',
-    ),
-  ));
-}
-
 class StadiumDetailsPage extends StatefulWidget {
   final String stadiumName;
   final String stadiumImagePath;
