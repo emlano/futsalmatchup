@@ -13,7 +13,6 @@ CREATE TABLE players (
     player_availability BOOLEAN,
     player_position VARCHAR(50),
     team_id INT,
-    -- player_profile_pic BLOB
     FOREIGN KEY (team_id) REFERENCES teams(team_id)
 );
 
@@ -30,15 +29,12 @@ CREATE TABLE managers (
 CREATE TABLE teams (
     team_id INT AUTO_INCREMENT PRIMARY KEY,
     team_name VARCHAR(100)
-    -- team_profile_pic BLOB
-    -- team_members
 );
 
 CREATE TABLE stadiums (
     stadium_id INT AUTO_INCREMENT PRIMARY KEY,
     stadium_name VARCHAR(100),
     stadium_location VARCHAR(100)
-    -- stadium_schedule 
 );
 
 CREATE TABLE team_members (
