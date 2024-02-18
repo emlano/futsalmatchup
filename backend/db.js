@@ -13,7 +13,7 @@ async function getUsers() {
     return rows
 }
 
-async function getUser(id) {
+async function getUserFromId(id) {
     const [rows] = await pool.query(`
         SELECT * 
         FROM players 
@@ -23,7 +23,7 @@ async function getUser(id) {
     return rows
 }
 
-async function getUserByName(name) {
+async function getUserFromName(name) {
     const [rows] = await pool.query(`
         SELECT * 
         FROM players
@@ -34,5 +34,5 @@ async function getUserByName(name) {
 }
 
 module.exports.getUsers = getUsers
-module.exports.getUser = getUser
+module.exports.getUserById = getUserById
 module.exports.getUserByName = getUserByName

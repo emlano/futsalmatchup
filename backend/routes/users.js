@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
 router.get('/id/:id', (req, res) => {
     const id = req.params.id
 
-   db.getUser(id).then(user => {
+   db.getUserFromId(id).then(user => {
         res.json(user)
    })
 })
@@ -19,7 +19,7 @@ router.get('/id/:id', (req, res) => {
 router.get('/name/:username', (req, res) => {
     const name = req.params.username
 
-    db.getUserByName(name).then(user => {
+    db.getUserFromName(name).then(user => {
         res.json(user)
     })
 })
