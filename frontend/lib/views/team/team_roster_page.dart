@@ -93,7 +93,7 @@ class TeamRosterPage extends StatelessWidget {
                         backgroundColor: Colors.teal.shade100,
                       ),
                       child: const Text(
-                        '+ Find Players',
+                        '+ Search Players',
                         style: TextStyle(color: Colors.black),
                       ),
                     ),
