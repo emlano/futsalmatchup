@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'player_search_page.dart';
+import 'recommended_players_page.dart';
 import 'package:frontend/models/header_app_bar.dart';
 
 class TeamRosterPage extends StatelessWidget {
@@ -15,6 +16,14 @@ class TeamRosterPage extends StatelessWidget {
       {"name": 'Rimaz', "profilePicUrl": 'assets/images/player_icon.png'},
       {"name": 'Lenmini', "profilePicUrl": 'assets/images/player_icon.png'},
       {"name": 'Rachel', "profilePicUrl": 'assets/images/player_icon.png'},
+    ];
+
+    List<Map<String, dynamic>> recommendedPlayers = [
+      {"name": 'John', "profilePicUrl": 'assets/images/player_icon.png'},
+      {"name": 'Emily', "profilePicUrl": 'assets/images/player_icon.png'},
+      {"name": 'Michael', "profilePicUrl": 'assets/images/player_icon.png'},
+      {"name": 'Sophia', "profilePicUrl": 'assets/images/player_icon.png'},
+      {"name": 'David', "profilePicUrl": 'assets/images/player_icon.png'},
     ];
 
     return Scaffold(
@@ -94,6 +103,21 @@ class TeamRosterPage extends StatelessWidget {
                       ),
                       child: const Text(
                         '+ Search Players',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => RecommendedPlayersPage(recommendedPlayers: recommendedPlayers)),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.teal.shade100,
+                      ),
+                      child: const Text(
+                        'See Players that Match Your Team',
                         style: TextStyle(color: Colors.black),
                       ),
                     ),
