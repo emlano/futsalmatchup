@@ -11,6 +11,7 @@ void main() {
 
     expect(find.text(teamName), findsOneWidget);
     expect(find.text('Team Members'), findsOneWidget);
-    expect(find.text('+ Find Players'), findsOneWidget);
+    expect(find.text('+ Search Players'), findsOneWidget);
+    expect(find.text('See Players that Match Your Team'), findsOneWidget);
   });
 }
