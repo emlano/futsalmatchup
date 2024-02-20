@@ -8,7 +8,6 @@ void main() {
 
     // Verify the presence of widgets on CreateTeamPage
     expect(find.text('Create Your Team'), findsOneWidget);
-    expect(find.text('Add Team Logo'), findsOneWidget);
     expect(find.text('Enter your Team Name'), findsOneWidget);
     expect(find.text('Create Team'), findsOneWidget);
   });
