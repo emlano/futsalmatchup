@@ -68,13 +68,6 @@ class CreateTeamPage extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 10),
-                    const Text(
-                      'Add Team Logo',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.black,
-                      )
-                    ),
                     const SizedBox(height: 20),
                     TextField(
                       onChanged: (value) {
