@@ -57,14 +57,11 @@ class CreateTeamPage extends StatelessWidget {
                           backgroundColor: Colors.teal.shade100,
                           radius: 50,
                         ),
-                        const Text(
-                          '+',
-                          style: TextStyle(
-                            fontSize: 40,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        )
+                        Icon(
+                          Icons.group,
+                          size: 40,
+                          color: Colors.black,
+                        ),
                       ],
                     ),
                     const SizedBox(height: 10),
