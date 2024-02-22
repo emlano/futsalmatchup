@@ -25,9 +25,28 @@ router.get('/name/:username', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-    const result = db.createNewUser(req.body)
+    const [user] = req.body
     
-    res.json(result)
+    db.createNewUser(user).then(result => {
+        res.json(result)
+    })
+})
+
+router.put('/', (req, res) => {
+    const [user] = req.body
+    
+    db.updateUser(user).then(result => {
+        res.json(result)
+    })
+})
+
+router.delete('/id/:id', (req, res) => {
+    const id = req.params.id
+
+    db.deleteUser(id).then(result => {
+        res.json(result)
+    })
+
 })
 
 module.exports = router
