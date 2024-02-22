@@ -5,7 +5,7 @@ import numpy as np
 dataset = pd.read_csv("fifa_players.csv")
 
 # Rename the "Nationality" column name as "Location"
-dataset.rename(columns={"nationality": "location"}, inplace=True)
+#dataset.rename(columns={"nationality": "location"}, inplace=True)
 
 # Check for missing values
 missing_values = dataset[['age', 'overall_rating', 'nationality']].isnull().sum()
@@ -21,5 +21,18 @@ max_rating = dataset['overall_rating'].max()
 median_rating = dataset['overall_rating'].median()
 mean_rating = dataset['overall_rating'].mean()
 
-#if missing_values.any()
+# print(min_age, max_age, median_age, mean_age)
+# print(min_rating, max_rating, median_rating, mean_rating)
+
+# if there are any missing values
     # Handle missing values
+
+# Split the dataset as 70:30 to train and test the model
+
+# Train the model using KMeans clustering for the 70% chosen
+
+# Plot the clusters
+
+# Choose the value of k
+
+# Test the model accuracy with the testing metrics from the 30% chosen
