@@ -33,6 +33,22 @@ async function getUserFromName(name) {
     return rows
 }
 
+async function createNewUser(user) {
+    const username = user.username
+    const password = user.password
+    const phoneNo = user.phoneNo
+
+    const [result] = await pool.query(`
+        INSERT INTO players
+        (username, password, phone_no)
+        VALUES
+        (?, ?, ?)`, 
+        [username, password, phoneNo])
+
+    return result
+}
+
 module.exports.getUsers = getUsers
-module.exports.getUserById = getUserById
-module.exports.getUserByName = getUserByName
+module.exports.getUserFromId = getUserFromId
+module.exports.getUserFromName = getUserFromName
+module.exports.createNewUser = createNewUser

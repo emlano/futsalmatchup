@@ -24,4 +24,10 @@ router.get('/name/:username', (req, res) => {
     })
 })
 
+router.post('/', (req, res) => {
+    const result = db.createNewUser(req.body)
+    
+    res.json(result)
+})
+
 module.exports = router
