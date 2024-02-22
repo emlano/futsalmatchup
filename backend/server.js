@@ -17,7 +17,7 @@ app.listen(port, () => {
 })
 
 function logRequest(req, res, next) {
-    logger.info(req.url)
+    logger.info(`${req.method} - ${req.url}`)
     next()
 }
 
