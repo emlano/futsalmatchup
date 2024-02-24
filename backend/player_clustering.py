@@ -24,8 +24,12 @@ mean_rating = dataset['overall_rating'].mean()
 # print(min_age, max_age, median_age, mean_age)
 # print(min_rating, max_rating, median_rating, mean_rating)
 
-# if there are any missing values
-    # Handle missing values
+# if there are any missing values handle missing values
+if missing_values.any():
+    # Dropping values
+    dataset = dataset.dropna(inplace=True)
+    # Assigning the mean
+    # Assigning the median
 
 # Split the dataset as 70:30 to train and test the model
 
