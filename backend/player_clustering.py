@@ -33,9 +33,9 @@ print(min_rating, max_rating, median_rating, mean_rating)
 # if there are any missing values handle missing values
 if missing_values.any():
     # Dropping values
-    dataset.dropna()
+    # dataset.dropna()
     # Assigning the mean
-    # dataset.fillna(dataset.mean(), inplace=True)
+    dataset.fillna(dataset.mean(), inplace=True)
     # Assigning the median
     # dataset.fillna(dataset.median(), inplace=True)
 
@@ -67,7 +67,9 @@ plt.ylabel('Inertia value')
 plt.title('Elbow curve')
 plt.show()
 
-
+optimal_k = 4
+kmeans = KMeans(n_clusters=optimal_k)
+kmeans.fit(X_train)
 # Test the model accuracy with the testing metrics from the 30% chosen
 
 # Predict cluster labels for a value in the test data
