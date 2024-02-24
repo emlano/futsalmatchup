@@ -49,9 +49,14 @@ print(X_train.head())
 print(X_test.head())
 
 # Train the model using KMeans clustering for the 70% chosen
+inertia_values = []
+k_values = range(1, 11)
+
 # KMeans clustering
-kmeans = KMeans(n_clusters=7) # Choose the value of k
-kmeans.fit(X_train)
+for k in k_values:
+    kmeans = KMeans(n_clusters=k) # Choose the value of k
+    kmeans.fit(X_train)
+    inertia_values.append(kmeans.inertia_)
 
 # Choose the value of k
 
