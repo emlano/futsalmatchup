@@ -53,21 +53,24 @@ print(X_test.head())
 kmeans = KMeans(n_clusters=7) # Choose the value of k
 kmeans.fit(X_train)
 
-# Plot the clusters
-plt.scatter(X_train['age'], X_train['overall_rating'], c=kmeans.labels_, cmap='viridis')
-plt.xlabel('Age')
-plt.ylabel('Overall Rating')
-plt.title('K Means Clustering - Futsal MatchUp')
-plt.show()
-
 # Choose the value of k
 
 # Test the model accuracy with the testing metrics from the 30% chosen
 
 # Predict cluster labels for a value in the test data
 kmeans_predict_test = kmeans.predict(X_test)
+print(kmeans_predict_test)
 
 # Check output
 silhouette_avg = silhouette_score(X_test, kmeans_predict_test)
+print("Silhouette score: ", silhouette_avg)
 
+inertia = kmeans.inertia_
+print("Inertia: ", inertia)
 
+# Plot the clusters
+plt.scatter(X_train['age'], X_train['overall_rating'], c=kmeans.labels_, cmap='viridis')
+plt.xlabel('Age')
+plt.ylabel('Overall Rating')
+plt.title('K Means Clustering - Futsal MatchUp')
+plt.show()
