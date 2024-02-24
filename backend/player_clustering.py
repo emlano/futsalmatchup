@@ -1,18 +1,20 @@
 import pandas as pd
 import numpy as np
+from sklearn.metrics import silhouette_score
 from sklearn.model_selection import train_test_split
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 
 # Load the dataset
 dataset = pd.read_csv("fifa_players.csv")
-# print(dataset.head())
+print(dataset.head())
 
 # Rename the "Nationality" column name as "Location"
 #dataset.rename(columns={"nationality": "location"}, inplace=True)
 
 # Check for missing values
 missing_values = dataset[['age', 'overall_rating', 'nationality']].isnull().sum()
+print(missing_values)
 
 # Determine the min, max, mean median of the columns with numerical values
 min_age = dataset['age'].min()
@@ -43,6 +45,9 @@ X = dataset[['age', 'overall_rating']]
 # Split the dataset as 70:30 to train and test the model
 X_train, X_test = train_test_split(X, test_size=0.3)
 
+print(X_train.head())
+print(X_test.head())
+
 # Train the model using KMeans clustering for the 70% chosen
 # KMeans clustering
 kmeans = KMeans(n_clusters=7) # Choose the value of k
@@ -60,16 +65,9 @@ plt.show()
 # Test the model accuracy with the testing metrics from the 30% chosen
 
 # Predict cluster labels for a value in the test data
-kmeans_predict = kmeans.predict(X_test)
+kmeans_predict_test = kmeans.predict(X_test)
 
 # Check output
-# print('dataset.head()')
-print(dataset.head())
-# print('missing_values')
-print(missing_values)
-# print('X_train.head()')
-print(X_train.head())
-# print('X_test.head()')
-print(X_test.head())
-# print('kmeans_predict')
-print(kmeans_predict)
+silhouette_avg = silhouette_score(X_test, kmeans_predict_test)
+
+
