@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 
 # Load the dataset
 dataset = pd.read_csv("fifa_players.csv")
+# print(dataset.head())
 
 # Rename the "Nationality" column name as "Location"
 #dataset.rename(columns={"nationality": "location"}, inplace=True)
@@ -24,17 +25,17 @@ max_rating = dataset['overall_rating'].max()
 median_rating = dataset['overall_rating'].median()
 mean_rating = dataset['overall_rating'].mean()
 
-# print(min_age, max_age, median_age, mean_age)
-# print(min_rating, max_rating, median_rating, mean_rating)
+print(min_age, max_age, median_age, mean_age)
+print(min_rating, max_rating, median_rating, mean_rating)
 
 # if there are any missing values handle missing values
 if missing_values.any():
     # Dropping values
-    dataset = dataset.dropna(inplace=True)
+    dataset.dropna()
     # Assigning the mean
-    # dataset = dataset.fillna(dataset.mean(), inplace=True)
+    # dataset.fillna(dataset.mean(), inplace=True)
     # Assigning the median
-    # dataset = dataset.fillna(dataset.median(), inplace=True)
+    # dataset.fillna(dataset.median(), inplace=True)
 
 # Select the required columns from the dataset
 X = dataset[['age', 'overall_rating']]
@@ -60,3 +61,15 @@ plt.show()
 
 # Predict cluster labels for a value in the test data
 kmeans_predict = kmeans.predict(X_test)
+
+# Check output
+# print('dataset.head()')
+print(dataset.head())
+# print('missing_values')
+print(missing_values)
+# print('X_train.head()')
+print(X_train.head())
+# print('X_test.head()')
+print(X_test.head())
+# print('kmeans_predict')
+print(kmeans_predict)
