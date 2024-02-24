@@ -29,7 +29,9 @@ if missing_values.any():
     # Dropping values
     dataset = dataset.dropna(inplace=True)
     # Assigning the mean
+    # dataset = dataset.fillna(dataset.mean(), inplace=True)
     # Assigning the median
+    # dataset = dataset.fillna(dataset.median(), inplace=True)
 
 # Split the dataset as 70:30 to train and test the model
 
