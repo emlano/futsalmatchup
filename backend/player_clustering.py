@@ -60,6 +60,14 @@ for k in k_values:
 
 # Choose the value of k
 
+# Elbow plot
+plt.plot(k_values, inertia_values, marker=".")
+plt.xlabel('Number of clusters')
+plt.ylabel('Inertia value')
+plt.title('Elbow curve')
+plt.show()
+
+
 # Test the model accuracy with the testing metrics from the 30% chosen
 
 # Predict cluster labels for a value in the test data
