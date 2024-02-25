@@ -8,3 +8,11 @@ router.get('/', (req, res) => {
         res.json(bookings);
     })
 });
+
+//Get booking by id
+router.get('/:id', (req, res) => {
+    const id = req.params.id;
+    db.getBookingFromId(id).then(bookings => {
+        res.json(bookings)
+   })
+});
