@@ -16,3 +16,12 @@ router.get('/:id', (req, res) => {
         res.json(bookings)
    })
 });
+
+//Create a new booking
+router.post('/', (req, res) => {
+    const [bookings] = req.body
+    
+    db.createNewBooking(bookings).then(result => {
+        res.json(result)
+    })
+})
