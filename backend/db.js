@@ -9,8 +9,13 @@ const pool = mysql.createPool({
 }).promise();
 
 async function getBookings() {
-    const [rows] = await pool.query("SELECT * FROM `bookings`;");
-    return rows;
+    try{
+        const [rows] = await pool.query("SELECT * FROM `bookings`;");
+        return rows;
+    }
+    catch(error) {
+        throw error;
+    }
 }
 
 async function getBookingFromId() {
