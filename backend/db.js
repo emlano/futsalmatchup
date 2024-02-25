@@ -13,7 +13,7 @@ async function getBookings() {
     return rows;
 }
 
-async function getBookingFromId() {
+async function getBookingFromId(id) {
     const [rows] = await pool.query(`
     SELECT * 
     FROM bookings 
