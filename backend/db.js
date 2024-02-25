@@ -22,3 +22,12 @@ async function getBookingFromId() {
 
     return rows;
 }
+
+async function createNewBooking(booking) {
+    const { stadium_id, team_id, user_id, start_date_time, end_date_time } = booking;
+    const [result] = await pool.query(`
+        INSERT INTO bookings (stadium_id, team_id, user_id, start_date_time, end_date_time) 
+        VALUES (?, ?, ?, ?, ?);`,
+        [stadium_id, team_id, user_id, start_date_time, end_date_time]);
+    return result;
+}
