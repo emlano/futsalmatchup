@@ -4,7 +4,7 @@ const db = require("../db");
 
 //Get all bookings
 router.get('/', (req, res) => {
-    db.getBookings.then(bookings => {
+    db.getBookings().then(bookings => {
         res.json(bookings);
     })
 });
