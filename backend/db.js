@@ -31,3 +31,34 @@ async function createNewBooking(booking) {
         [stadium_id, team_id, user_id, start_date_time, end_date_time]);
     return result;
 }
+async function updateBooking(bookingId, updatedBooking) {
+    const { stadium_id, team_id, user_id, start_date_time, end_date_time } = updatedBooking;
+
+    const [result] = await pool.query(`
+        UPDATE bookings
+        SET
+            stadium_id = ?,
+            team_id = ?,
+            user_id = ?,
+            start_date_time = ?,
+            end_date_time = ?
+        WHERE booking_id = ?;`,
+        [stadium_id, team_id, user_id, start_date_time, end_date_time, bookingId]);
+
+    return result;
+}
+async function deleteBooking(bookingId) {
+    const [result] = await pool.query(`
+        DELETE FROM bookings
+        WHERE booking_id = ?`,
+        [bookingId]);
+
+    return result;
+}
+module.exports = { 
+    getBookings,
+    getBookingFromId,
+    createNewBooking,
+    updateBooking,
+    deleteBooking
+};
