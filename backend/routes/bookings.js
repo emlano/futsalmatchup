@@ -25,3 +25,23 @@ router.post('/', (req, res) => {
         res.json(result)
     })
 })
+// Update booking by id
+router.put('/:id', (req, res) => {
+    const id = req.params.id;
+    const updatedBooking = req.body;
+
+    db.updateBooking(id, updatedBooking).then(result => {
+        res.json(result);
+    });
+});
+
+// Delete booking by id
+router.delete('/:id', (req, res) => {
+    const id = req.params.id;
+
+    db.deleteBooking(id).then(result => {
+        res.json(result);
+    });
+});
+
+module.exports = router;
