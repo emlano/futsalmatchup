@@ -55,12 +55,11 @@ print(X)
 X_normalized = X.apply(zscore)
 print(X_normalized)
 
-
-# Split the dataset as 70:30 to train and test the model
-X_train, X_test = train_test_split(X, test_size=0.3)
-
-print(X_train.head())
-print(X_test.head())
+# Model creation and training
+# Split the dataset into train and test sets (70:30 split)
+X_train, X_test = train_test_split(X_normalized, test_size=0.3)
+print(X_train)
+print(X_test)
 
 # Train the model using KMeans clustering for the 70% chosen
 inertia_values = []
