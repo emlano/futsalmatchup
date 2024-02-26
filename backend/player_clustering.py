@@ -39,22 +39,15 @@ plt.ylabel('Overall Rating')
 plt.title('Age vs Overall Rating')
 plt.show()
 
-# Check for missing values
-missing_values = dataset[['age', 'overall_rating', 'nationality']].isnull().sum()
-print(missing_values)
+# Select relevant features
+features = ['age', 'overall_rating']
 
-
-# if there are any missing values handle missing values
-if missing_values.any():
-    # Dropping values
-    # dataset.dropna()
-    # Assigning the mean
-    dataset.fillna(dataset.mean(), inplace=True)
-    # Assigning the median
-    # dataset.fillna(dataset.median(), inplace=True)
-
-# Select the required columns from the dataset
-X = dataset[['age', 'overall_rating']]
+# Data preparation for clustering
+# Handle missing values
+# Drop rows with missing values in selected features
+X = dataset[features].dropna()
+X.info()
+print(X)
 
 # Split the dataset as 70:30 to train and test the model
 X_train, X_test = train_test_split(X, test_size=0.3)
