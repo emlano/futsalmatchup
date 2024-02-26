@@ -126,3 +126,28 @@ plt.ylabel('Calinski-Harabasz Score')
 
 plt.tight_layout()
 plt.show()
+
+# Inspection of the clusters and their centroids
+optimal_k_elbow = 3
+kmeans_elbow = KMeans(n_clusters=optimal_k_elbow, random_state=42)
+kmeans_elbow.fit(X_train)
+
+plt.scatter(X_train['age'], X_train['overall_rating'], c=kmeans_elbow.labels_, cmap='viridis')
+plt.scatter(kmeans_elbow.cluster_centers_[:, 0], kmeans_elbow.cluster_centers_[:, 1], marker='x', s=100, c='red')
+plt.xlabel('Age')
+plt.ylabel('Overall Rating')
+plt.title('KMeans Clustering with Elbow Method (k=3)')
+plt.show()
+
+# Create a table of methods and corresponding k values
+methods = ['Elbow Method', 'Silhouette Method', 'Davies-Bouldin Score', 'Calinski-Harabasz Score']
+k_values = [optimal_k_elbow, k_values[np.argmax(silhouette_scores)], k_values[np.argmin(davies_bouldin_scores)], k_values[np.argmax(calinski_harabasz_scores)]]
+
+table = pd.DataFrame({'Method': methods, 'Optimal k': k_values})
+print(table)
+
+# Fit KMeans clustering with optimal k value
+kmeans = KMeans(n_clusters=2, random_state=42)
+# kmeans = KMeans(n_clusters=optimal_k_, random_state=42)
+kmeans.fit(X_train)
+print(kmeans.fit(X_train))
