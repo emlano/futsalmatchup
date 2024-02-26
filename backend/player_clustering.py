@@ -1,7 +1,7 @@
 # Import required libraries
 import pandas as pd
 import numpy as np
-from sklearn.metrics import silhouette_score
+from sklearn.metrics import silhouette_score, davies_bouldin_score, calinski_harabasz_score
 from sklearn.model_selection import train_test_split
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
@@ -61,44 +61,38 @@ X_train, X_test = train_test_split(X_normalized, test_size=0.3)
 print(X_train)
 print(X_test)
 
-# Train the model using KMeans clustering for the 70% chosen
+# Find optimal k value
+# Elbow method
 inertia_values = []
-k_values = range(1, 11)
-
-# KMeans clustering
+k_values = range(2, 11)  # trying k from 2 to 10
 for k in k_values:
-    kmeans = KMeans(n_clusters=k) # Choose the value of k
+    kmeans = KMeans(n_clusters=k, random_state=42)
     kmeans.fit(X_train)
     inertia_values.append(kmeans.inertia_)
 
-# Choose the value of k
+# Silhouette method
+silhouette_scores = []
+for k in k_values:
+    kmeans = KMeans(n_clusters=k, random_state=42)
+    kmeans.fit(X_train)
+    score = silhouette_score(X_train, kmeans.labels_)
+    silhouette_scores.append(score)
 
-# Elbow plot
-plt.plot(k_values, inertia_values, marker=".")
-plt.xlabel('Number of clusters')
-plt.ylabel('Inertia value')
-plt.title('Elbow curve')
-plt.show()
+# Inertia
+# Gap statistics
 
-optimal_k = 4
-kmeans = KMeans(n_clusters=optimal_k)
-kmeans.fit(X_train)
-# Test the model accuracy with the testing metrics from the 30% chosen
+# Davies-Bouldin
+davies_bouldin_scores = []
+for k in k_values:
+    kmeans = KMeans(n_clusters=k, random_state=42)
+    kmeans.fit(X_train)
+    score = davies_bouldin_score(X_train, kmeans.labels_)
+    davies_bouldin_scores.append(score)
 
-# Predict cluster labels for a value in the test data
-kmeans_predict_test = kmeans.predict(X_test)
-print(kmeans_predict_test)
-
-# Check output
-silhouette_avg = silhouette_score(X_test, kmeans_predict_test)
-print("Silhouette score: ", silhouette_avg)
-
-inertia = kmeans.inertia_
-print("Inertia: ", inertia)
-
-# Plot the clusters
-plt.scatter(X_train['age'], X_train['overall_rating'], c=kmeans.labels_, cmap='viridis')
-plt.xlabel('Age')
-plt.ylabel('Overall Rating')
-plt.title('K Means Clustering - Futsal MatchUp')
-plt.show()
+# Calinski-Harabasz
+calinski_harabasz_scores = []
+for k in k_values:
+    kmeans = KMeans(n_clusters=k, random_state=42)
+    kmeans.fit(X_train)
+    score = calinski_harabasz_score(X_train, kmeans.labels_)
+    calinski_harabasz_scores.append(score)
