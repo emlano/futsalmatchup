@@ -151,3 +151,9 @@ kmeans = KMeans(n_clusters=2, random_state=42)
 # kmeans = KMeans(n_clusters=optimal_k_, random_state=42)
 kmeans.fit(X_train)
 print(kmeans.fit(X_train))
+
+# Evaluation of the model
+# Test the model accuracy using testing metrics from the 30% chosen
+# Predict cluster labels for the test data
+kmeans_predict_test = kmeans.predict(X_test)
+print(kmeans_predict_test)
