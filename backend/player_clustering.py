@@ -5,6 +5,7 @@ from sklearn.metrics import silhouette_score
 from sklearn.model_selection import train_test_split
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
+from scipy.stats import zscore
 
 # Load the dataset
 dataset = pd.read_csv("fifa_players.csv")
@@ -48,6 +49,12 @@ features = ['age', 'overall_rating']
 X = dataset[features].dropna()
 X.info()
 print(X)
+
+# Feature scaling
+# z-score Normalization for numerical features
+X_normalized = X.apply(zscore)
+print(X_normalized)
+
 
 # Split the dataset as 70:30 to train and test the model
 X_train, X_test = train_test_split(X, test_size=0.3)
