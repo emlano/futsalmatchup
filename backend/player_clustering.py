@@ -1,3 +1,4 @@
+# Import required libraries
 import pandas as pd
 import numpy as np
 from sklearn.metrics import silhouette_score
@@ -7,10 +8,21 @@ import matplotlib.pyplot as plt
 
 # Load the dataset
 dataset = pd.read_csv("fifa_players.csv")
+
+# Exploratory Data Analysis
+# Explore the dataset
 print(dataset.head())
 
-# Rename the "Nationality" column name as "Location"
-#dataset.rename(columns={"nationality": "location"}, inplace=True)
+# Explore the data columns
+dataset.info()
+
+# Get summary statistics
+print(dataset.describe())
+
+# Drop columns
+columns_to_drop = ['full_name', 'birth_date', 'height_cm', 'weight_kgs', 'positions', 'potential', 'value_euro', 'wage_euro', 'preferred_foot', 'international_reputation(1-5)', 'weak_foot(1-5)', 'skill_moves(1-5)', 'body_type', 'release_clause_euro', 'national_team', 'national_rating', 'national_team_position', 'national_jersey_number', 'crossing', 'finishing', 'heading_accuracy', 'short_passing', 'volleys', 'dribbling', 'curve', 'freekick_accuracy', 'long_passing', 'ball_control', 'acceleration', 'sprint_speed', 'agility', 'reactions', 'balance', 'shot_power', 'jumping', 'stamina', 'strength', 'long_shots', 'aggression', 'interceptions', 'positioning', 'vision', 'penalties', 'composure', 'marking', 'standing_tackle', 'sliding_tackle']
+dataset = dataset.drop(columns=columns_to_drop)
+
 
 # Check for missing values
 missing_values = dataset[['age', 'overall_rating', 'nationality']].isnull().sum()
