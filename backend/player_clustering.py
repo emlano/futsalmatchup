@@ -23,24 +23,26 @@ print(dataset.describe())
 columns_to_drop = ['full_name', 'birth_date', 'height_cm', 'weight_kgs', 'positions', 'potential', 'value_euro', 'wage_euro', 'preferred_foot', 'international_reputation(1-5)', 'weak_foot(1-5)', 'skill_moves(1-5)', 'body_type', 'release_clause_euro', 'national_team', 'national_rating', 'national_team_position', 'national_jersey_number', 'crossing', 'finishing', 'heading_accuracy', 'short_passing', 'volleys', 'dribbling', 'curve', 'freekick_accuracy', 'long_passing', 'ball_control', 'acceleration', 'sprint_speed', 'agility', 'reactions', 'balance', 'shot_power', 'jumping', 'stamina', 'strength', 'long_shots', 'aggression', 'interceptions', 'positioning', 'vision', 'penalties', 'composure', 'marking', 'standing_tackle', 'sliding_tackle']
 dataset = dataset.drop(columns=columns_to_drop)
 
+# Visualization of data
+# Histogram
+dataset.hist(figsize=(10, 6))
+plt.show()
+
+# Box plot
+dataset.boxplot(figsize=(10, 6))
+plt.show()
+
+# Scatter plot
+plt.scatter(dataset['age'], dataset['overall_rating'])
+plt.xlabel('Age')
+plt.ylabel('Overall Rating')
+plt.title('Age vs Overall Rating')
+plt.show()
 
 # Check for missing values
 missing_values = dataset[['age', 'overall_rating', 'nationality']].isnull().sum()
 print(missing_values)
 
-# Determine the min, max, mean median of the columns with numerical values
-min_age = dataset['age'].min()
-max_age = dataset['age'].max()
-median_age = dataset['age'].median()
-mean_age = dataset['age'].mean()
-
-min_rating = dataset['overall_rating'].min()
-max_rating = dataset['overall_rating'].max()
-median_rating = dataset['overall_rating'].median()
-mean_rating = dataset['overall_rating'].mean()
-
-print(min_age, max_age, median_age, mean_age)
-print(min_rating, max_rating, median_rating, mean_rating)
 
 # if there are any missing values handle missing values
 if missing_values.any():
