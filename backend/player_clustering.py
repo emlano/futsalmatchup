@@ -6,6 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 from scipy.stats import zscore
+from scipy.spatial import distance
 
 # Load the dataset
 dataset = pd.read_csv("fifa_players.csv")
@@ -170,3 +171,35 @@ print(f"Davies-Bouldin Score on Test Data: {davies_bouldin_test}")
 # Calinski-Harabasz Score
 calinski_harabasz_test = calinski_harabasz_score(X_test, kmeans_predict_test)
 print(f"Calinski-Harabasz Score on Test Data: {calinski_harabasz_test}")
+
+# Testing with user inputs
+# Get input from the console
+input_age = float(input("Enter your age: "))
+input_rating = float(input("Enter your overall rating: "))
+input_nationality = input("Enter your location: ")
+
+# Calculate the Euclidean distance to each cluster center
+input_data = [input_age, input_rating]
+distances = distance.cdist([input_data], kmeans.cluster_centers_, 'euclidean')
+
+# Get the nearest cluster index
+nearest_cluster_index = distances.argmin()
+
+# Get indices of players within the nearest cluster and with the same nationality
+nearest_cluster_indices = np.where((kmeans.labels_ == nearest_cluster_index))[0]
+nationality_indices = np.where(dataset['nationality'] == input_nationality)[0]
+common_indices = np.intersect1d(nearest_cluster_indices, nationality_indices)
+
+# Get recommended players
+nearest_cluster_players = dataset.iloc[common_indices]
+
+# Calculate the Euclidean distance for each player in the nearest cluster
+nearest_cluster_players['distance'] = nearest_cluster_players.apply(
+    lambda row: distance.euclidean(input_data, [row[feature] for feature in features]), axis=1)
+
+# Sort recommended players by distance (ascending order)
+nearest_cluster_players_sorted = nearest_cluster_players.sort_values(by='distance')
+
+# Display sorted recommendations
+print("Recommended players from the same nationality:")
+print(nearest_cluster_players_sorted[['name', 'age', 'overall_rating', 'nationality']])
