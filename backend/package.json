@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
+    "devStart": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -14,5 +15,8 @@
     "express": "^4.18.2",
     "mysql2": "^3.9.1",
     "winston": "^3.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
   }
 }
