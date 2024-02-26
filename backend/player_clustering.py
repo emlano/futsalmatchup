@@ -96,3 +96,33 @@ for k in k_values:
     kmeans.fit(X_train)
     score = calinski_harabasz_score(X_train, kmeans.labels_)
     calinski_harabasz_scores.append(score)
+
+# Plot graphs for each method
+plt.figure(figsize=(15, 10))
+
+plt.subplot(2, 2, 1)
+plt.plot(k_values, inertia_values, marker='o')
+plt.title('Inertia vs Number of Clusters')
+plt.xlabel('Number of Clusters (k)')
+plt.ylabel('Inertia')
+
+plt.subplot(2, 2, 2)
+plt.plot(k_values, silhouette_scores, marker='o')
+plt.title('Silhouette Score vs Number of Clusters')
+plt.xlabel('Number of Clusters (k)')
+plt.ylabel('Silhouette Score')
+
+plt.subplot(2, 2, 3)
+plt.plot(k_values, davies_bouldin_scores, marker='o')
+plt.title('Davies-Bouldin Score vs Number of Clusters')
+plt.xlabel('Number of Clusters (k)')
+plt.ylabel('Davies-Bouldin Score')
+
+plt.subplot(2, 2, 4)
+plt.plot(k_values, calinski_harabasz_scores, marker='o')
+plt.title('Calinski-Harabasz Score vs Number of Clusters')
+plt.xlabel('Number of Clusters (k)')
+plt.ylabel('Calinski-Harabasz Score')
+
+plt.tight_layout()
+plt.show()
