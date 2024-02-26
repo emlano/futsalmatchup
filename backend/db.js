@@ -1,5 +1,6 @@
 require("dotenv").config()
 const mysql = require("mysql2")
+const { exceptions } = require("winston")
 
 const pool = mysql.createPool({
     host: process.env.HOST,
@@ -52,8 +53,8 @@ async function createNewUser(user) {
         VALUES
         (?, ?, ?, ?, ?, ?, ?);`, 
         [username, password, phoneNo, 3.5, 3.5, 3.5, true])
-
-    return result
+    
+    return getUserFromName(username)
 }
 
 async function updateUser(user) {

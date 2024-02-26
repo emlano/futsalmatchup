@@ -1,52 +1,90 @@
 const express = require("express")
 const router = express.Router()
 const db = require("../db")
+const bcrypt = require("bcrypt")
 
 router.get('/', (req, res) => {
-    db.getUsers().then(users => {
-        res.json(users)
-    })
+    try {
+        db.getUsers().then(users => {
+            res.json(users)
+        })
+    } catch (err) {
+        console.error(err)
+        res.status(500).send()
+    }
 })
 
 router.get('/id/:id', (req, res) => {
-    const id = req.params.id
+    try {
+        const id = req.params.id
 
-   db.getUserFromId(id).then(user => {
-        res.json(user)
-   })
+        db.getUserFromId(id).then(user => {
+             res.json(user)
+        })
+    
+    } catch (err) {
+        console.error(err)
+        res.status(500).send()
+    }
+
 })
 
 router.get('/name/:username', (req, res) => {
-    const name = req.params.username
+    try {
+        const name = req.params.username
 
-    db.getUserFromName(name).then(user => {
-        res.json(user)
-    })
+        db.getUserFromName(name).then(user => {
+            res.json(user)
+        })
+    } catch (err) {
+        console.error(err)
+        res.status(500).send()
+    }
+
 })
 
-router.post('/', (req, res) => {
-    const [user] = req.body
+router.post('/', async (req, res) => {
+    try {
+        const [user] = req.body
+        const hashedPass = await bcrypt.hash(user.password, 10)
+        user.password = hashedPass
+
+        db.createNewUser(user).then(result => {
+            res.json(result)
+        })
     
-    db.createNewUser(user).then(result => {
-        res.json(result)
-    })
+    } catch (err) {
+        console.error(err)
+        res.status(500).send()
+    }
+
 })
 
 router.put('/', (req, res) => {
-    const [user] = req.body
+    try {
+        const [user] = req.body
+        db.updateUser(user).then(result => {
+            res.send()
+        })
     
-    db.updateUser(user).then(result => {
-        res.json(result)
-    })
+    } catch (err) {
+        console.error(err)
+        res.status(500).send()
+    }
 })
 
 router.delete('/id/:id', (req, res) => {
-    const id = req.params.id
+    try {
+        const id = req.params.id
 
-    db.deleteUser(id).then(result => {
-        res.json(result)
-    })
+        db.deleteUser(id).then(result => {
+            res.send()
+        })
 
+    } catch (err) {
+        console.error(err)
+        res.status(500).send()
+    }
 })
 
 module.exports = router
