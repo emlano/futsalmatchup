@@ -57,13 +57,32 @@ router.post('/', async (req, res) => {
         console.error(err)
         res.status(500).send()
     }
+})
 
+router.post('/login',async (req, res) => {
+    const [candidate] = req.body
+    const [user] = await db.getUserFromName(candidate.username)
+
+    if (user == null) {
+        return res.status(400).send("No such user found")
+    }
+
+    try {
+        if (await bcrypt.compare(candidate.password, user.password)) {
+            res.send("Success")
+        } else {
+            res.send("Failure")
+        }
+    
+    } catch (err) {
+        res.status(500).send()
+    }
 })
 
 router.put('/', (req, res) => {
     try {
         const [user] = req.body
-        db.updateUser(user).then(result => {
+        db.updateUser(user).then(() => {
             res.send()
         })
     
@@ -77,7 +96,7 @@ router.delete('/id/:id', (req, res) => {
     try {
         const id = req.params.id
 
-        db.deleteUser(id).then(result => {
+        db.deleteUser(id).then(() => {
             res.send()
         })
 
