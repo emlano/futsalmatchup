@@ -1,52 +1,58 @@
 import 'package:flutter/material.dart';
 import 'player_search_page.dart';
+import 'recommended_players_page.dart';
+import 'package:frontend/models/header_app_bar.dart';
 
 class TeamRosterPage extends StatelessWidget {
   final String teamName;
 
   const TeamRosterPage({Key? key, required this.teamName}) : super(key: key);
 
+  @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> teamPlayers = [
-      {"name": 'Nadil', "profilePicPath": ''},
-      {"name": 'Ahmed', "profilePicPath": ''},
-      {"name": 'Rimaz', "profilePicPath": ''},
-      {"name": 'Lenmini', "profilePicPath": ''},
-      {"name": 'Rachel', "profilePicPath": ''},
+      {"name": 'Nadil', "profilePicUrl": 'assets/images/player_icon.png'},
+      {"name": 'Ahmed', "profilePicUrl": 'assets/images/player_icon.png'},
+      {"name": 'Rimaz', "profilePicUrl": 'assets/images/player_icon.png'},
+      {"name": 'Lenmini', "profilePicUrl": 'assets/images/player_icon.png'},
+      {"name": 'Rachel', "profilePicUrl": 'assets/images/player_icon.png'},
+    ];
+
+    List<Map<String, dynamic>> recommendedPlayers = [
+      {"name": 'John', "profilePicUrl": 'assets/images/player_icon.png'},
+      {"name": 'Emily', "profilePicUrl": 'assets/images/player_icon.png'},
+      {"name": 'Michael', "profilePicUrl": 'assets/images/player_icon.png'},
+      {"name": 'Sophia', "profilePicUrl": 'assets/images/player_icon.png'},
+      {"name": 'David', "profilePicUrl": 'assets/images/player_icon.png'},
     ];
 
     return Scaffold(
-        appBar: AppBar(
-          title: Row(
-            children: [
-              Image.asset(
-                'assets/app_logo.png',
-                width: 40,
-                height: 40,
-              ),
-              const SizedBox(width: 8),
-              const Text('Futsal MatchUp'),
-            ],
-          ),
-        ),
+      backgroundColor: Colors.white,
+      appBar: TitleAppBar(),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
-                'Team: $teamName',
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+              Center(
+                child: Text(
+                  teamName,
+                  style: const TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.teal,
+                  ),
                 ),
               ),
-              const Text(
-                'Team Members',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-              ),
+              const SizedBox(height: 10),
+              const Center(
+                child: Text(
+                  'Team Members',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               const SizedBox(height: 20),
               Expanded(
@@ -59,10 +65,21 @@ class TeamRosterPage extends StatelessWidget {
                         itemBuilder: (context, index) {
                           final player = teamPlayers[index];
                           return ListTile(
-                            leading: CircleAvatar(
-                              backgroundColor: Colors.teal.shade100,
-                              backgroundImage: NetworkImage(player['profilePicUrl']),
-                            ),
+                              leading: Container(
+                                width: 48,
+                                height: 48,
+                                decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                color: Colors.black,
+                                width: 2.0,
+                                ),
+                              ),
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.transparent,
+                                  backgroundImage: AssetImage(player['profilePicUrl']),
+                                ),
+                              ),
                             title: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -85,7 +102,22 @@ class TeamRosterPage extends StatelessWidget {
                         backgroundColor: Colors.teal.shade100,
                       ),
                       child: const Text(
-                        '+ Find Players',
+                        '+ Search Players',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => RecommendedPlayersPage(recommendedPlayers: recommendedPlayers)),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.teal.shade100,
+                      ),
+                      child: const Text(
+                        'See Players that Match Your Team',
                         style: TextStyle(color: Colors.black),
                       ),
                     ),

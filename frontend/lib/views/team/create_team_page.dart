@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'team_roster_page.dart';
+import 'package:frontend/models/header_app_bar.dart';
 
 void main() { //for testing
   runApp(const MaterialApp(home: CreateTeamPage()));
@@ -12,19 +13,8 @@ class CreateTeamPage extends StatelessWidget {
     String? teamName;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          children: [
-            Image.asset(
-              'assets/app_logo.png',
-              width: 40,
-              height: 40,
-            ),
-            const SizedBox(width: 8),
-            const Text("Futsal MatchUp"),
-          ],
-        ),
-      ),
+      backgroundColor: Colors.white,
+      appBar: TitleAppBar(),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: SingleChildScrollView(
@@ -38,6 +28,7 @@ class CreateTeamPage extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
+                  color: Colors.teal,
                 )
               ),
               const SizedBox(height: 20),
@@ -55,6 +46,7 @@ class CreateTeamPage extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
+                        color: Colors.black,
                       ),
                     ),
                     const SizedBox(height: 20),
@@ -65,22 +57,14 @@ class CreateTeamPage extends StatelessWidget {
                           backgroundColor: Colors.teal.shade100,
                           radius: 50,
                         ),
-                        const Text(
-                          '+',
-                          style: TextStyle(
-                            fontSize: 40,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )
+                        Icon(
+                          Icons.group,
+                          size: 40,
+                          color: Colors.black,
+                        ),
                       ],
                     ),
                     const SizedBox(height: 10),
-                    const Text(
-                      'Add Team Logo',
-                      style: TextStyle(
-                        fontSize: 16,
-                      )
-                    ),
                     const SizedBox(height: 20),
                     TextField(
                       onChanged: (value) {
@@ -88,7 +72,12 @@ class CreateTeamPage extends StatelessWidget {
                       },
                       decoration: const InputDecoration(
                         hintText: 'Enter your Team Name',
-                        border: OutlineInputBorder()
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.teal),
+                        ),
                       ),
                     ),
                     const SizedBox(height: 20),
@@ -111,11 +100,13 @@ class CreateTeamPage extends StatelessWidget {
                           }
                         },
                       style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.teal.shade100, // Light teal background color
+                        backgroundColor: Colors.teal.shade100,
                       ),
                       child: const Text(
-                      'Create Team',
-                      style: TextStyle(color: Colors.black), // Black font color
+                        'Create Team',
+                        style: TextStyle(
+                            color: Colors.black
+                        ),
                       ),
                     ),
                   ],

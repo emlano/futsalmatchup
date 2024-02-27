@@ -1,13 +1,5 @@
 import 'package:flutter/material.dart';
-
-void main() {
-  runApp(const MaterialApp(
-    home: StadiumDetailsPage(
-      stadiumName: 'CR7 Futsal & Indoor Cricket Court',
-      stadiumImagePath: 'assets/stadium1.png',
-    ),
-  ));
-}
+import 'package:frontend/models/header_app_bar.dart';
 
 class StadiumDetailsPage extends StatefulWidget {
   final String stadiumName;
@@ -25,38 +17,53 @@ class StadiumDetailsPage extends StatefulWidget {
 
 class _StadiumDetailsPageState extends State<StadiumDetailsPage> {
   late String _selectedDay;
-  late List<String> _timeSlots;
+  final Map<String, List<String>> _dayTimeSlots = {
+    'Mon': [
+      '8am - 9am', '9am - 10am', '10am - 11am',
+      '11am - 12pm', '12pm - 1pm', '1pm - 2pm'
+    ],
+    'Tue': [
+      '8am - 9am', '9am - 10am', '10am - 11am',
+      '11am - 12pm', '12pm - 1pm', '1pm - 2pm'
+    ],
+    'Wed': [
+      '8am - 9am', '9am - 10am', '10am - 11am',
+      '11am - 12pm', '12pm - 1pm', '1pm - 2pm'
+    ],
+    'Thu': [
+      '8am - 9am', '9am - 10am', '10am - 11am',
+      '11am - 12pm', '12pm - 1pm', '1pm - 2pm'
+    ],
+    'Fri': [
+      '8am - 9am', '9am - 10am', '10am - 11am',
+      '11am - 12pm', '12pm - 1pm', '1pm - 2pm'
+    ],
+    'Sat': [
+      '8am - 9am', '9am - 10am', '10am - 11am',
+      '11am - 12pm', '12pm - 1pm', '1pm - 2pm'
+    ],
+    'Sun': [
+      '8am - 9am', '9am - 10am', '10am - 11am',
+      '11am - 12pm', '12pm - 1pm', '1pm - 2pm'
+    ],
+  };
 
-  @override
+  late Map<String, List<bool>> _slotStatus;
+
   void initState() {
     super.initState();
     _selectedDay = 'Mon';
-    _timeSlots = [
-      '8am - 9am',
-      '9am - 10am',
-      '10am - 11am',
-      '11am - 12pm',
-      '12pm - 1pm',
-      '1pm - 2pm',
-    ];
+    _slotStatus = {};
+
+    for (var day in _dayTimeSlots.keys) {
+      _slotStatus[day] = List<bool>.filled(_dayTimeSlots[day]!.length, false);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          children: [
-            Image.asset(
-              'assets/app_logo.png',
-              width: 40,
-              height: 40,
-            ),
-            const SizedBox(width: 8),
-            const Text('Futsal MatchUp'),
-          ],
-        ),
-      ),
+      appBar: TitleAppBar(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -86,12 +93,14 @@ class _StadiumDetailsPageState extends State<StadiumDetailsPage> {
                 ),
               ),
               const SizedBox(height: 16),
-              const Text(
-                'Schedule',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
+              const Center(
+                child: Text(
+                  'Schedule',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
                 ),
               ),
               const SizedBox(height: 16),
@@ -153,14 +162,18 @@ class _StadiumDetailsPageState extends State<StadiumDetailsPage> {
   }
 
   List<Widget> _buildTimeSlots() {
-    return _timeSlots.map((timeSlot) {
+    List<String>? dayTimeSlots = _dayTimeSlots[_selectedDay];
+    if (dayTimeSlots == null) return [];
+
+    return dayTimeSlots.map((timeSlot) {
       return _buildTimeSlotButton(timeSlot);
     }).toList();
   }
 
   Widget _buildTimeSlotButton(String timeSlot) {
     bool isReserved = timeSlot == '9am - 10am' || timeSlot == '1pm - 2pm';
-    bool isBooked = false;
+    int index = _dayTimeSlots[_selectedDay]!.indexOf(timeSlot);
+    bool isBooked = _slotStatus[_selectedDay]![index];
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -178,7 +191,7 @@ class _StadiumDetailsPageState extends State<StadiumDetailsPage> {
             onPressed: () {
               if (!isReserved && !isBooked) {
                 setState(() {
-                  isBooked = true;
+                  _slotStatus[_selectedDay]![index] = true;
                 });
               }
             },

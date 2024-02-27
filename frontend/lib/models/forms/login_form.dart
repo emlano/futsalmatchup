@@ -35,7 +35,7 @@ class LoginFormState extends State<LoginForm> {
             TextInputBox(
               controller: usernameController,
               name: "Username",
-              desc: "Enter an username",
+              desc: "Enter username",
               icon: Icons.account_circle,
               length: 15,
             ),
