@@ -1,5 +1,6 @@
 const express = require("express")
 const userRouter = require('./routes/users')
+const bookingRouter = require('./routes/bookings'); 
 const { createLogger, transports } = require('winston')
 
 const port = 3000
@@ -21,4 +22,5 @@ function logRequest(req, res, next) {
     next()
 }
 
-app.use('/users', userRouter)
+app.use('/users', userRouter);
+app.use('/bookings', bookingRouter); 
