@@ -57,8 +57,7 @@ async function createNewUser(user) {
     return getUserFromName(username)
 }
 
-async function updateUser(user) {
-    const userId = user.user_id
+async function updateUser(user, id) {
     const skillRating = user.player_skill_rating
     const sportsmanship = user.player_sportsmanship_rating
     const overallRating = user.player_overall_rating
@@ -78,7 +77,7 @@ async function updateUser(user) {
             player_position = ?,
             team_id = ?
         WHERE user_id = ? ;`,
-        [skillRating, sportsmanship, overallRating, city, availability, position, teamId, userId])
+        [skillRating, sportsmanship, overallRating, city, availability, position, teamId, id])
 
     return result
 }
