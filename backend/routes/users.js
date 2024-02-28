@@ -6,7 +6,7 @@ const db = require("../db")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 
-// router.get('/', (req, res) => {      /// Unused since no auth needed
+// router.get('/', (req, res) => {      /// Unused since no auth needed / Could be used to send all users info to python server
 //     try {
 //         db.getUsers().then(users => {
 //             res.json(users)
@@ -32,7 +32,7 @@ router.get('/', authenticateToken, (req, res) => {
 
 })
 
-// router.get('/name/:username', (req, res) => {   // Unneccesary
+// router.get('/name/:username', (req, res) => {   // Unneccesary may be removed in future
 //     try {
 //         const name = req.params.username
 
@@ -85,7 +85,6 @@ router.post('/login',async (req, res) => {
         res.status(500).send()
     }
 })
-
 
 router.put('/', authenticateToken, (req, res) => {
     try {
