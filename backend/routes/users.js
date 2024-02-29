@@ -1,52 +1,116 @@
 const express = require("express")
 const router = express.Router()
 const db = require("../db")
+const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken")
 
-router.get('/', (req, res) => {
-    db.getUsers().then(users => {
-        res.json(users)
-    })
-})
+// router.get('/', (req, res) => {      /// Unused since no auth needed / Could be used to send all users info to python server
+//     try {
+//         db.getUsers().then(users => {
+//             res.json(users)
+//         })
+//     } catch (err) {
+//         console.error(err)
+//         res.status(500).send()
+//     }
+// })
 
-router.get('/id/:id', (req, res) => {
-    const id = req.params.id
+router.get('/', authenticateToken, (req, res) => {
+    try {
+        const id = req.user_id
 
-   db.getUserFromId(id).then(user => {
-        res.json(user)
-   })
-})
-
-router.get('/name/:username', (req, res) => {
-    const name = req.params.username
-
-    db.getUserFromName(name).then(user => {
-        res.json(user)
-    })
-})
-
-router.post('/', (req, res) => {
-    const [user] = req.body
+        db.getUserFromId(id).then(user => {
+             res.json(user)
+        })
     
-    db.createNewUser(user).then(result => {
-        res.json(result)
-    })
+    } catch (err) {
+        console.error(err)
+        res.status(500).send()
+    }
+
 })
 
-router.put('/', (req, res) => {
-    const [user] = req.body
+router.post('/', async (req, res) => {
+    try {
+        const [user] = req.body
+        const hashedPass = await bcrypt.hash(user.password, 10)
+        user.password = hashedPass
+
+        db.createNewUser(user).then(result => {
+            res.json(result)
+        })
     
-    db.updateUser(user).then(result => {
-        res.json(result)
-    })
+    } catch (err) {
+        console.error(err)
+        res.status(500).send()
+    }
 })
 
-router.delete('/id/:id', (req, res) => {
-    const id = req.params.id
+router.post('/login',async (req, res) => {
+    const [candidate] = req.body
+    const [user] = await db.getUserFromName(candidate.username)
 
-    db.deleteUser(id).then(result => {
-        res.json(result)
-    })
+    console.log(user)
 
+    if (user == null) {
+        return res.status(404).send("Error: No such user found")
+    }
+
+    try {
+        if (await bcrypt.compare(candidate.password, user.password)) {
+            const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+            res.json({ accessToken: accessToken })
+
+        } else {
+            res.status(401).send("Error: Username or password is wrong")
+        }
+    
+    } catch (err) {
+        res.status(500).send()
+    }
 })
+
+router.put('/', authenticateToken, (req, res) => {
+    try {
+        const [updatedUser] = req.body
+        const id = req.user_id
+
+        db.updateUser(updatedUser, id).then(() => {
+            res.send()
+        })
+    
+    } catch (err) {
+        console.error(err)
+        res.status(500).send()
+    }
+})
+
+router.delete('/', authenticateToken, (req, res) => {
+    try {
+        const id = req.user_id
+
+        db.deleteUser(id).then(() => {
+            res.send()
+        })
+
+    } catch (err) {
+        console.error(err)
+        res.status(500).send()
+    }
+})
+
+function authenticateToken(req, res, next) {
+    const header = req.headers['authorization']
+    const token = header && header.split(' ')[1]
+
+    if (token == null) return res.status(401).send("Error: No authetication token")
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+        if (err) return res.status(403).send("Error: Malformed or incorrect token")
+
+        req.user_id = user.user_id
+        next()
+    })
+} 
 
 module.exports = router
