@@ -53,7 +53,7 @@ router.post('/login',async (req, res) => {
     console.log(user)
 
     if (user == null) {
-        return res.status(404).send("No such user found")
+        return res.status(404).send("Error: No such user found")
     }
 
     try {
@@ -62,7 +62,7 @@ router.post('/login',async (req, res) => {
             res.json({ accessToken: accessToken })
 
         } else {
-            res.status(401).send()
+            res.status(401).send("Error: Username or password is wrong")
         }
     
     } catch (err) {
@@ -103,10 +103,10 @@ function authenticateToken(req, res, next) {
     const header = req.headers['authorization']
     const token = header && header.split(' ')[1]
 
-    if (token == null) return res.status(401).send()
+    if (token == null) return res.status(401).send("Error: No authetication token")
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-        if (err) return res.status(403).send()
+        if (err) return res.status(403).send("Error: Malformed or incorrect token")
 
         req.user_id = user.user_id
         next()
