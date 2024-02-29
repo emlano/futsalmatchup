@@ -1,5 +1,3 @@
-// require("dotenv").config()
-
 const express = require("express")
 const router = express.Router()
 const db = require("../db")
@@ -31,20 +29,6 @@ router.get('/', authenticateToken, (req, res) => {
     }
 
 })
-
-// router.get('/name/:username', (req, res) => {   // Unneccesary may be removed in future
-//     try {
-//         const name = req.params.username
-
-//         db.getUserFromName(name).then(user => {
-//             res.json(user)
-//         })
-//     } catch (err) {
-//         console.error(err)
-//         res.status(500).send()
-//     }
-
-// })
 
 router.post('/', async (req, res) => {
     try {
