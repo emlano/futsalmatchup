@@ -135,7 +135,6 @@ INSERT INTO players (username, password, phone_no, player_skill_rating, player_s
 ('Ederson', '$2b$10$KybkVidx50fSUBY3.Ahm0e0fEBUHeHeSRjKfVrpmWz85sBYSVEhMC', '1234567808', 3.99, 3.60, 3.80, 'Manchester', TRUE, 'Goalkeeper', 8),
 ('Luis Suarez', '$2b$10$4VdLpJ6qk6gdwGcCHKxzT.akGkc7pgKpuVFTjIPoclW9yHRqo6s6m', '1234567809', 0.86, 2.26, 3.06, 'Madrid', TRUE, 'Forward', 2);
 
-
 -- Insert 20 values into the 'managers' table
 INSERT INTO managers (username, password, phone_no, manager_position, stadium_id) VALUES
 ('Pep Guardiola', '$2b$10$smL7OBVr05nzZT9y.r867OXV2ZaPEUXkNNOMSw9jjZBMYqxQhSDsK', '1234567890', 'Head Coach', 8),
@@ -158,3 +157,16 @@ INSERT INTO managers (username, password, phone_no, manager_position, stadium_id
 ('Maurizio Sarri', '$2b$10$gxHQnG7jJM.flf9a6bAhPuQ8AUuaZx6Mmt06xtdOCt4a7uDn61MA.', '1234567807', 'Head Coach', 14),
 ('Lucien Favre', '$2b$10$XpCyel6r6TxujDgnxeXzl.P5JkjmpHRfRBSjy2yY0ByU.WDiOqIAq', '1234567808', 'Head Coach', 18),
 ('Jesse Marsch', '$2b$10$Q1zGBhvFUjF6nYBUNIvqKevPtmKDLT58uLcxlwwItpS6ZLcfE8Rvi', '1234567809', 'Head Coach', 7);
+
+-- Insert 10 values into the 'bookings' table
+INSERT INTO bookings (stadium_id, team_id, user_id, start_date_time, end_date_time) VALUES
+(1, 1, 1, '2024-03-01 10:00:00', '2024-03-01 11:00:00'),
+(2, 3, 4, '2024-03-02 15:00:00', '2024-03-02 17:00:00'),
+(3, 5, 8, '2024-03-03 09:00:00', '2024-03-03 10:30:00'),
+(4, 7, 10, '2024-03-04 14:00:00', '2024-03-04 15:30:00'),
+(5, 9, 12, '2024-03-05 18:00:00', '2024-03-05 19:30:00'),
+(6, 11, 14, '2024-03-06 12:00:00', '2024-03-06 13:30:00'),
+(7, 13, 16, '2024-03-07 16:00:00', '2024-03-07 17:30:00'),
+(8, 15, 18, '2024-03-08 11:00:00', '2024-03-08 12:30:00'),
+(9, 17, 20, '2024-03-09 13:00:00', '2024-03-09 14:30:00'),
+(10, 19, 2, '2024-03-10 19:00:00', '2024-03-10 20:30:00');
