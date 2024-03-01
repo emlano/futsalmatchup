@@ -2,7 +2,6 @@
 import pandas as pd
 import numpy as np
 from sklearn.metrics import silhouette_score, davies_bouldin_score, calinski_harabasz_score
-from sklearn.model_selection import train_test_split
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 from scipy.stats import zscore
@@ -73,6 +72,7 @@ for k in k_values:
     score = silhouette_score(X_normalized, kmeans.labels_)
     silhouette_scores.append(score)
 
+optimal_k_silhouette = k_values[np.argmax(silhouette_scores)]
 # Inertia
 # Gap statistics
 
@@ -123,9 +123,7 @@ for k in k_values:
 # plt.show()
 
 # Inspection of the clusters and their centroids
-optimal_k_elbow = 3
-kmeans_elbow = KMeans(n_clusters=optimal_k_elbow, random_state=42)
-kmeans_elbow.fit(X_normalized)
+
 
 # plt.scatter(X_normalized['age'], X_normalized['overall_rating'], c=kmeans_elbow.labels_, cmap='viridis')
 # plt.scatter(kmeans_elbow.cluster_centers_[:, 0], kmeans_elbow.cluster_centers_[:, 1], marker='x', s=100, c='red')
@@ -134,18 +132,16 @@ kmeans_elbow.fit(X_normalized)
 # plt.title('KMeans Clustering with Elbow Method (k=3)')
 # plt.show()
 
-# Create a table of methods and corresponding k values
-methods = ['Elbow Method', 'Silhouette Method', 'Davies-Bouldin Score', 'Calinski-Harabasz Score']
-k_values = [optimal_k_elbow, k_values[np.argmax(silhouette_scores)], k_values[np.argmin(davies_bouldin_scores)], k_values[np.argmax(calinski_harabasz_scores)]]
-
-table = pd.DataFrame({'Method': methods, 'Optimal k': k_values})
-print(table)
+# # Create a table of methods and corresponding k values
+# methods = ['Silhouette Method', 'Davies-Bouldin Score', 'Calinski-Harabasz Score']
+# k_values = [k_values[np.argmax(silhouette_scores)], k_values[np.argmin(davies_bouldin_scores)], k_values[np.argmax(calinski_harabasz_scores)]]
+#
+# table = pd.DataFrame({'Method': methods, 'Optimal k': k_values})
+# print(table)
 
 # Fit KMeans clustering with optimal k value
-kmeans = KMeans(n_clusters=2, random_state=42)
-# kmeans = KMeans(n_clusters=optimal_k_, random_state=42)
+kmeans = KMeans(n_clusters=optimal_k_silhouette, random_state=42)
 kmeans.fit(X_normalized)
-print(kmeans.fit(X_normalized))
 
 # Evaluation of the model
 # Test the model accuracy using testing metrics from the 30% chosen
@@ -195,4 +191,4 @@ nearest_cluster_players_sorted = nearest_cluster_players.sort_values(by='distanc
 
 # Display sorted recommendations
 print("Recommended players from the same nationality:")
-print(nearest_cluster_players_sorted[['name', 'age', 'overall_rating', 'nationality']])
+print(nearest_cluster_players_sorted[['name', 'age', 'overall_rating', 'nationality']].head(10))
