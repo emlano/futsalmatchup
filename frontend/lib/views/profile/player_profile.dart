@@ -11,11 +11,13 @@ class _PlayerProfileState extends State<PlayerProfile> {
   bool isAvailable = true;
   bool isEditing = false;
 
+  // Text editing controllers for player information
   TextEditingController playerNameController = TextEditingController();
   TextEditingController ageController = TextEditingController();
   TextEditingController cityNameController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
 
+// Initialize the text controllers with default values in the initState method
   @override
   void initState() {
     super.initState();
@@ -162,6 +164,7 @@ class _PlayerProfileState extends State<PlayerProfile> {
                           ),
 
                           SizedBox(width: 10),
+
                           // Switch
                           Transform.scale(
                             scale: 0.7,
