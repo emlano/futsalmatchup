@@ -1,6 +1,8 @@
 require("dotenv").config()
 const mysql = require("mysql2")
 const { exceptions } = require("winston")
+const DuplicateUsername = require("./errors/duplicateUser")
+const MissingArguments = require("./errors/missingArgs")
 
 const pool = mysql.createPool({
     host: process.env.HOST,
@@ -10,8 +12,12 @@ const pool = mysql.createPool({
 }).promise()
 
 async function getUsers() {
-    const [rows] = await pool.query("SELECT * FROM `players`;")
-    return rows
+    try {
+        const [rows] = await pool.query("SELECT * FROM `players`;")
+        return rows
+    } catch (err) {
+
+    }
 }
 
 async function getUserFromId(id) {
@@ -39,6 +45,12 @@ async function createNewUser(user) {
     const username = user.username
     const password = user.password
     const phoneNo = user.phone_no
+    
+    const [duplicates] = await pool.query(`
+    SELECT * FROM players WHERE username LIKE ?;
+    `, [username])
+    
+    if (!duplicates != []) throw new DuplicateUsername()
 
     const [result] = await pool.query(`
         INSERT INTO players (
@@ -66,18 +78,61 @@ async function updateUser(user, id) {
     const position = user.player_position
     const teamId = user.team_id
 
-    const [result] = await pool.query(`
-        UPDATE players
-        SET
-            player_skill_rating = ?,
-            player_sportsmanship_rating = ?,
-            player_overall_rating = ?,
-            player_city = ?,
-            player_availability = ?,
-            player_position = ?,
-            team_id = ?
-        WHERE user_id = ? ;`,
-        [skillRating, sportsmanship, overallRating, city, availability, position, teamId, id])
+    if (skillRating != null) {
+        result = await pool.query(`
+            UPDATE players
+            SET player_skill_rating = ?
+            WHERE user_id = ? ;`,
+        [skillRating, id])
+    }
+
+    if (sportsmanship != null) {
+        result = await pool.query(`
+            UPDATE players
+            SET player_sportsmanship_rating = ?
+            WHERE user_id = ? ;`,
+        [sportsmanship, id])
+    }
+
+    if (overallRating != null) {
+        result = await pool.query(`
+            UPDATE players
+            SET player_overall_rating = ?
+            WHERE user_id = ? ;`,
+        [overallRating, id])
+    }
+
+    if (city != null) {
+        result = await pool.query(`
+            UPDATE players
+            SET player_city = ?
+            WHERE user_id = ? ;`,
+        [city, id])
+    }
+
+    if (availability != null) {
+        result = await pool.query(`
+            UPDATE players
+            SET player_availability = ?
+            WHERE user_id = ? ;`,
+        [availability, id])
+    }
+
+    if (position != null) {
+        result = await pool.query(`
+            UPDATE players
+            SET player_position = ?
+            WHERE user_id = ? ;`,
+        [position, id])
+    }
+
+    if (teamId != null) {
+        result = await pool.query(`
+            UPDATE players
+            SET team_id = ?
+            WHERE user_id = ? ;`,
+        [teamId, id])
+    }
 
     return result
 }
