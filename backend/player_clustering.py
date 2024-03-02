@@ -147,19 +147,20 @@ kmeans.fit(X_normalized)
 # Test the model accuracy using testing metrics from the 30% chosen
 # Predict cluster labels for the test data
 kmeans_labels = kmeans.predict(X_normalized)
+print(kmeans_labels)
 
-# Evaluation metrics for testing
-# Silhouette Score
-silhouette_test = silhouette_score(X_normalized, kmeans_labels)
-print(f"Silhouette Score on Test Data: {silhouette_test}")
-
-# Davies-Bouldin Score
-davies_bouldin_test = davies_bouldin_score(X_normalized, kmeans_labels)
-print(f"Davies-Bouldin Score on Test Data: {davies_bouldin_test}")
-
-# Calinski-Harabasz Score
-calinski_harabasz_test = calinski_harabasz_score(X_normalized, kmeans_labels)
-print(f"Calinski-Harabasz Score on Test Data: {calinski_harabasz_test}")
+# # Evaluation metrics for testing
+# # Silhouette Score
+# silhouette_test = silhouette_score(X_normalized, kmeans_labels)
+# print(f"Silhouette Score on Test Data: {silhouette_test}")
+#
+# # Davies-Bouldin Score
+# davies_bouldin_test = davies_bouldin_score(X_normalized, kmeans_labels)
+# print(f"Davies-Bouldin Score on Test Data: {davies_bouldin_test}")
+#
+# # Calinski-Harabasz Score
+# calinski_harabasz_test = calinski_harabasz_score(X_normalized, kmeans_labels)
+# print(f"Calinski-Harabasz Score on Test Data: {calinski_harabasz_test}")
 
 # Testing with user inputs
 # Get input from the console
