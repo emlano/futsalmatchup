@@ -3,9 +3,7 @@ const router = express.Router()
 const db = require("../db")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
-const errors = require("../errors/duplicateUser")
 const DuplicateUsername = require("../errors/duplicateUser")
-const MissingArguments = require("../errors/missingArgs")
 
 // router.get('/', (req, res) => {      /// Unused since no auth needed / Could be used to send all users info to python server
 //     try {
@@ -88,9 +86,6 @@ router.put('/', authenticateToken, (req, res) => {
         db.updateUser(updatedUser, id).then(() => {
             res.send()
         })
-        .catch(err => {
-            if (err instanceof MissingArguments) res.status(400).send({ error: "Request missing data arguments" })
-        }) 
     
     } catch (err) {
         console.error("Error: " + err.message)

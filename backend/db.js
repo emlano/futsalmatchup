@@ -2,7 +2,6 @@ require("dotenv").config()
 const mysql = require("mysql2")
 const { exceptions } = require("winston")
 const DuplicateUsername = require("./errors/duplicateUser")
-const MissingArguments = require("./errors/missingArgs")
 
 const pool = mysql.createPool({
     host: process.env.HOST,
