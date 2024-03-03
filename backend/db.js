@@ -1,4 +1,3 @@
-require("dotenv").config()
 const mysql = require("mysql2")
 const { exceptions } = require("winston")
 const DuplicateUsername = require("./errors/duplicateUser")

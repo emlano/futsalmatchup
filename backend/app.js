@@ -1,3 +1,4 @@
+require("dotenv").config()
 const express = require("express")
 const userRouter = require('./routes/users')
 const bookingRouter = require('./routes/bookings'); 
@@ -13,7 +14,9 @@ app.use(express.json())
 app.use(logRequest)
 
 function logRequest(req, res, next) {
-    logger.info(`${req.method} - ${req.url}`)
+    const time = new Date()
+    const formattedTime = `${time.getHours()}h:${time.getMinutes()}m:${time.getSeconds()}s` 
+    console.log(`[ ${formattedTime} ] ${req.method} request at ${req.url} with body ${JSON.stringify(req.body)}`)
     next()
 }
 
