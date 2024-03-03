@@ -20,7 +20,16 @@ async function getUsers() {
 
 async function getUserFromId(id) {
     const [rows] = await pool.query(`
-        SELECT * 
+        SELECT
+            user_id,
+            username,
+            player_skill_rating,
+            player_sportsmanship_rating,
+            player_overall_rating,
+            player_city,
+            player_availability,
+            player_position,
+            team_id
         FROM players 
         WHERE user_id = ?;`,
         [id])
@@ -30,7 +39,16 @@ async function getUserFromId(id) {
 
 async function getUserFromName(name) {
     const [rows] = await pool.query(`
-        SELECT * 
+        SELECT
+            user_id,
+            username,
+            player_skill_rating,
+            player_sportsmanship_rating,
+            player_overall_rating,
+            player_city,
+            player_availability,
+            player_position,
+            team_id
         FROM players
         WHERE username 
         LIKE ?;`,
