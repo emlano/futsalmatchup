@@ -7,9 +7,9 @@ An app aimed primarily at Futsal players, who have trouble finding players or or
 
 ## Todo
 * 🟡 Frontend
-* 🔴 Backend
-* 🔴 Database
-* 🔴 Machine Learning Model
+* 🟢 Backend
+* 🟢 Database
+* 🟢 Machine Learning Model
 
 ## Features
 * Players profile
