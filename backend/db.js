@@ -139,6 +139,59 @@ async function deleteBooking(bookingId) {
     return result;
 }
 
+async function getStadiums() {
+    const [rows] = await pool.query("SELECT * FROM `stadiums`;");
+    return rows;
+}
+
+async function getStadiumFromId(id) {
+    const [rows] = await pool.query(`
+    SELECT * 
+    FROM stadiums 
+    WHERE stadium_id = ?;`,
+    [id]);
+
+    return rows;
+}
+
+async function createNewStadium(stadium) {
+    const { stadium_name, capacity, location } = stadium;
+    const [result] = await pool.query(`
+        INSERT INTO stadiums (stadium_name, capacity, location) 
+        VALUES (?, ?, ?);`,
+        [stadium_name, capacity, location]);
+
+    return result;
+}
+
+async function updateStadium(stadiumId, updatedStadium) {
+    const { stadium_name, capacity, location } = updatedStadium;
+
+    const [result] = await pool.query(`
+        UPDATE stadiums
+        SET
+            stadium_name = ?,
+            capacity = ?,
+            location = ?
+        WHERE stadium_id = ?;`,
+        [stadium_name, capacity, location, stadiumId]);
+
+    return result;
+}
+
+async function deleteStadium(stadiumId) {
+    const [result] = await pool.query(`
+        DELETE FROM stadiums
+        WHERE stadium_id = ?;`,
+        [stadiumId]);
+
+    return result;
+}
+
+module.exports = { 
+
+}
+
 module.exports = { 
     getUsers,
     getUserFromId,
@@ -150,5 +203,10 @@ module.exports = {
     getBookingFromId,
     createNewBooking,
     updateBooking,
-    deleteBooking
+    deleteBooking,
+    getStadiums,
+    getStadiumFromId,
+    createNewStadium,
+    updateStadium,
+    deleteStadium
 }
