@@ -57,6 +57,17 @@ async function getUserFromName(name) {
     return rows
 }
 
+async function getUserFromNameWithPassword(name) {
+    const [rows] = await pool.query(`
+        SELECT *
+        FROM players
+        WHERE username 
+        LIKE ?;`,
+        [name])
+
+    return rows
+}
+
 async function createNewUser(user) {
     const username = user.username
     const password = user.password
@@ -66,7 +77,9 @@ async function createNewUser(user) {
     SELECT * FROM players WHERE username LIKE ?;
     `, [username])
     
-    if (!duplicates != []) throw new DuplicateUsername()
+    if (duplicates.length != 0) { 
+        throw new DuplicateUsername()
+    } 
 
     const [result] = await pool.query(`
         INSERT INTO players (
@@ -81,8 +94,8 @@ async function createNewUser(user) {
         VALUES
         (?, ?, ?, ?, ?, ?, ?);`, 
         [username, password, phoneNo, 3.5, 3.5, 3.5, true])
-    
-    return getUserFromName(username)
+
+        return getUserFromNameWithPassword(username)
 }
 
 async function updateUser(user, id) {
@@ -214,6 +227,7 @@ module.exports = {
     getUsers,
     getUserFromId,
     getUserFromName,
+    getUserFromNameWithPassword,
     createNewUser,
     updateUser,
     deleteUser,
