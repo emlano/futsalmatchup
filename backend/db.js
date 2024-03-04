@@ -139,20 +139,6 @@ async function deleteBooking(bookingId) {
     return result;
 }
 
-module.exports = { 
-    getUsers,
-    getUserFromId,
-    getUserFromName,
-    createNewUser,
-    updateUser,
-    deleteUser,
-    getBookings,
-    getBookingFromId,
-    createNewBooking,
-    updateBooking,
-    deleteBooking
-}
-
 async function getStadiums() {
     const [rows] = await pool.query("SELECT * FROM `stadiums`;");
     return rows;
@@ -203,7 +189,21 @@ async function deleteStadium(stadiumId) {
 }
 
 module.exports = { 
-    // ... (previous exports)
+
+}
+
+module.exports = { 
+    getUsers,
+    getUserFromId,
+    getUserFromName,
+    createNewUser,
+    updateUser,
+    deleteUser,
+    getBookings,
+    getBookingFromId,
+    createNewBooking,
+    updateBooking,
+    deleteBooking,
     getStadiums,
     getStadiumFromId,
     createNewStadium,
