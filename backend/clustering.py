@@ -60,19 +60,27 @@ def recommend_players(kmeans, dataset, input_data, input_nationality, features):
     """Recommend players based on input data and nationality."""
 
     distances = distance.cdist([input_data], kmeans.cluster_centers_, 'euclidean')
+
+    # Get the nearest cluster index
     nearest_cluster_index = distances.argmin()
+
+    # Get indices of players within the nearest cluster and with the same nationality
     nearest_cluster_indices = np.where((kmeans.labels_ == nearest_cluster_index))[0]
     nationality_indices = np.where(dataset['nationality'] == input_nationality)[0]
     common_indices = np.intersect1d(nearest_cluster_indices, nationality_indices)
-    nearest_cluster_players = dataset.iloc[common_indices].copy()
 
-    # Calculate distances to input for each player and add it as a new column
-    distances_to_input = nearest_cluster_players.apply(
+    # Get recommended players
+    nearest_cluster_players = dataset.iloc[common_indices]
+
+    # Calculate the Euclidean distance for each player in the nearest cluster
+    nearest_cluster_players['distance'] = nearest_cluster_players.apply(
         lambda row: distance.euclidean(input_data, [row[feature] for feature in features]), axis=1)
-    nearest_cluster_players['distance'] = pd.Series(distances_to_input.values)
 
+    # Sort recommended players by distance (ascending order)
     nearest_cluster_players_sorted = nearest_cluster_players.sort_values(by='distance')
-    return nearest_cluster_players_sorted[['name', 'age', 'overall_rating', 'nationality']].head(10)
+
+    # Return sorted recommendations
+    return(nearest_cluster_players_sorted[['name', 'age', 'overall_rating', 'nationality']].head(10))
 
 # File path to the dataset
 file_path = "fifa_players.csv"
