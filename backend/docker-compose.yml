@@ -1,0 +1,43 @@
+version: '3'
+services:
+  mysqldb:
+    image: mariadb:11.3
+    container_name: futsalmatchupdb
+    volumes:
+      - ./FutsalMatchUp.sql:/docker-entrypoint-initdb.d/0_init.sql
+      - '$HOME/Documents/Work/5COSC021C Software Development Group Project/futsaldb:/var/lib/mysql'
+    environment:
+      MYSQL_DATABASE: futsalMatchUp
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+      SERVICE_TAG: dev
+      SERVICE_NAME: mysqldb
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+    networks:
+      - futsalbackend
+
+  nodeapp:
+    container_name: futsalmatchupserver
+    build: .
+    image: nodeapp:v1
+    ports:
+      - 3000:3000
+    environment:
+      HOST: mysqldb
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_DATABASE: futsalMatchUp
+    expose:
+      - 3000
+    depends_on:
+      - mysqldb
+    networks:
+      - futsalbackend
+      
+networks:
+  futsalbackend:
+    driver: bridge
