@@ -1,7 +1,7 @@
-class booking_history{
-  String courtName1;
-  String time;
-  String price1;
+class teams{
+  String team;
+  String playerCount;
+  String teamRating;
 
-  booking_history(this.courtName1,this.time,this.price1);
+  teams(this.team,this.playerCount,this.teamRating);
 }
