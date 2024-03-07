@@ -5,8 +5,7 @@ COPY ./package* /app
 
 RUN npm ci
 
-COPY ./**/*js /app
-COPY ./**/*sql /app
+COPY . /app
 
 EXPOSE 3000
 

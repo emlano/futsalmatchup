@@ -319,8 +319,6 @@ async function deleteStadium(stadiumId) {
   return result;
 }
 
-module.exports = {};
-
 module.exports = {
   getUsers,
   getUserFromId,
