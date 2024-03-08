@@ -111,3 +111,4 @@ input_data = [input_age, input_rating]
 recommended_players = recommend_players(kmeans, dataset, input_data, input_nationality, features)
 print("Recommended players from the same nationality:")
 print(recommended_players)
+
