@@ -1,16 +1,17 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db");
+const authenticateToken = require("../middleware/authenticateToken");
 
 // Get all teams
-router.get("/", (req, res) => {
+router.get("/", authenticateToken, (req, res) => {
   db.getTeams().then((teams) => {
     res.json(teams);
   });
 });
 
 // Get team by id
-router.get("/:id", (req, res) => {
+router.get("/:id", authenticateToken, (req, res) => {
   const id = req.params.id;
   db.getTeamFromId(id).then((team) => {
     if (team.length === 0) {
@@ -22,7 +23,7 @@ router.get("/:id", (req, res) => {
 });
 
 // Create a new team
-router.post("/", (req, res) => {
+router.post("/", authenticateToken, (req, res) => {
   const newTeam = req.body;
 
   db.createNewTeam(newTeam).then((result) => {
@@ -31,7 +32,7 @@ router.post("/", (req, res) => {
 });
 
 // Update team by id
-router.put("/:id", (req, res) => {
+router.put("/:id", authenticateToken, (req, res) => {
   const id = req.params.id;
   const updatedTeam = req.body;
 
@@ -45,7 +46,7 @@ router.put("/:id", (req, res) => {
 });
 
 // Delete team by id
-router.delete("/:id", (req, res) => {
+router.delete("/:id", authenticateToken, (req, res) => {
   const id = req.params.id;
 
   db.deleteTeam(id).then((result) => {

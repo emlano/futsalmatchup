@@ -11,7 +11,6 @@ class PlayerRatingPage extends StatefulWidget {
 class _PlayerRatingPageState extends State<PlayerRatingPage> {
   double skillLevelRating = 0;
   double sportsmanshipRating = 0;
-  double overallRating = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +23,7 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              // Player Information Card
               Container(
                 constraints: BoxConstraints(
                   maxWidth: 400,
@@ -36,17 +36,19 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        // Player details
                         Text(
                           'Player Name',
                           style: TextStyle(
                               fontSize: 25, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(height: 10),
+                        // Player image
                         Container(
                           width: 180,
                           height: 180,
                           child: Image.asset(
-                            'assets/profileImage.jpg',
+                            'assets/images/profileImage.jpg',
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -64,7 +66,7 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
                             // Skill Level
                             Text('Skill Level:',
                                 style: TextStyle(
-                                    fontSize: 17, fontWeight: FontWeight.bold)),
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
                             RatingBar.builder(
                               initialRating: skillLevelRating,
                               direction: Axis.horizontal,
@@ -90,7 +92,7 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
                             // Sportsmanship
                             Text('Sportsmanship:',
                                 style: TextStyle(
-                                    fontSize: 17, fontWeight: FontWeight.bold)),
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
                             RatingBar.builder(
                               initialRating: sportsmanshipRating,
                               direction: Axis.horizontal,
@@ -110,31 +112,6 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
                           ],
                         ),
                         SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            // Overall Rating
-                            Text('Overall Rating:',
-                                style: TextStyle(
-                                    fontSize: 17, fontWeight: FontWeight.bold)),
-                            RatingBar.builder(
-                              initialRating: overallRating,
-                              direction: Axis.horizontal,
-                              allowHalfRating: true,
-                              itemCount: 5,
-                              itemSize: 28,
-                              itemBuilder: (context, _) => Icon(
-                                Icons.star,
-                                color: Colors.yellow,
-                              ),
-                              onRatingUpdate: (rating) {
-                                setState(() {
-                                  overallRating = rating;
-                                });
-                              },
-                            ),
-                          ],
-                        ),
                       ],
                     ),
                   ),
