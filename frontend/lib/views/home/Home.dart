@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/views/home/upcoming_bookings.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:frontend/views/home/teams.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:frontend/models/header_app_bar.dart';
 import 'package:frontend/views/profile/player_profile.dart';
 import 'package:frontend/views/stadium/stadium_availability_page.dart';
 import 'package:frontend/views/team/create_team_page.dart';
@@ -303,7 +301,8 @@ class _HomeState extends State<Home> {
                                 // Add logic for accepting the request
                               },
                               style: ElevatedButton.styleFrom(
-                                primary: Colors.green[200], // Set the button color
+                                foregroundColor:
+                                    Colors.green[200], // Set the button color
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5),
                                 ),
@@ -316,7 +315,7 @@ class _HomeState extends State<Home> {
                                 // Add logic for declining the request
                               },
                               style: OutlinedButton.styleFrom(
-                                primary: Colors.red,
+                                foregroundColor: Colors.red,
                                 // Set the button border color
                                 side: BorderSide(color: Colors.red),
                                 // Set the button border
@@ -357,7 +356,8 @@ class _HomeState extends State<Home> {
                                 // Add logic for accepting the request
                               },
                               style: ElevatedButton.styleFrom(
-                                primary: Colors.green[200], // Set the button color
+                                foregroundColor:
+                                    Colors.green[200], // Set the button color
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5),
                                 ),
@@ -370,7 +370,7 @@ class _HomeState extends State<Home> {
                                 // Add logic for declining the request
                               },
                               style: OutlinedButton.styleFrom(
-                                primary: Colors.red,
+                                foregroundColor: Colors.red,
                                 // Set the button border color
                                 side: BorderSide(color: Colors.red),
                                 // Set the button border

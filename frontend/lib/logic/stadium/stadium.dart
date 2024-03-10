@@ -1,51 +1,24 @@
 import 'package:frontend/logic/stadium/booking.dart';
 
 class Stadium {
-  late final String id;
+  late final int id;
   late String name;
   late String location;
-  late List<Booking> schedule;
 
-  Stadium(this.id, this.location, this.name, this.schedule);
-
-  Stadium.create(this.id, this.location, this.name)
-      : schedule = List.empty(growable: true);
+  Stadium(this.id, this.location, this.name);
 
   Stadium.fromMap(Map<String, dynamic> map) {
-    id = map['id']!;
-    name = map['name']!;
-    location = map['location']!;
-
-    List<Map<String, Map<String, int>>> bookingList = map['schedule'];
-
-    schedule =
-        bookingList.map((e) => Booking.fromMap(e)).toList(growable: true);
+    id = map['stadium_id']!;
+    name = map['stadium_name']!;
+    location = map['stadium_location']!;
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
-      'name': name,
-      'location': location,
-      'schedule': schedule.map((e) => e.toMap()).toList()
+      'stadium_id': id,
+      'stadium_name': name,
+      'stadium_location': location,
     };
-  }
-
-  addBooking(DateTime start, DateTime end) {
-    // TODO Change this to Booking maybe
-    Booking booking = Booking(start, end);
-
-    if (_clashes(booking)) return; // TODO: Handle this better
-
-    schedule.add(booking);
-  }
-
-  _clashes(Booking booking) {
-    for (final i in schedule) {
-      if (i.overlaps(booking)) return true;
-    }
-
-    return false;
   }
 
   @override

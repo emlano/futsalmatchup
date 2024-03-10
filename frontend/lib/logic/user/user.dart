@@ -1,7 +1,7 @@
 abstract class User {
   // More instance variables may be added as requirements grow
-  final String userId;
-  String username;
+  final int userId;
+  final String username;
   String password;
   String phoneNo;
 
@@ -14,23 +14,23 @@ abstract class User {
   );
 
   // Named constructor
-  User.fromMap(Map<String, dynamic> map)
-      : userId = map['userId'],
+  User.fromJSON(Map<String, dynamic> map)
+      : userId = map['user_id'],
         username = map['username'],
         password = map['password'],
-        phoneNo = map['phoneNo'];
+        phoneNo = map['phone_no'];
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJSON() {
     return {
-      'userId': userId,
+      'user_id': userId,
       'username': username,
       'password': password,
-      'phoneNo': phoneNo
+      'phone_no': phoneNo
     };
   }
 
   @override
-  String toString() => toMap().toString();
+  String toString() => toJSON().toString();
 
   @override
   bool operator ==(Object other) =>

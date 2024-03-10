@@ -3,32 +3,19 @@ import 'package:frontend/logic/user/player.dart';
 class Team {
   late final String id;
   String name = "";
-  List<Player> members = [];
 
-  Team(this.id, this.name, this.members);
-  Team.create(this.id, this.name) : members = List.empty(growable: true);
+  Team(this.id, this.name);
 
   Team.fromMap(Map<String, dynamic> map) {
-    id = map['id']!;
-    name = map['name']!;
-
-    List<Map<String, dynamic>> playerList = map['members']!;
-
-    members = playerList.map((e) => Player.fromMap(e)).toList(growable: true);
+    id = map['team_id']!;
+    name = map['team_name']!;
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
-      'name': name,
-      'members': members.map((e) => e.toMap()).toList()
+      'team_id': id,
+      'team_name': name
     };
-  }
-
-  addPlayer(Player player) {
-    if (members.length == 6) return; // TODO handle this
-    if (members.contains(player)) return; // TODO handle this
-    members.add(player);
   }
 
   @override
