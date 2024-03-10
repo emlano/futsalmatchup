@@ -25,13 +25,12 @@ void main() {
   });
 
   testWidgets('PlayerProfile Edit Button Test', (WidgetTester tester) async {
-    // Trigger a frame.
     await tester.pumpWidget(MaterialApp(home: PlayerProfile()));
 
     // To Verify the initial state is not in editing mode.
     expect(find.text('Save'), findsNothing);
 
-    // Tap on the "Edit" button.
+    // Click on the "Edit" button.
     await tester.tap(find.byType(OutlinedButton));
     await tester.pump();
 
@@ -39,7 +38,6 @@ void main() {
     expect(find.text('Save'), findsOneWidget);
   });
   testWidgets('PlayerProfile Switch Test', (WidgetTester tester) async {
-    // Trigger a frame.
     await tester.pumpWidget(MaterialApp(home: PlayerProfile()));
 
     // To Verify the initial state is true.
@@ -55,10 +53,8 @@ void main() {
   });
   testWidgets('PlayerProfile Player Information Section Test',
       (WidgetTester tester) async {
-    // Trigger a frame.
     await tester.pumpWidget(MaterialApp(home: PlayerProfile()));
 
-    // Scroll down to the Player Information section.
     await tester.drag(
         find.byType(SingleChildScrollView), const Offset(0, -300));
     await tester.pumpAndSettle();
