@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:frontend/models/header_app_bar.dart';
 import 'package:frontend/models/textboxes/text_input_box.dart';
 
@@ -87,7 +88,7 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
                   ),
                   const SizedBox(height: 20),
                   TextInputBox(
-                    controller: playerNameController,
+                    // controller: playerNameController TODO,
                     name: "Player Name",
                     desc: "Enter player name",
                     icon: Icons.person,
@@ -96,7 +97,7 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
                   ),
                   const SizedBox(height: 20),
                   TextInputBox(
-                    controller: cityController,
+                    // controller: cityController TODO,
                     name: "City",
                     desc: "Enter city",
                     icon: Icons.location_city,

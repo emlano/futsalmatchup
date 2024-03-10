@@ -3,6 +3,9 @@ import 'package:frontend/models/filled_button.dart';
 import 'package:frontend/models/textboxes/password_input_box.dart';
 import 'package:frontend/models/textboxes//phone_input_box.dart';
 import 'package:frontend/models/textboxes/text_input_box.dart';
+import 'package:frontend/providers/auth_provider.dart';
+import 'package:frontend/providers/login_form_provider.dart';
+import 'package:provider/provider.dart';
 
 class SigninForm extends StatefulWidget {
   const SigninForm({super.key});
@@ -14,52 +17,44 @@ class SigninForm extends StatefulWidget {
 }
 
 class SigninFormState extends State<SigninForm> {
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController phoneNoController = TextEditingController();
-  final _fromKey = GlobalKey<FormState>();
-
-  @override
-  void dispose() {
-    usernameController.dispose();
-    passwordController.dispose();
-    phoneNoController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
+    final loginProvider = Provider.of<LoginFormProvider>(context);
+    final authProvider = Provider.of<AuthProvider>(context);
+
     return Form(
-        key: _fromKey,
         child: Column(
           children: [
             PhoneInputBox(
-              controller: phoneNoController,
+              onChanged: (value) => {
+                loginProvider.setPhoneNo(value),
+                loginProvider.removeError()
+              },
+              validator: (value) => loginProvider.userFieldError,
             ),
             TextInputBox(
-              controller: usernameController,
               name: "Username",
               desc: "Enter your username",
               icon: Icons.account_circle,
               length: 15,
+              onChanged: (value) => {
+                loginProvider.setName(value),
+                loginProvider.removeError()
+              },
+              validator: (value) => loginProvider.passFieldError,
             ),
             PasswordInputBox(
-              controller: passwordController,
+              onChanged: (value) => {
+                loginProvider.setPassword(value),
+                loginProvider.removeError()
+              },
             ),
             const SizedBox(height: 10),
             FilledIconButton(
               text: "Sign in",
               icon: Icons.group_add,
-              onPressed: () {
-                if (_fromKey.currentState!.validate()) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Processing!"))
-                  );
-                  print("Username : ${usernameController.text}");
-                  print("Password : ${passwordController.text}");
-                  print("Phone no. : ${phoneNoController.text}");
-                }
-              }
+              onPressed: () {}
             )
           ],
         )
