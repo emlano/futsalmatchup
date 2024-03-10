@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const userRouter = require("./routes/users");
 const bookingRouter = require("./routes/bookings");
+<<<<<<< HEAD
 const teamsRouter = require("./routes/teams");
 const { createLogger, transports } = require("winston");
 
@@ -32,4 +33,16 @@ app.use("/users", userRouter);
 app.use("/bookings", bookingRouter);
 app.use("/teams", teamsRouter);
 
+=======
+const { logRequest } = require("./middleware/logger");
+
+const app = express();
+
+app.use(express.json());
+app.use(logRequest);
+
+app.use("/users", userRouter);
+app.use("/bookings", bookingRouter);
+
+>>>>>>> d22f4d41e411c35d0173da51d7aba5cbffbe4007
 module.exports = app;

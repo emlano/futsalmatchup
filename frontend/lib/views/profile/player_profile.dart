@@ -17,7 +17,7 @@ class _PlayerProfileState extends State<PlayerProfile> {
   TextEditingController cityNameController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
 
-// Initialize the text controllers with default values in the initState method
+  // Text controllers i nitialized with default values in the initState method
   @override
   void initState() {
     super.initState();
@@ -117,7 +117,8 @@ class _PlayerProfileState extends State<PlayerProfile> {
 
                                 Row(
                                   children: [
-                                    Image.asset('assets/jersey.png',
+                                    // Player jersey image
+                                    Image.asset('assets/images/jersey.png',
                                         width: 35, height: 35),
                                     SizedBox(width: 10),
                                     Column(
@@ -147,7 +148,7 @@ class _PlayerProfileState extends State<PlayerProfile> {
                             child: CircleAvatar(
                               radius: 63,
                               backgroundImage:
-                                  AssetImage('assets/profileImage.jpg'),
+                                  AssetImage('assets/images/profileImage.jpg'),
                             ),
                           ),
                         ],
