@@ -83,5 +83,3 @@ describe("POST /teams/create", () => {
     expect(res.body.accessToken).toBeDefined();
   });
 });
-
-// Additional tests for teams can be added similarly for login, update, and delete endpoints.

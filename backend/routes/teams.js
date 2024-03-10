@@ -12,8 +12,12 @@ router.get("/", (req, res) => {
 // Get team by id
 router.get("/:id", (req, res) => {
   const id = req.params.id;
-  db.getTeamFromId(id).then((teams) => {
-    res.json(teams);
+  db.getTeamFromId(id).then((team) => {
+    if (team.length === 0) {
+      res.status(404).json({ error: "Team not found" });
+    } else {
+      res.json(team);
+    }
   });
 });
 
@@ -32,7 +36,11 @@ router.put("/:id", (req, res) => {
   const updatedTeam = req.body;
 
   db.updateTeam(id, updatedTeam).then((result) => {
-    res.json(result);
+    if (result.affectedRows === 0) {
+      res.status(404).json({ error: "Team not found" });
+    } else {
+      res.json(result);
+    }
   });
 });
 
@@ -41,7 +49,11 @@ router.delete("/:id", (req, res) => {
   const id = req.params.id;
 
   db.deleteTeam(id).then((result) => {
-    res.json(result);
+    if (result.affectedRows === 0) {
+      res.status(404).json({ error: "Team not found" });
+    } else {
+      res.json(result);
+    }
   });
 });
 
