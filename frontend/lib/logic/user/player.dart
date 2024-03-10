@@ -4,6 +4,7 @@ class Player extends User {
   double skill;
   double sportsmanship;
   double overall;
+  double timesReviewed;
   String city;
   bool availability;
 
@@ -15,6 +16,7 @@ class Player extends User {
       this.skill,
       this.sportsmanship,
       this.overall,
+      this.timesReviewed,
       this.city,
       this.availability)
       : super(userId, username, password, phoneNo);
@@ -23,6 +25,7 @@ class Player extends User {
   Player.fromJSON(Map<String, dynamic> json)
       : sportsmanship = json['player_sportsmanship_rating'],
         overall = json['player_overall_rating'],
+        timesReviewed = json['player_times_rated'],
         city = json['player_city'],
         availability = json['player_availability'],
         skill = json['player_skill_rating'],
@@ -35,6 +38,7 @@ class Player extends User {
       'skill': skill,
       'player_sportsmanship_rating': sportsmanship,
       'player_overall_rating': overall,
+      'player_times_rated': timesReviewed,
       'player_city': city,
       'player_availability': availability
     });
