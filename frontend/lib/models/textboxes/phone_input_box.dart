@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class PhoneInputBox extends StatelessWidget {
-  final TextEditingController controller;
+  final ValueChanged<String>? onChanged;
+  final String? Function(String?)? validator;
 
-  const PhoneInputBox({super.key, required this.controller});
+  const PhoneInputBox({super.key, this.onChanged, this.validator});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,6 @@ class PhoneInputBox extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 40),
       child: TextFormField(
         scrollPadding: const EdgeInsets.only(bottom: 100),
-        controller: controller,
         decoration: const InputDecoration(
           icon: Icon(
             Icons.phone,
@@ -25,25 +25,8 @@ class PhoneInputBox extends StatelessWidget {
           isDense: true
         ),
         keyboardType: TextInputType.phone,
-        validator: (content) {
-          if (content == null || content.isEmpty) {
-            return "Required field!";
-          }
-
-          if (content.contains(RegExp(r'^[0-9]+$')) == false) {
-            return "Only numbers can be entered!";
-          }
-
-          if (10 != content.length) {
-            return "Must contain 10 digits!";
-          }
-
-          if (content.startsWith(RegExp('07')) == false) {
-            return "Must start with '07'!";
-          }
-
-          return null;
-        },
+        onChanged: onChanged,
+        validator: validator,
         maxLengthEnforcement: MaxLengthEnforcement.none,
       ),
     );
