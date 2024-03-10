@@ -14,13 +14,13 @@ abstract class User {
   );
 
   // Named constructor
-  User.fromJSON(Map<String, dynamic> map)
-      : userId = map['user_id'],
-        username = map['username'],
-        password = map['password'],
-        phoneNo = map['phone_no'];
+  User.fromJson(Map<String, dynamic> json)
+      : userId = json['user_id'],
+        username = json['username'],
+        password = json['password'],
+        phoneNo = json['phone_no'];
 
-  Map<String, dynamic> toJSON() {
+  Map<String, dynamic> toJson() {
     return {
       'user_id': userId,
       'username': username,
@@ -30,7 +30,7 @@ abstract class User {
   }
 
   @override
-  String toString() => toJSON().toString();
+  String toString() => toJson().toString();
 
   @override
   bool operator ==(Object other) =>
