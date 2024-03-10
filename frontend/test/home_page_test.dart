@@ -11,6 +11,5 @@ void main() {
     expect(find.text('joined teams'), findsOneWidget);
     expect(find.text('invite requests'), findsOneWidget);
     expect(find.text('menu to lead to other pages'), findsOneWidget);
-
   });
 }

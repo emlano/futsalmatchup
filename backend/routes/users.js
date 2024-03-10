@@ -22,8 +22,8 @@ router.get("/", authenticateToken, (req, res) => {
 
 router.get("/other", authenticateToken, async (req, res) => {
   try {
-    if (!req.body || Object.keys(req.body).length == 0) {
-      res.status(400).send({ error: "required arguments not given" });
+    if (!req.body || Object.keys(req.body).length != 1) {
+      res.status(400).send({ error: "missing arguments or malformed request" });
       return;
     }
 
