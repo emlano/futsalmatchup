@@ -27,12 +27,13 @@ List<teams> teamss = [
 
 Widget historyTemplate(teams items) {
   return Container(
-    height: 200,
-    width: 200,
+    height: 205,
+    width: 205,
     child: Card(
       elevation: 4.0,
       color: Colors.grey[450],
-      child: Column(children: [
+      child: Column(
+          children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(5),
           child: Image.asset(
@@ -229,48 +230,49 @@ class _HomeState extends State<Home> {
             child: Text("UPCOMING BOOKINGS",
                 style: TextStyle(
                   fontFamily: "inter",
-                  fontSize: 13,
+                  fontSize: 14,
                   fontWeight: FontWeight.bold,
                 )),
           ),
+          SizedBox(height: 10),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
               children: bookings.map((item) => bookingTemplate(item)).toList(),
             ),
           ),
-          SizedBox(height: 13),
+          SizedBox(height: 15),
           Container(
             alignment: Alignment.center,
             child: Text(
               "YOUR TEAMS",
               style: TextStyle(
-                fontSize: 13,
+                fontSize: 14,
                 color: Colors.black,
                 fontFamily: "inter",
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
-          SizedBox(height: 5),
+          SizedBox(height: 10),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
               children: teamss.map((items) => historyTemplate(items)).toList(),
             ),
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 15),
           Container(
             alignment: Alignment.center,
             child: Text(
               "INVITES",
               style: TextStyle(
-                  fontSize: 13,
+                  fontSize: 14,
                   fontFamily: 'inter',
                   fontWeight: FontWeight.bold),
             ),
           ),
-          SizedBox(height: 5),
+          SizedBox(height: 10),
           SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
@@ -284,7 +286,7 @@ class _HomeState extends State<Home> {
                       color: Colors.grey[200],
                     ),
                     margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    padding: EdgeInsets.fromLTRB(7, 0, 0, 0),
+                    padding: EdgeInsets.fromLTRB(7, 2, 7, 2),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -385,8 +387,64 @@ class _HomeState extends State<Home> {
                       ],
                     ),
                   ),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(
+                        color: Colors.black,
+                      ),
+                      color: Colors.grey[200],
+                    ),
+                    margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    padding: EdgeInsets.fromLTRB(7, 0, 0, 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Player 220 invited you",
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                        Column(
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {
+                                // Add logic for accepting the request
+                              },
+                              style: ElevatedButton.styleFrom(
+                                foregroundColor:
+                                Colors.green[200], // Set the button color
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                              ),
+                              child: Text('Accept'),
+                            ),
+                            // Add some spacing between buttons
+                            OutlinedButton(
+                              onPressed: () {
+                                // Add logic for declining the request
+                              },
+                              style: OutlinedButton.styleFrom(
+                                foregroundColor: Colors.red,
+                                // Set the button border color
+                                side: BorderSide(color: Colors.red),
+                                // Set the button border
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                              ),
+                              child: Text('Decline'),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
-              )),
+              ),
+          ),
         ],
       ),
     );
