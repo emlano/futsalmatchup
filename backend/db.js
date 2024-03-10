@@ -15,13 +15,9 @@ async function getUsers() {
   try {
     const [rows] = await pool.query("SELECT * FROM `players`;");
     return rows;
-<<<<<<< HEAD
-  } catch (err) {}
-=======
   } catch (err) {
     console.error(err);
   }
->>>>>>> d22f4d41e411c35d0173da51d7aba5cbffbe4007
 }
 
 async function getUserFromId(id) {
@@ -264,8 +260,8 @@ async function deleteBooking(bookingId) {
   );
 
   return result;
-<<<<<<< HEAD
 }
+
 async function getTeams() {
   const [rows] = await pool.query("SELECT * FROM `teams`;");
   return rows;
@@ -325,8 +321,6 @@ async function deleteTeam(teamId) {
   );
 
   return result;
-=======
->>>>>>> d22f4d41e411c35d0173da51d7aba5cbffbe4007
 }
 
 async function getStadiums() {
@@ -386,11 +380,6 @@ async function deleteStadium(stadiumId) {
   return result;
 }
 
-<<<<<<< HEAD
-module.exports = {};
-
-=======
->>>>>>> d22f4d41e411c35d0173da51d7aba5cbffbe4007
 module.exports = {
   getUsers,
   getUserFromId,
@@ -404,14 +393,11 @@ module.exports = {
   createNewBooking,
   updateBooking,
   deleteBooking,
-<<<<<<< HEAD
   getTeams,
   getTeamFromId,
   createNewTeam,
   updateTeam,
   deleteTeam,
-=======
->>>>>>> d22f4d41e411c35d0173da51d7aba5cbffbe4007
   getStadiums,
   getStadiumFromId,
   createNewStadium,
