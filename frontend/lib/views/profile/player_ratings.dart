@@ -23,6 +23,7 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              // Player Information Card
               Container(
                 constraints: BoxConstraints(
                   maxWidth: 400,
@@ -35,12 +36,14 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        // Player details
                         Text(
                           'Player Name',
                           style: TextStyle(
                               fontSize: 25, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(height: 10),
+                        // Player image
                         Container(
                           width: 180,
                           height: 180,
