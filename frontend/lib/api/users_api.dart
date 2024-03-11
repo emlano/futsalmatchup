@@ -16,13 +16,10 @@ class UserApi {
 
     if (res.statusCode == 401) {
       throw BadLoginInfoException();
-
     } else if (res.statusCode == 404) {
       throw UserNotFoundException();
-
     } else if (res.statusCode == 400) {
       throw BadRequestException();
-
     } else if (res.statusCode == 500) {
       throw ServerErrorException();
     }
@@ -37,10 +34,8 @@ class UserApi {
 
     if (res.statusCode == 400) {
       throw BadRequestException();
-
     } else if (res.statusCode == 409) {
       throw UsernameAlreadyTaken();
-
     } else if (res.statusCode == 500) {
       throw ServerErrorException();
     }
@@ -50,24 +45,20 @@ class UserApi {
 }
 
 Future<String> getUserTokenWhenLogin(String username, String password) async {
-  Map<String, String> player = {
-    "username": username,
-    "password": password
-  };
+  Map<String, String> player = {"username": username, "password": password};
 
-    Response res = await UserApi.loginUser(player);
-    String token = jsonDecode(res.body)['accessToken']!;
-    return token;
+  Response res = await UserApi.loginUser(player);
+  String token = jsonDecode(res.body)['accessToken']!;
+  return token;
 }
 
-Future<String> getUserTokenWhenSignup(String username, String password, String phoneNo) async {
+Future<String> getUserTokenWhenSignup(
+    String username, String password, String phoneNo) async {
   Map<String, String> player = {
     "username": username,
     "password": password,
     "phone_no": phoneNo
   };
-
-  print("hello");
 
   Response res = await UserApi.signupUser(player);
   String token = jsonDecode(res.body)['accessToken']!;
