@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class UserRepository {
-  // Adjust the base API URL according to your backend
   final String baseUrl = 'http://localhost:3000';
 
   Future<void> updateUserProfile(
@@ -30,5 +29,3 @@ class UserRepository {
     }
   }
 }
-//After you get nadil's code
-// use that to connect this page (user's login/sign in details be saved as the player name, phone number)
