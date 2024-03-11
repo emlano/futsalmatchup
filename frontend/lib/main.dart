@@ -5,6 +5,7 @@ import 'package:frontend/views/home/Home.dart';
 import 'package:frontend/views/login/login_page.dart';
 import 'package:frontend/views/login/login_screen.dart';
 import 'package:frontend/views/login/signin_page.dart';
+import 'package:frontend/views/profile/player_profile.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -32,7 +33,8 @@ class MyApp extends StatelessWidget {
         routes: {
           "/login": (context) => const LoginPage(),
           "/signup": (context) => const SigninPage(),
-          "/home": (context) => const Home()
+          "/home": (context) => const Home(),
+          "/profile": (context) => PlayerProfile(),
         },
       ),
     );

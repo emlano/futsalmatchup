@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:frontend/errors/bad_request.dart';
 import 'package:frontend/errors/login_info_incorrect.dart';
@@ -10,7 +8,6 @@ import 'package:frontend/models/textboxes/password_input_box.dart';
 import 'package:frontend/models/textboxes/text_input_box.dart';
 import 'package:frontend/providers/auth_provider.dart';
 import 'package:frontend/providers/login_form_provider.dart';
-import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
 import '../../api/users_api.dart';
@@ -60,7 +57,7 @@ class LoginFormState extends State<LoginForm> {
                   if (loginProvider.userFieldError == null &&
                       loginProvider.passFieldError == null) {
                     try {
-                      String token = await getUserToken(
+                      String token = await getUserTokenWhenLogin(
                           loginProvider.name!, loginProvider.password!);
                       authProvider.setToken(token);
                       Navigator.pushNamed(context, "/home");

@@ -51,7 +51,7 @@ void setErrors(String? user, String? pass, String? phone) {
     }
 
     if (_name!.length < 3) {
-      _userfieldError = "Min length for field is 3!";
+      _userfieldError = "Minimum length for field is 3!";
       return false;
     }
 
@@ -82,14 +82,19 @@ void setErrors(String? user, String? pass, String? phone) {
     return true;
   }
 
-  bool validatePhone(String? phone) {
+  bool validatePhone() {
     if (_phoneNo == null || _phoneNo!.isEmpty) {
-      _passfieldError = "Field cannot be empty!";
+      _phonefieldError = "Field cannot be empty!";
+      return false;
+    }
+
+    if (!isNumeric(_phoneNo!)) {
+      _phonefieldError = "Can only contain numbers!";
       return false;
     }
 
     if (_phoneNo!.length != 10) {
-      _passfieldError = "Phone number must be of length 10!";
+      _phonefieldError = "Phone number must be of length 10!";
       return false;
     }
 
@@ -97,4 +102,4 @@ void setErrors(String? user, String? pass, String? phone) {
   }
 }
 
-
+bool isNumeric(String str) => num.tryParse(str) != null;

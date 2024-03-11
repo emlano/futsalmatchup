@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/providers/auth_provider.dart';
+import 'package:provider/provider.dart';
 import 'player_ratings.dart';
 import 'package:frontend/models/header_app_bar.dart';
 
