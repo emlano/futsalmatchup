@@ -33,7 +33,7 @@ class LoginFormState extends State<LoginForm> {
     final authProvider = Provider.of<AuthProvider>(context);
 
     return Form(
-      key: _formKey,
+        key: _formKey,
         child: Column(
           children: [
             TextInputBox(
@@ -45,9 +45,8 @@ class LoginFormState extends State<LoginForm> {
               length: 15,
             ),
             PasswordInputBox(
-              onChanged: (value) => loginProvider.setPassword(value),
-              validator: (value) => loginProvider.passFieldError
-            ),
+                onChanged: (value) => loginProvider.setPassword(value),
+                validator: (value) => loginProvider.passFieldError),
             const SizedBox(height: 15),
             FilledIconButton(
                 text: "Log in",
@@ -57,8 +56,9 @@ class LoginFormState extends State<LoginForm> {
 
                   loginProvider.validateName();
                   loginProvider.validatePass();
-                  
-                  if (loginProvider.userFieldError == null && loginProvider.passFieldError == null) {
+
+                  if (loginProvider.userFieldError == null &&
+                      loginProvider.passFieldError == null) {
                     try {
                       String token = await getUserToken(
                           loginProvider.name!, loginProvider.password!);
