@@ -1,5 +1,3 @@
-import 'package:frontend/logic/user/player.dart';
-
 class Team {
   late final String id;
   String name = "";
@@ -12,10 +10,7 @@ class Team {
   }
 
   Map<String, dynamic> toMap() {
-    return {
-      'team_id': id,
-      'team_name': name
-    };
+    return {'team_id': id, 'team_name': name};
   }
 
   @override

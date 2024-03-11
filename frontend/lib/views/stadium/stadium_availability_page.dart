@@ -79,7 +79,7 @@ class _StadiumAvailabilityPageState extends State<StadiumAvailabilityPage> {
             ),
             const SizedBox(height: 16),
             TextInputBox(
-              controller: searchController,
+              // controller: searchController TODO,
               name: "Stadium",
               desc: "Enter stadium name",
               icon: Icons.stadium,

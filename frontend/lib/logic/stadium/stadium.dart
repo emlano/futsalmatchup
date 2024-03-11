@@ -1,5 +1,3 @@
-import 'package:frontend/logic/stadium/booking.dart';
-
 class Stadium {
   late final int id;
   late String name;
