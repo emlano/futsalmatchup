@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'player_ratings.dart';
 import 'package:frontend/models/header_app_bar.dart';
+import 'package:frontend/logic/profile/user_repository.dart';
 
 class PlayerProfile extends StatefulWidget {
   @override
@@ -10,12 +11,32 @@ class PlayerProfile extends StatefulWidget {
 class _PlayerProfileState extends State<PlayerProfile> {
   bool isAvailable = true;
   bool isEditing = false;
+  final UserRepository userRepository =
+      UserRepository(); // Instantiate UserRepository
 
   // Text editing controllers for player information
   TextEditingController playerNameController = TextEditingController();
   TextEditingController ageController = TextEditingController();
   TextEditingController cityNameController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
+
+  // Function to update the user profile
+  Future<void> updateUserProfile() async {
+    final userId = 'user123'; // Replace with the actual user ID
+    final profileData = {
+      'name': playerNameController.text,
+      'age': int.parse(ageController.text),
+      'city': cityNameController.text,
+      'phoneNumber': phoneNumberController.text,
+    };
+
+    try {
+      await userRepository.updateUserProfile(userId, profileData);
+    } catch (e) {
+      // Handle any errors during the update
+      print('Error updating user profile: $e');
+    }
+  }
 
   // Text controllers i nitialized with default values in the initState method
   @override
@@ -186,6 +207,10 @@ class _PlayerProfileState extends State<PlayerProfile> {
                           setState(() {
                             isEditing = !isEditing;
                           });
+                          // Save the changes to the backend when in editing mode
+                          if (isEditing) {
+                            updateUserProfile();
+                          }
                         },
                         style: OutlinedButton.styleFrom(
                           side: BorderSide(color: Colors.teal, width: 2.0),
