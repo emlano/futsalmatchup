@@ -30,6 +30,7 @@ async function getUserFromId(id) {
             player_skill_rating,
             player_sportsmanship_rating,
             player_overall_rating,
+            player_rated_times,
             player_city,
             player_availability,
             player_position,
@@ -51,6 +52,7 @@ async function getUserFromName(name) {
             player_skill_rating,
             player_sportsmanship_rating,
             player_overall_rating,
+            player_rated_times,
             player_city,
             player_availability,
             player_position,
@@ -102,11 +104,12 @@ async function createNewUser(user) {
             player_skill_rating, 
             player_sportsmanship_rating, 
             player_overall_rating,
+            player_rated_times,
             player_availability
         )
         VALUES
-        (?, ?, ?, ?, ?, ?, ?);`,
-    [username, password, phoneNo, 3.5, 3.5, 3.5, true]
+        (?, ?, ?, ?, ?, ?, ?, ?);`,
+    [username, password, phoneNo, 3.5, 3.5, 3.5, 1, true]
   );
 
   return getUserFromNameWithPassword(username);
@@ -116,6 +119,7 @@ async function updateUser(user, id) {
   const skillRating = user.player_skill_rating;
   const sportsmanship = user.player_sportsmanship_rating;
   const overallRating = user.player_overall_rating;
+  const ratedTimes = user.player_rated_times;
   const city = user.player_city;
   const availability = user.player_availability;
   const position = user.player_position;
@@ -148,6 +152,16 @@ async function updateUser(user, id) {
             SET player_overall_rating = ?
             WHERE user_id = ? ;`,
       [overallRating, id]
+    );
+  }
+
+  if (ratedTimes != null) {
+    result = await pool.query(
+      `
+            UPDATE players
+            SET player_rated_times = ?
+            WHERE user_id = ? ;`,
+      [ratedTimes, id]
     );
   }
 

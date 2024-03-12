@@ -70,7 +70,7 @@ router.post("/signup", async (req, res) => {
     const result = await db.createNewUser(candidate);
     const [user] = result;
     const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: 60 * 60,
+      expiresIn: '30d',
     });
     res.send({ accessToken: accessToken });
   } catch (err) {
@@ -105,7 +105,7 @@ router.post("/login", async (req, res) => {
       (await bcrypt.compare(candidate.username, hashedUsername))
     ) {
       const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
-        expiresIn: 60 * 60,
+        expiresIn: '30d',
       });
       res.send({ accessToken: accessToken });
     } else {

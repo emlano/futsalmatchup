@@ -4,7 +4,7 @@ services:
     image: mariadb:11.3
     container_name: futsalmatchupdb
     volumes:
-      - ./FutsalMatchUp.sql:/docker-entrypoint-initdb.d/0_init.sql
+      - ./config/FutsalMatchUp.sql:/docker-entrypoint-initdb.d/0_init.sql
       - $HOME/Database/futsaldb:/var/lib/mysql
     environment:
       MYSQL_DATABASE: futsalMatchUp
