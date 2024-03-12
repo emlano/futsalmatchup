@@ -11,9 +11,26 @@ const pool = mysql
   })
   .promise();
 
-async function getUsers() {
+async function getAllUsersExcept(user_id) {
   try {
-    const [rows] = await pool.query("SELECT * FROM `players`;");
+    const [rows] = await pool.query(
+      `
+      SELECT 
+        user_id,
+        username,
+        player_skill_rating,
+        player_sportsmanship_rating,
+        player_overall_rating,
+        player_rated_times,
+        player_city,
+        player_availability,
+        player_position,
+        team_id
+      FROM players
+      WHERE user_id != ?;
+    `,
+      [user_id]
+    );
     return rows;
   } catch (err) {
     console.error(err);
@@ -23,19 +40,19 @@ async function getUsers() {
 async function getUserFromId(id) {
   const [rows] = await pool.query(
     `
-        SELECT
-            user_id,
-            username,
-            player_skill_rating,
-            player_sportsmanship_rating,
-            player_overall_rating,
-            player_rated_times,
-            player_city,
-            player_availability,
-            player_position,
-            team_id
-        FROM players 
-        WHERE user_id = ?;`,
+      SELECT
+          user_id,
+          username,
+          player_skill_rating,
+          player_sportsmanship_rating,
+          player_overall_rating,
+          player_rated_times,
+          player_city,
+          player_availability,
+          player_position,
+          team_id
+      FROM players 
+      WHERE user_id = ?;`,
     [id]
   );
 
