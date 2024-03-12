@@ -5,7 +5,7 @@ services:
     container_name: futsalmatchupdb
     volumes:
       - ./config/FutsalMatchUp.sql:/docker-entrypoint-initdb.d/0_init.sql
-      - $HOME/Database/futsaldb:/var/lib/mysql
+      - ./../../futsaldb:/var/lib/mysql
     environment:
       MYSQL_DATABASE: futsalMatchUp
       MYSQL_USER: 'admin'
