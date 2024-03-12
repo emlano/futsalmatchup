@@ -1,7 +1,11 @@
 const mysql = require("mysql2");
 const { exceptions } = require("winston");
 const DuplicateUsername = require("./errors/duplicateUser");
+<<<<<<< HEAD
 const DuplicateTeamName = require("./errors/duplicateTeams");
+=======
+const DuplicateTeamName = require("../errors/duplicateTeams");
+>>>>>>> b24f2f4 (changes made in backend but not completed)
 
 const pool = mysql
   .createPool({
@@ -325,8 +329,13 @@ async function createNewTeam(team) {
   return result;
 }
 
+<<<<<<< HEAD
 async function updateTeam(team_id, updatedTeam) {
   const { teamId, team_name } = updatedTeam;
+=======
+async function updateTeam(ID, updatedTeam) {
+  const { team_name } = updatedTeam;
+>>>>>>> b24f2f4 (changes made in backend but not completed)
 
   const [result] = await pool.query(
     `
@@ -336,7 +345,11 @@ async function updateTeam(team_id, updatedTeam) {
             team_name = ?,
             
         WHERE team_id = ?;`,
+<<<<<<< HEAD
     [teamId, team_name]
+=======
+    [team_name, ID]
+>>>>>>> b24f2f4 (changes made in backend but not completed)
   );
 
   return result;
