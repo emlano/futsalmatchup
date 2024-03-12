@@ -412,7 +412,7 @@ async function deleteStadium(stadiumId) {
 }
 
 module.exports = {
-  getUsers,
+  getAllUsersExcept,
   getUserFromId,
   getUserFromName,
   getUserFromNameWithPassword,
