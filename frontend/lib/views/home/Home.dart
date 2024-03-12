@@ -5,7 +5,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:frontend/views/profile/player_profile.dart';
 import 'package:frontend/views/stadium/stadium_availability_page.dart';
 import 'package:frontend/views/team/create_team_page.dart';
-
+import 'package:frontend/views/team/player_search_page.dart';
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -220,6 +220,25 @@ class _HomeState extends State<Home> {
             )
           ],
         ),
+        ListTile(
+          title: Row(
+            children: [
+              Icon(
+                Icons.search,
+                color: Colors.grey,
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Text('Search a Player'),
+            ],
+          ),
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => PlayerSearchPage()));
+          },
+        ),
+      ),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
