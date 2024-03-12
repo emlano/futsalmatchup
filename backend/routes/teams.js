@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db");
-const authenticateToken = require("../middleware/authenticateToken");
+const { authenticateToken } = require("../middleware/auth");
+const DuplicateTeamName = require("../errors/duplicateTeams");
 
 // Get all teams
 router.get("/", authenticateToken, (req, res) => {
