@@ -217,28 +217,29 @@ class _HomeState extends State<Home> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => CreateTeamPage()));
               },
-            )
+            ),
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(
+                    Icons.search,
+                    color: Colors.grey,
+                    size: 30,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text('Search a Player'),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => PlayerSearchPage()));
+              },
+            ),
           ],
         ),
-        ListTile(
-          title: Row(
-            children: [
-              Icon(
-                Icons.search,
-                color: Colors.grey,
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Text('Search a Player'),
-            ],
-          ),
-          onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => PlayerSearchPage()));
-          },
-        ),
-      ),
+
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -403,7 +404,8 @@ class _HomeState extends State<Home> {
                             ),
                           ],
                         ),
-                      ],
+
+    ],
                     ),
                   ),
                   Container(
