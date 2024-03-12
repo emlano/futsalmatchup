@@ -117,6 +117,30 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.post("/recommend", authenticateToken, async (req, res) => {
+  try {
+    const [target] = await db.getUserFromId(req.user_id);
+    const payload = await db.getAllUsersExcept(req.user_id);
+
+    payload.unshift(target);
+
+    const response = await fetch('http://localhost:8080', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    })
+
+    const result = JSON.parse(await response.text());
+    res.status(405).send(result);
+  
+  } catch (e) {
+    res.status(500).send({ error: "internal server error" });
+    console.error(e);
+  }
+})
+
 router.put("/", authenticateToken, async (req, res) => {
   try {
     if (!req.body || Object.keys(req.body).length != 1) {
