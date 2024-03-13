@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/models/header_app_bar.dart';
 import 'package:frontend/providers/auth_provider.dart'; // Import AuthProvider
 import 'package:frontend/logic/profile/user_repository.dart';
+import 'package:provider/provider.dart';
 
 class PlayerProfile extends StatefulWidget {
   @override
@@ -13,7 +14,6 @@ class _PlayerProfileState extends State<PlayerProfile> {
   bool isEditing = false;
   final UserRepository userRepository =
       UserRepository(); // Instantiate UserRepository
-  AuthProvider authProvider = AuthProvider(); // Instantiate AuthProvider
 
   // Text editing controllers for player information
   TextEditingController playerNameController = TextEditingController();
@@ -22,7 +22,7 @@ class _PlayerProfileState extends State<PlayerProfile> {
   TextEditingController phoneNumberController = TextEditingController();
 
   // Function to update the user profile
-  Future<void> updateUserProfile() async {
+  Future<void> updateUserProfile(String? token) async {
     try {
       final profileData = {
         'name': playerNameController.text,
@@ -32,7 +32,7 @@ class _PlayerProfileState extends State<PlayerProfile> {
       };
 
       // Update user profile using UserRepository
-      await userRepository.updateUserProfile(authProvider, profileData);
+      await userRepository.updateUserProfile(token, profileData);
       // Show success message or perform any other actions upon successful update
       print('User profile updated successfully');
     } catch (e) {
@@ -43,10 +43,10 @@ class _PlayerProfileState extends State<PlayerProfile> {
   }
 
 // Function to fetch user profile from backend
-  Future<void> fetchUserProfile() async {
+  Future<void> fetchUserProfile(String? token) async {
     try {
       // Fetch user profile data from the backend using UserRepository
-      final userProfile = await userRepository.getUserProfile(authProvider);
+      final userProfile = await userRepository.getUserProfile(token);
       // Update text controllers with fetched user profile data
       setState(() {
         playerNameController.text = userProfile['name'];
@@ -74,6 +74,8 @@ class _PlayerProfileState extends State<PlayerProfile> {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+
     return Scaffold(
       appBar: TitleAppBar(),
       body: SingleChildScrollView(
@@ -232,7 +234,7 @@ class _PlayerProfileState extends State<PlayerProfile> {
                           });
                           // Save the changes to the backend when in editing mode
                           if (isEditing) {
-                            updateUserProfile();
+                            updateUserProfile(authProvider.token);
                           }
                         },
                         style: OutlinedButton.styleFrom(

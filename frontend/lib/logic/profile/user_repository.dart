@@ -7,10 +7,8 @@ class UserRepository {
 
   // Method to update the user profile on the backend
   Future<void> updateUserProfile(
-      AuthProvider authProvider, Map<String, dynamic> profileData) async {
+      String? token, Map<String, dynamic> profileData) async {
     try {
-      final String? token =
-          authProvider.token; // Get authentication token from AuthProvider
       if (token != null) {
         final response = await http.put(
           Uri.parse('$baseUrl/users'),
@@ -51,10 +49,8 @@ class UserRepository {
   }
 
 // Method to fetch user profile from backend
-  Future<Map<String, dynamic>> getUserProfile(AuthProvider authProvider) async {
+  Future<Map<String, dynamic>> getUserProfile(String? token) async {
     try {
-      final String? token =
-          authProvider.token; // Get authentication token from AuthProvider
       if (token != null) {
         final response = await http.get(
           Uri.parse('$baseUrl/users/profile'),
