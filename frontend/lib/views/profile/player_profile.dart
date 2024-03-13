@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:frontend/models/header_app_bar.dart';
+import 'package:frontend/providers/auth_provider.dart'; // Import AuthProvider
 import 'package:frontend/logic/profile/user_repository.dart';
 
 class PlayerProfile extends StatefulWidget {
@@ -13,7 +13,7 @@ class _PlayerProfileState extends State<PlayerProfile> {
   bool isEditing = false;
   final UserRepository userRepository =
       UserRepository(); // Instantiate UserRepository
-  String? authToken; // Store the user's authentication token
+  AuthProvider authProvider = AuthProvider(); // Instantiate AuthProvider
 
   // Text editing controllers for player information
   TextEditingController playerNameController = TextEditingController();
@@ -24,22 +24,40 @@ class _PlayerProfileState extends State<PlayerProfile> {
   // Function to update the user profile
   Future<void> updateUserProfile() async {
     try {
-      if (authToken != null) {
-        final profileData = {
-          'name': playerNameController.text,
-          'age': int.parse(ageController.text),
-          'city': cityNameController.text,
-          'phoneNumber': phoneNumberController.text,
-        };
+      final profileData = {
+        'name': playerNameController.text,
+        'age': int.parse(ageController.text),
+        'city': cityNameController.text,
+        'phoneNumber': phoneNumberController.text,
+      };
 
-        await userRepository.updateUserProfile(authToken!, profileData);
-      } else {
-        // Handle error where authToken is not available
-        print('Authentication token not available.');
-      }
+      // Update user profile using UserRepository
+      await userRepository.updateUserProfile(authProvider, profileData);
+      // Show success message or perform any other actions upon successful update
+      print('User profile updated successfully');
     } catch (e) {
       // Handle any errors during the update
       print('Error updating user profile: $e');
+      // Show error message to the user or perform any other error handling actions
+    }
+  }
+
+// Function to fetch user profile from backend
+  Future<void> fetchUserProfile() async {
+    try {
+      // Fetch user profile data from the backend using UserRepository
+      final userProfile = await userRepository.getUserProfile(authProvider);
+      // Update text controllers with fetched user profile data
+      setState(() {
+        playerNameController.text = userProfile['name'];
+        ageController.text = userProfile['age'].toString();
+        cityNameController.text = userProfile['city'];
+        phoneNumberController.text = userProfile['phoneNumber'];
+      });
+    } catch (e) {
+      // Handle any errors during fetching user profile
+      print('Error fetching user profile: $e');
+      // Show error message to the user or perform any other error handling actions
     }
   }
 
