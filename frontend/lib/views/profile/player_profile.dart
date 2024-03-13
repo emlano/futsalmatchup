@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'player_ratings.dart';
+
 import 'package:frontend/models/header_app_bar.dart';
 import 'package:frontend/logic/profile/user_repository.dart';
 
@@ -13,6 +13,7 @@ class _PlayerProfileState extends State<PlayerProfile> {
   bool isEditing = false;
   final UserRepository userRepository =
       UserRepository(); // Instantiate UserRepository
+  String? authToken; // Store the user's authentication token
 
   // Text editing controllers for player information
   TextEditingController playerNameController = TextEditingController();
@@ -22,16 +23,20 @@ class _PlayerProfileState extends State<PlayerProfile> {
 
   // Function to update the user profile
   Future<void> updateUserProfile() async {
-    final userId = 'user123'; // Replace with the actual user ID
-    final profileData = {
-      'name': playerNameController.text,
-      'age': int.parse(ageController.text),
-      'city': cityNameController.text,
-      'phoneNumber': phoneNumberController.text,
-    };
-
     try {
-      await userRepository.updateUserProfile(userId, profileData);
+      if (authToken != null) {
+        final profileData = {
+          'name': playerNameController.text,
+          'age': int.parse(ageController.text),
+          'city': cityNameController.text,
+          'phoneNumber': phoneNumberController.text,
+        };
+
+        await userRepository.updateUserProfile(authToken!, profileData);
+      } else {
+        // Handle error where authToken is not available
+        print('Authentication token not available.');
+      }
     } catch (e) {
       // Handle any errors during the update
       print('Error updating user profile: $e');
@@ -227,44 +232,6 @@ class _PlayerProfileState extends State<PlayerProfile> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                        ),
-                      ),
-
-                      // "Rate a player" button
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Column(
-                          children: [
-                            ElevatedButton(
-                              onPressed: () {
-                                // Navigates to the PlayerRatingPage
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => PlayerRatingPage(),
-                                  ),
-                                );
-                              },
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.teal),
-                                foregroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.white),
-                                fixedSize: MaterialStateProperty.all<Size>(
-                                    Size(150, 5)),
-                              ),
-                              child: Text(
-                                'Rate a player',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 1),
-                          ],
                         ),
                       ),
                     ],
