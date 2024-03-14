@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:frontend/models/header_app_bar.dart';
 import 'package:frontend/providers/auth_provider.dart'; // Import AuthProvider
 import 'package:frontend/logic/profile/user_repository.dart';
-import 'package:provider/provider.dart';
 
 class PlayerProfile extends StatefulWidget {
   @override
@@ -14,6 +13,7 @@ class _PlayerProfileState extends State<PlayerProfile> {
   bool isEditing = false;
   final UserRepository userRepository =
       UserRepository(); // Instantiate UserRepository
+  AuthProvider authProvider = AuthProvider(); // Instantiate AuthProvider
 
   // Text editing controllers for player information
   TextEditingController playerNameController = TextEditingController();
@@ -104,8 +104,6 @@ class _PlayerProfileState extends State<PlayerProfile> {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
-
     return Scaffold(
       appBar: TitleAppBar(),
       body: SingleChildScrollView(
