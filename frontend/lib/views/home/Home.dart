@@ -241,232 +241,234 @@ class _HomeState extends State<Home> {
         ),
 
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(height: 15),
-          Container(
-            alignment: Alignment.center,
-            child: Text("UPCOMING BOOKINGS",
-                style: TextStyle(
-                  fontFamily: "inter",
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                )),
-          ),
-          SizedBox(height: 10),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: bookings.map((item) => bookingTemplate(item)).toList(),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 15),
+            Container(
+              alignment: Alignment.center,
+              child: Text("UPCOMING BOOKINGS",
+                  style: TextStyle(
+                    fontFamily: "inter",
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  )),
             ),
-          ),
-          SizedBox(height: 15),
-          Container(
-            alignment: Alignment.center,
-            child: Text(
-              "YOUR TEAMS",
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.black,
-                fontFamily: "inter",
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          SizedBox(height: 10),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: teamss.map((items) => historyTemplate(items)).toList(),
-            ),
-          ),
-          SizedBox(height: 15),
-          Container(
-            alignment: Alignment.center,
-            child: Text(
-              "INVITES",
-              style: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'inter',
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-          SizedBox(height: 10),
-          SingleChildScrollView(
+            SizedBox(height: 10),
+            SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(
-                        color: Colors.black,
-                      ),
-                      color: Colors.grey[200],
-                    ),
-                    margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    padding: EdgeInsets.fromLTRB(7, 2, 7, 2),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Player 465 invited you",
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                        Column(
-                          children: [
-                            ElevatedButton(
-                              onPressed: () {
-                                // Add logic for accepting the request
-                              },
-                              style: ElevatedButton.styleFrom(
-                                foregroundColor:
-                                    Colors.green[200], // Set the button color
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                              ),
-                              child: Text('Accept'),
-                            ),
-                            // Add some spacing between buttons
-                            OutlinedButton(
-                              onPressed: () {
-                                // Add logic for declining the request
-                              },
-                              style: OutlinedButton.styleFrom(
-                                foregroundColor: Colors.red,
-                                // Set the button border color
-                                side: BorderSide(color: Colors.red),
-                                // Set the button border
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                              ),
-                              child: Text('Decline'),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(
-                        color: Colors.black,
-                      ),
-                      color: Colors.grey[200],
-                    ),
-                    margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    padding: EdgeInsets.fromLTRB(7, 0, 0, 0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Player 112 invited you",
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                        Column(
-                          children: [
-                            ElevatedButton(
-                              onPressed: () {
-                                // Add logic for accepting the request
-                              },
-                              style: ElevatedButton.styleFrom(
-                                foregroundColor:
-                                    Colors.green[200], // Set the button color
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                              ),
-                              child: Text('Accept'),
-                            ),
-                            // Add some spacing between buttons
-                            OutlinedButton(
-                              onPressed: () {
-                                // Add logic for declining the request
-                              },
-                              style: OutlinedButton.styleFrom(
-                                foregroundColor: Colors.red,
-                                // Set the button border color
-                                side: BorderSide(color: Colors.red),
-                                // Set the button border
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                              ),
-                              child: Text('Decline'),
-                            ),
-                          ],
-                        ),
-
-    ],
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(
-                        color: Colors.black,
-                      ),
-                      color: Colors.grey[200],
-                    ),
-                    margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    padding: EdgeInsets.fromLTRB(7, 0, 0, 0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Player 220 invited you",
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                        Column(
-                          children: [
-                            ElevatedButton(
-                              onPressed: () {
-                                // Add logic for accepting the request
-                              },
-                              style: ElevatedButton.styleFrom(
-                                foregroundColor:
-                                Colors.green[200], // Set the button color
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                              ),
-                              child: Text('Accept'),
-                            ),
-                            // Add some spacing between buttons
-                            OutlinedButton(
-                              onPressed: () {
-                                // Add logic for declining the request
-                              },
-                              style: OutlinedButton.styleFrom(
-                                foregroundColor: Colors.red,
-                                // Set the button border color
-                                side: BorderSide(color: Colors.red),
-                                // Set the button border
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                              ),
-                              child: Text('Decline'),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                children: bookings.map((item) => bookingTemplate(item)).toList(),
               ),
-          ),
-        ],
+            ),
+            SizedBox(height: 15),
+            Container(
+              alignment: Alignment.center,
+              child: Text(
+                "YOUR TEAMS",
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.black,
+                  fontFamily: "inter",
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            SizedBox(height: 10),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: teamss.map((items) => historyTemplate(items)).toList(),
+              ),
+            ),
+            SizedBox(height: 15),
+            Container(
+              alignment: Alignment.center,
+              child: Text(
+                "INVITES",
+                style: TextStyle(
+                    fontSize: 14,
+                    fontFamily: 'inter',
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            SizedBox(height: 10),
+            SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(
+                          color: Colors.black,
+                        ),
+                        color: Colors.grey[200],
+                      ),
+                      margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                      padding: EdgeInsets.fromLTRB(7, 2, 7, 2),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Player 465 invited you",
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
+                          ),
+                          Column(
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  // Add logic for accepting the request
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  foregroundColor:
+                                      Colors.green[200], // Set the button color
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                ),
+                                child: Text('Accept'),
+                              ),
+                              // Add some spacing between buttons
+                              OutlinedButton(
+                                onPressed: () {
+                                  // Add logic for declining the request
+                                },
+                                style: OutlinedButton.styleFrom(
+                                  foregroundColor: Colors.red,
+                                  // Set the button border color
+                                  side: BorderSide(color: Colors.red),
+                                  // Set the button border
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                ),
+                                child: Text('Decline'),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(
+                          color: Colors.black,
+                        ),
+                        color: Colors.grey[200],
+                      ),
+                      margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                      padding: EdgeInsets.fromLTRB(7, 0, 0, 0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Player 112 invited you",
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
+                          ),
+                          Column(
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  // Add logic for accepting the request
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  foregroundColor:
+                                      Colors.green[200], // Set the button color
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                ),
+                                child: Text('Accept'),
+                              ),
+                              // Add some spacing between buttons
+                              OutlinedButton(
+                                onPressed: () {
+                                  // Add logic for declining the request
+                                },
+                                style: OutlinedButton.styleFrom(
+                                  foregroundColor: Colors.red,
+                                  // Set the button border color
+                                  side: BorderSide(color: Colors.red),
+                                  // Set the button border
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                ),
+                                child: Text('Decline'),
+                              ),
+                            ],
+                          ),
+        
+            ],
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(
+                          color: Colors.black,
+                        ),
+                        color: Colors.grey[200],
+                      ),
+                      margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                      padding: EdgeInsets.fromLTRB(7, 0, 0, 0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Player 220 invited you",
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
+                          ),
+                          Column(
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  // Add logic for accepting the request
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  foregroundColor:
+                                  Colors.green[200], // Set the button color
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                ),
+                                child: Text('Accept'),
+                              ),
+                              // Add some spacing between buttons
+                              OutlinedButton(
+                                onPressed: () {
+                                  // Add logic for declining the request
+                                },
+                                style: OutlinedButton.styleFrom(
+                                  foregroundColor: Colors.red,
+                                  // Set the button border color
+                                  side: BorderSide(color: Colors.red),
+                                  // Set the button border
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                ),
+                                child: Text('Decline'),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+            ),
+          ],
+        ),
       ),
     );
   }
