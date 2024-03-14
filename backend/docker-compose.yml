@@ -22,11 +22,7 @@ services:
 
   nodeapp:
     container_name: futsalmatchupserver
-<<<<<<< HEAD
     build: ./node/
-=======
-    build: .
->>>>>>> ba354d3 (Merge backend folder structure from main branch)
     image: nodeapp:v1
     ports:
       - 3000:3000
