@@ -1,7 +1,7 @@
 const mysql = require("mysql2");
 const { exceptions } = require("winston");
 const DuplicateUsername = require("./errors/duplicateUser");
-const DuplicateTeamName = require("../errors/duplicateTeams");
+const DuplicateTeamName = require("./errors/duplicateTeams");
 
 const pool = mysql
   .createPool({
@@ -294,17 +294,18 @@ async function createNewTeam(team) {
   return result;
 }
 
-async function updateTeam(ID, updatedTeam) {
-  const { team_name } = updatedTeam;
+async function updateTeam(team_id, updatedTeam) {
+  const { teamId, team_name } = updatedTeam;
 
   const [result] = await pool.query(
     `
         UPDATE teams
         SET
+            teamID=?,
             team_name = ?,
             
         WHERE team_id = ?;`,
-    [team_name, ID]
+    [teamId, team_name]
   );
 
   return result;
