@@ -5,9 +5,12 @@ const jwt = require("jsonwebtoken");
 <<<<<<< HEAD
 =======
 
+<<<<<<< HEAD
 const DuplicateTeamName = require("../errors/duplicateTeams");
 >>>>>>> b24f2f4 (changes made in backend but not completed)
 
+=======
+>>>>>>> 8523146 (changes on node testing)
 jest.mock("../db", () => ({
   getTeams: jest.fn(),
   getTeamFromId: jest.fn(),
@@ -17,6 +20,9 @@ jest.mock("../db", () => ({
 }));
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8523146 (changes on node testing)
 describe("GET /teams/", () => {
   test("should return all teams", async () => {
     const mockTeams = [
@@ -72,6 +78,7 @@ describe("PUT /teams/:id", () => {
       .send({ id: 1, name: "Updated Team 1" });
 
     expect(response.status).toBe(500);
+<<<<<<< HEAD
 =======
 describe("GET /teams", () => {
   // ... similar tests for fetching teams
@@ -132,5 +139,7 @@ describe("POST /teams/", () => {
     expect(res.status).toBe(200);
     expect(res.body.accessToken).toBeDefined();
 >>>>>>> b24f2f4 (changes made in backend but not completed)
+=======
+>>>>>>> 8523146 (changes on node testing)
   });
 });

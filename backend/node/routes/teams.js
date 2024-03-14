@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db");
 <<<<<<< HEAD
+<<<<<<< HEAD
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const DuplicateTeamName = require("../errors/duplicateTeams");
@@ -10,6 +11,12 @@ const { authenticateToken } = require("../middleware/auth");
 const { authenticateToken } = require("../middleware/auth");
 const DuplicateTeamName = require("../errors/duplicateTeams");
 >>>>>>> b24f2f4 (changes made in backend but not completed)
+=======
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const DuplicateTeamName = require("../errors/duplicateTeams");
+const { authenticateToken } = require("../middleware/auth");
+>>>>>>> 8523146 (changes on node testing)
 
 router.get("/", (req, res) => {
   try {
