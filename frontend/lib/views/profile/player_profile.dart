@@ -22,6 +22,7 @@ class _PlayerProfileState extends State<PlayerProfile> {
   TextEditingController phoneNumberController = TextEditingController();
 
   // Function to update the user profile
+
   Future<void> updateUserProfile(String? token) async {
     try {
       final profileData = {
