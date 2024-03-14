@@ -29,68 +29,68 @@ class SigninFormState extends State<SigninForm> {
     final authProvider = Provider.of<AuthProvider>(context);
 
     return Form(
-      key: _formKey,
+        key: _formKey,
         child: Column(
-      children: [
-        PhoneInputBox(
-          onChanged: (value) => loginProvider.setPhoneNo(value),
-          validator: (value) => loginProvider.phoneFieldError,
-        ),
-        TextInputBox(
-          name: "Username",
-          desc: "Enter your username",
-          icon: Icons.account_circle,
-          length: 15,
-          onChanged: (value) => loginProvider.setName(value),
-          validator: (value) => loginProvider.userFieldError,
-        ),
-        PasswordInputBox(
-          onChanged: (value) => loginProvider.setPassword(value),
-          validator: (value) => loginProvider.passFieldError,
-        ),
-        const SizedBox(height: 10),
-        FilledIconButton(
-            text: "Sign in", icon: Icons.group_add, onPressed: () async {
-              loginProvider.removeError();
+          children: [
+            PhoneInputBox(
+              onChanged: (value) => loginProvider.setPhoneNo(value),
+              validator: (value) => loginProvider.phoneFieldError,
+            ),
+            TextInputBox(
+              name: "Username",
+              desc: "Enter your username",
+              icon: Icons.account_circle,
+              length: 15,
+              onChanged: (value) => loginProvider.setName(value),
+              validator: (value) => loginProvider.userFieldError,
+            ),
+            PasswordInputBox(
+              onChanged: (value) => loginProvider.setPassword(value),
+              validator: (value) => loginProvider.passFieldError,
+            ),
+            const SizedBox(height: 10),
+            FilledIconButton(
+                text: "Sign in",
+                icon: Icons.group_add,
+                onPressed: () async {
+                  loginProvider.removeError();
 
-              loginProvider.validatePhone();
-              loginProvider.validateName();
-              loginProvider.validatePass();
+                  loginProvider.validatePhone();
+                  loginProvider.validateName();
+                  loginProvider.validatePass();
 
-              if (
-                loginProvider.phoneFieldError == null &&
-                loginProvider.userFieldError == null &&
-                loginProvider.passFieldError == null) {
-                try {
-                  String token = await getUserTokenWhenSignup(
-                      loginProvider.name!,
-                      loginProvider.password!,
-                      loginProvider.phoneNo!
-                  );
+                  if (loginProvider.phoneFieldError == null &&
+                      loginProvider.userFieldError == null &&
+                      loginProvider.passFieldError == null) {
+                    try {
+                      String token = await getUserTokenWhenSignup(
+                          loginProvider.name!,
+                          loginProvider.password!,
+                          loginProvider.phoneNo!);
 
-                  authProvider.setToken(token);
-                  Navigator.pushNamed(context, '/home');
-                } catch (e) {
-                  if (e is BadRequestException) {
-                    const String err = "Bad request!";
-                    loginProvider.setErrors(err, err, err);
+                      authProvider.setToken(token);
+                      Navigator.pushNamed(context, '/profile');
+                    } catch (e) {
+                      if (e is BadRequestException) {
+                        const String err = "Bad request!";
+                        loginProvider.setErrors(err, err, err);
+                      }
+
+                      if (e is UsernameAlreadyTaken) {
+                        const String err = "Username already taken!";
+                        loginProvider.setErrors(err, null, null);
+                      }
+
+                      if (e is ServerErrorException) {
+                        const String err = "Internal server error!";
+                        loginProvider.setErrors(err, err, err);
+                      }
+                    }
                   }
 
-                  if (e is UsernameAlreadyTaken) {
-                    const String err = "Username already taken!";
-                    loginProvider.setErrors(err, null, null);
-                  }
-
-                  if (e is ServerErrorException) {
-                    const String err = "Internal server error!";
-                    loginProvider.setErrors(err, err, err);
-                  }
-                }
-              }
-
-              _formKey.currentState!.validate();
-        })
-      ],
-    ));
+                  _formKey.currentState!.validate();
+                })
+          ],
+        ));
   }
 }
