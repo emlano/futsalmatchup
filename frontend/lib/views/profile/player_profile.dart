@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/models/header_app_bar.dart';
 import 'package:frontend/providers/auth_provider.dart'; // Import AuthProvider
 import 'package:frontend/logic/profile/user_repository.dart';
+import 'package:provider/provider.dart';
 
 class PlayerProfile extends StatefulWidget {
   @override
@@ -13,7 +14,8 @@ class _PlayerProfileState extends State<PlayerProfile> {
   bool isEditing = false;
   final UserRepository userRepository =
       UserRepository(); // Instantiate UserRepository
-  AuthProvider authProvider = AuthProvider(); // Instantiate AuthProvider
+  //AuthProvider authProvider = AuthProvider(); // Instantiate AuthProvider // wrong- reomve
+  //get the authToken using context
 
   // Text editing controllers for player information
   TextEditingController playerNameController = TextEditingController();
@@ -89,21 +91,25 @@ class _PlayerProfileState extends State<PlayerProfile> {
     }
   }
 
-  // Text controllers i nitialized with default values in the initState method
-  @override
-  void initState() {
-    super.initState();
-    // Fetch user profile data when the widget is initialized
-    fetchUserProfile(authProvider.token);
+  // Text controllers initialized with default values in the initState method
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   // Fetch user profile data when the widget is initialized
+  //   fetchUserProfile(authProvider.token); //check this
 
-    playerNameController.text = 'Player Name';
-    ageController.text = '25';
-    cityNameController.text = 'City name';
-    phoneNumberController.text = '123-456-7890';
-  }
+  //   playerNameController.text = 'Player Name'; // defaults back?
+  //   ageController.text = '25';
+  //   cityNameController.text = 'City name';
+  //   phoneNumberController.text = '123-456-7890';
+  // }
 
   @override
   Widget build(BuildContext context) {
+    // import provider
+    final authProvider = Provider.of<AuthProvider>(context); // add this
+    final String? token = authProvider.token; //keep this
+    fetchUserProfile(token);
     return Scaffold(
       appBar: TitleAppBar(),
       body: SingleChildScrollView(
