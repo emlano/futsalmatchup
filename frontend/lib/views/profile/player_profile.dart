@@ -16,6 +16,7 @@ class _PlayerProfileState extends State<PlayerProfile> {
       UserRepository(); // Instantiate UserRepository
   //AuthProvider authProvider = AuthProvider(); // Instantiate AuthProvider // wrong- reomve
   //get the authToken using context
+  String? token;
 
   // Text editing controllers for player information
   TextEditingController playerNameController = TextEditingController();
@@ -25,13 +26,13 @@ class _PlayerProfileState extends State<PlayerProfile> {
 
   // Function to update the user profile
 
-  Future<void> updateUserProfile(String? token) async {
+  Future<void> updateUserProfile() async {
     try {
       final profileData = {
-        'name': playerNameController.text,
+        'username': playerNameController.text,
         'age': int.parse(ageController.text),
-        'city': cityNameController.text,
-        'phoneNumber': phoneNumberController.text,
+        'player_city': cityNameController.text,
+        'phone_no': phoneNumberController.text,
       };
 
       // Update user profile using UserRepository
@@ -59,9 +60,9 @@ class _PlayerProfileState extends State<PlayerProfile> {
   }
 
   // Define saveChanges method
-  void saveChanges(String? token) {
+  void saveChanges() {
     // Save the changes to the backend
-    updateUserProfile(token);
+    updateUserProfile();
   }
 
   // Define toggleEditMode method
@@ -73,16 +74,20 @@ class _PlayerProfileState extends State<PlayerProfile> {
   }
 
 // Function to fetch user profile from backend
-  Future<void> fetchUserProfile(String? token) async {
+  Future<void> fetchUserProfile() async {
     try {
       // Fetch user profile data from the backend using UserRepository
       final userProfile = await userRepository.getUserProfile(token);
       // Update text controllers with fetched user profile data
+
       setState(() {
-        playerNameController.text = userProfile['name'];
-        ageController.text = userProfile['age'].toString();
-        cityNameController.text = userProfile['city'];
-        phoneNumberController.text = userProfile['phoneNumber'];
+        playerNameController.text = userProfile['username'];
+        // ageController.text = userProfile['age'].toString();
+        ageController.text =
+            userProfile['age'] != null ? userProfile['age'].toString() : "0";
+        cityNameController.text = userProfile['player_city'] ?? "Not set";
+        // phoneNumberController.text = userProfile['phoneNumber'];
+        phoneNumberController.text = userProfile['phone_no'] ?? "07????????";
       });
     } catch (e) {
       // Handle any errors during fetching user profile
@@ -92,24 +97,24 @@ class _PlayerProfileState extends State<PlayerProfile> {
   }
 
   // Text controllers initialized with default values in the initState method
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   // Fetch user profile data when the widget is initialized
-  //   fetchUserProfile(authProvider.token); //check this
+  @override
+  void initState() {
+    super.initState();
+    // Fetch user profile data when the widget is initialized
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    token = authProvider.token;
+    fetchUserProfile(); //check this
 
-  //   playerNameController.text = 'Player Name'; // defaults back?
-  //   ageController.text = '25';
-  //   cityNameController.text = 'City name';
-  //   phoneNumberController.text = '123-456-7890';
-  // }
+    // playerNameController.text = 'Player Name'; // defaults back?
+    // ageController.text = '25';
+    // cityNameController.text = 'City name';
+    // phoneNumberController.text = '123-456-7890';
+  }
 
   @override
   Widget build(BuildContext context) {
-    // import provider
-    final authProvider = Provider.of<AuthProvider>(context); // add this
-    final String? token = authProvider.token; //keep this
-    fetchUserProfile(token);
+    // final authProvider = Provider.of<AuthProvider>(context);
+
     return Scaffold(
       appBar: TitleAppBar(),
       body: SingleChildScrollView(
@@ -134,7 +139,10 @@ class _PlayerProfileState extends State<PlayerProfile> {
                               children: [
                                 isEditing
                                     ? TextFormField(
-                                        controller: playerNameController,
+                                        initialValue: playerNameController.text,
+                                        onChanged: (value) =>
+                                            {playerNameController.text = value},
+                                        // controller: playerNameController,
                                         style: TextStyle(
                                           fontSize: 30,
                                           fontWeight: FontWeight.bold,
@@ -171,7 +179,10 @@ class _PlayerProfileState extends State<PlayerProfile> {
 
                                 isEditing
                                     ? TextFormField(
-                                        controller: ageController,
+                                        initialValue: ageController.text,
+                                        onChanged: (value) =>
+                                            {ageController.text = value},
+                                        // controller: ageController,
                                         style: TextStyle(fontSize: 15),
                                         decoration: InputDecoration(
                                           hintText: 'Enter age',
@@ -262,9 +273,17 @@ class _PlayerProfileState extends State<PlayerProfile> {
                         ],
                       ),
                       OutlinedButton(
-                        onPressed: isEditing
-                            ? toggleEditMode
-                            : () => saveChanges(authProvider.token),
+                        onPressed: () {
+                          if (!isEditing) {
+                            toggleEditMode();
+                          } else {
+                            saveChanges();
+                            toggleEditMode();
+                          }
+                        },
+                        // onPressed: isEditing
+                        //     ? toggleEditMode
+                        //     : () => saveChanges(authProvider.token),
                         style: OutlinedButton.styleFrom(
                           side: BorderSide(color: Colors.teal, width: 2.0),
                           shape: RoundedRectangleBorder(
