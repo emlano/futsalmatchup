@@ -23,7 +23,7 @@ services:
   nodeapp:
     container_name: futsalmatchupserver
     build: ./node/
-    image: nodeapp:v1npm install
+    image: nodeapp:v1
     ports:
       - 3000:3000
     environment:
