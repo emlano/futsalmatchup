@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./backend/
+        working-directory: ./backend/node/
 
     steps:
       - uses: actions/checkout@v4

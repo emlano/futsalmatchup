@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../db");
-const authenticateToken = require("../middleware/authenticateToken");
+const db = require("../../db");
+const authenticateToken = require("../node/middleware/authenticateToken");
 
 router.get("/", authenticateToken, (req, res) => {
   try {
