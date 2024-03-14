@@ -22,7 +22,7 @@ class _PlayerProfileState extends State<PlayerProfile> {
   TextEditingController phoneNumberController = TextEditingController();
 
   // Function to update the user profile
-  Future<void> updateUserProfile() async {
+  Future<void> updateUserProfile(String? token) async {
     try {
       final profileData = {
         'name': playerNameController.text,
@@ -32,21 +32,48 @@ class _PlayerProfileState extends State<PlayerProfile> {
       };
 
       // Update user profile using UserRepository
-      await userRepository.updateUserProfile(authProvider, profileData);
-      // Show success message or perform any other actions upon successful update
-      print('User profile updated successfully');
+      await userRepository.updateUserProfile(token, profileData);
+
+      // Show success message to the user
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('User profile updated successfully'),
+          duration: Duration(seconds: 2),
+        ),
+      );
     } catch (e) {
       // Handle any errors during the update
       print('Error updating user profile: $e');
-      // Show error message to the user or perform any other error handling actions
+
+      // Show error message to the user
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error updating user profile. Please try again.'),
+          duration: Duration(seconds: 2),
+        ),
+      );
     }
   }
 
+  // Define saveChanges method
+  void saveChanges(String? token) {
+    // Save the changes to the backend
+    updateUserProfile(token);
+  }
+
+  // Define toggleEditMode method
+  void toggleEditMode() {
+    // Toggles the editing mode
+    setState(() {
+      isEditing = !isEditing;
+    });
+  }
+
 // Function to fetch user profile from backend
-  Future<void> fetchUserProfile() async {
+  Future<void> fetchUserProfile(String? token) async {
     try {
       // Fetch user profile data from the backend using UserRepository
-      final userProfile = await userRepository.getUserProfile(authProvider);
+      final userProfile = await userRepository.getUserProfile(token);
       // Update text controllers with fetched user profile data
       setState(() {
         playerNameController.text = userProfile['name'];
@@ -65,6 +92,8 @@ class _PlayerProfileState extends State<PlayerProfile> {
   @override
   void initState() {
     super.initState();
+    // Fetch user profile data when the widget is initialized
+    fetchUserProfile(authProvider.token);
 
     playerNameController.text = 'Player Name';
     ageController.text = '25';
@@ -226,19 +255,14 @@ class _PlayerProfileState extends State<PlayerProfile> {
                         ],
                       ),
                       OutlinedButton(
-                        onPressed: () {
-                          setState(() {
-                            isEditing = !isEditing;
-                          });
-                          // Save the changes to the backend when in editing mode
-                          if (isEditing) {
-                            updateUserProfile();
-                          }
-                        },
+                        onPressed: isEditing
+                            ? toggleEditMode
+                            : () => saveChanges(authProvider.token),
                         style: OutlinedButton.styleFrom(
                           side: BorderSide(color: Colors.teal, width: 2.0),
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0)),
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
