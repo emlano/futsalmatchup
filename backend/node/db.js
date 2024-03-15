@@ -18,6 +18,8 @@ async function getAllUsersExcept(user_id) {
       SELECT 
         user_id,
         username,
+        age,
+        phone_no,
         player_skill_rating,
         player_sportsmanship_rating,
         player_overall_rating,
@@ -43,6 +45,8 @@ async function getUserFromId(id) {
       SELECT
           user_id,
           username,
+          age,
+          phone_no,
           player_skill_rating,
           player_sportsmanship_rating,
           player_overall_rating,
@@ -140,6 +144,8 @@ async function updateUser(user, id) {
   const availability = user.player_availability;
   const position = user.player_position;
   const teamId = user.team_id;
+  const age = user.age;
+  const phone_no = user.phone_no;
 
   if (skillRating != null) {
     result = await pool.query(
@@ -218,6 +224,26 @@ async function updateUser(user, id) {
             SET team_id = ?
             WHERE user_id = ? ;`,
       [teamId, id]
+    );
+  }
+
+  if (age != null) {
+    result = await pool.query(
+      `
+        UPDATE players
+        SET age = ?
+        WHERE user_id = ? ;`,
+        [age, id]
+    );
+  }
+
+  if (phone_no != null) {
+    result = await pool.query(
+      `
+        UPDATE players
+        SET phone_no = ?
+        WHERE user_id = ? ;`,
+        [phone_no, id]
     );
   }
 

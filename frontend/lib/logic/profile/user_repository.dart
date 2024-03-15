@@ -12,7 +12,7 @@ class UserRepository {
       if (token != null) {
         final response = await http.put(
           Uri.parse('$baseUrl/users'),
-          body: json.encode(profileData),
+          body: json.encode([profileData]),
           headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer $token",
@@ -53,7 +53,7 @@ class UserRepository {
     try {
       if (token != null) {
         final response = await http.get(
-          Uri.parse('$baseUrl/users/profile'),
+          Uri.parse('$baseUrl/users/'),
           headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer $token",
@@ -62,7 +62,8 @@ class UserRepository {
         // Handle response status code
         if (response.statusCode == 200) {
           // Parse and return user profile data
-          final Map<String, dynamic> userProfile = json.decode(response.body);
+          final List<dynamic> body = jsonDecode(response.body);
+          final userProfile = body[0];
           return userProfile;
         } else if (response.statusCode == 400) {
           // Bad request - client-side error
