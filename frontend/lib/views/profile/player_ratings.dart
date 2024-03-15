@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/models/header_app_bar.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:frontend/logic/profile/player_ratings_repository.dart';
 import 'successful_page.dart';
 
 class PlayerRatingPage extends StatefulWidget {
+  final int playerId;
+  final String playerName;
+
+  // Constructor to initialize playerId and playerName
+  PlayerRatingPage({required this.playerId, required this.playerName});
+
   @override
   _PlayerRatingPageState createState() => _PlayerRatingPageState();
 }
@@ -11,6 +18,63 @@ class PlayerRatingPage extends StatefulWidget {
 class _PlayerRatingPageState extends State<PlayerRatingPage> {
   double skillLevelRating = 0;
   double sportsmanshipRating = 0;
+
+  // Instantiate PlayerRatingsRepository to handle backend interactions
+  final PlayerRatingsRepository playerRatingsRepository =
+      PlayerRatingsRepository();
+
+  // Map to store player details fetched from the backend
+  late Map<String, dynamic> playerDetails = {};
+
+  @override
+  void initState() {
+    super.initState();
+    // Fetch player details when the widget is initialized
+    fetchPlayerDetails();
+  }
+
+  // Function to fetch player details from backend
+  Future<void> fetchPlayerDetails() async {
+    try {
+      final fetchedPlayerDetails =
+          await playerRatingsRepository.getPlayerDetails(widget.playerId);
+      setState(() {
+        playerDetails = fetchedPlayerDetails;
+      });
+    } catch (e) {
+      print('Error fetching player details: $e');
+    }
+  }
+
+  Future<void> updatePlayerRatings() async {
+    try {
+      await playerRatingsRepository.updatePlayerRatings(
+        widget.playerId,
+        skillLevelRating,
+        sportsmanshipRating,
+      );
+
+      // Show success message to the user
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Player ratings updated successfully'),
+          duration: Duration(seconds: 2),
+          backgroundColor: Colors.green,
+        ),
+      );
+    } catch (e) {
+      // Handle any errors during the update
+      print('Error updating player ratings: $e');
+
+      // Show error message to the user
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error updating player ratings. Please try again.'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +102,7 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
                       children: [
                         // Player details
                         Text(
-                          'Player Name',
+                          playerDetails['username'] ?? 'Player Name',
                           style: TextStyle(
                               fontSize: 25, fontWeight: FontWeight.bold),
                         ),
@@ -53,12 +117,14 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
                           ),
                         ),
                         SizedBox(height: 10),
-                        Text('Player Position'),
-                        Text('Age'),
-                        Text('Team Name'),
+                        Text(playerDetails['player_position'] ??
+                            'Player Position'),
+                        Text(playerDetails['age']?.toString() ?? 'Age'),
+                        Text(playerDetails['player_city'] ?? 'City'),
                         SizedBox(height: 20),
                         Text('Rate the player:',
-                            style: TextStyle(fontSize: 18)),
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold)),
                         SizedBox(height: 10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -119,13 +185,21 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SuccessfulPage(),
-                    ),
-                  );
+                onPressed: () async {
+                  try {
+                    // Call the updatePlayerRatings method to update the backend with the ratings
+                    await updatePlayerRatings();
+                    // Navigate to the successful page after successfully rating the player
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SuccessfulPage(),
+                      ),
+                    );
+                  } catch (e) {
+                    print('Error rating player: $e');
+                    // Handle error
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.teal,
