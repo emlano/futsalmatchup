@@ -5,6 +5,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:frontend/views/profile/player_profile.dart';
 import 'package:frontend/views/stadium/stadium_availability_page.dart';
 import 'package:frontend/views/team/create_team_page.dart';
+import 'package:frontend/views/team/player_search_page.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -27,8 +28,8 @@ List<teams> teamss = [
 
 Widget historyTemplate(teams items) {
   return Container(
-    height: 200,
-    width: 200,
+    height: 205,
+    width: 205,
     child: Card(
       elevation: 4.0,
       color: Colors.grey[450],
@@ -83,37 +84,39 @@ Widget bookingTemplate(upcoming_bookings item) {
     child: Card(
       elevation: 4.0,
       color: Colors.grey[450],
-      child: Column(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(5),
-            child: Image.asset(
-              "assets/images/Futsal1.jpg",
-              fit: BoxFit.cover,
-              height: 129,
-              width: 275,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: Image.asset(
+                "assets/images/Futsal1.jpg",
+                fit: BoxFit.cover,
+                height: 129,
+                width: 275,
+              ),
             ),
-          ),
-          Text(item.teams,
+            Text(item.teams,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                )),
+            Text(
+              item.location,
               style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
+                fontSize: 14,
                 color: Colors.black,
-              )),
-          Text(
-            item.location,
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.black,
+              ),
             ),
-          ),
-          Text(
-            item.time,
-            style: TextStyle(
-              fontSize: 14,
+            Text(
+              item.time,
+              style: TextStyle(
+                fontSize: 14,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     ),
   );
@@ -216,62 +219,86 @@ class _HomeState extends State<Home> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => CreateTeamPage()));
               },
-            )
+            ),
+            ListTile(
+              title: const Row(
+                children: [
+                  Icon(
+                    Icons.search,
+                    color: Colors.grey,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text('Search Players'),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PlayerSearchPage()));
+              },
+            ),
           ],
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(height: 15),
-          Container(
-            alignment: Alignment.center,
-            child: Text("UPCOMING BOOKINGS",
-                style: TextStyle(
-                  fontFamily: "inter",
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                )),
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: bookings.map((item) => bookingTemplate(item)).toList(),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 15),
+            Container(
+              alignment: Alignment.center,
+              child: Text("UPCOMING BOOKINGS",
+                  style: TextStyle(
+                    fontFamily: "inter",
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  )),
             ),
-          ),
-          SizedBox(height: 13),
-          Container(
-            alignment: Alignment.center,
-            child: Text(
-              "YOUR TEAMS",
-              style: TextStyle(
-                fontSize: 13,
-                color: Colors.black,
-                fontFamily: "inter",
-                fontWeight: FontWeight.bold,
+            SizedBox(height: 10),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children:
+                    bookings.map((item) => bookingTemplate(item)).toList(),
               ),
             ),
-          ),
-          SizedBox(height: 5),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: teamss.map((items) => historyTemplate(items)).toList(),
+            SizedBox(height: 15),
+            Container(
+              alignment: Alignment.center,
+              child: Text(
+                "YOUR TEAMS",
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.black,
+                  fontFamily: "inter",
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
-          ),
-          SizedBox(height: 10),
-          Container(
-            alignment: Alignment.center,
-            child: Text(
-              "INVITES",
-              style: TextStyle(
-                  fontSize: 13,
-                  fontFamily: 'inter',
-                  fontWeight: FontWeight.bold),
+            SizedBox(height: 10),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children:
+                    teamss.map((items) => historyTemplate(items)).toList(),
+              ),
             ),
-          ),
-          SizedBox(height: 5),
-          SingleChildScrollView(
+            SizedBox(height: 15),
+            Container(
+              alignment: Alignment.center,
+              child: Text(
+                "INVITES",
+                style: TextStyle(
+                    fontSize: 14,
+                    fontFamily: 'inter',
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            SizedBox(height: 10),
+            SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
@@ -284,7 +311,7 @@ class _HomeState extends State<Home> {
                       color: Colors.grey[200],
                     ),
                     margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    padding: EdgeInsets.fromLTRB(7, 0, 0, 0),
+                    padding: EdgeInsets.fromLTRB(7, 2, 7, 2),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -385,9 +412,66 @@ class _HomeState extends State<Home> {
                       ],
                     ),
                   ),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(
+                        color: Colors.black,
+                      ),
+                      color: Colors.grey[200],
+                    ),
+                    margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    padding: EdgeInsets.fromLTRB(7, 0, 0, 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Player 220 invited you",
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                        Column(
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {
+                                // Add logic for accepting the request
+                              },
+                              style: ElevatedButton.styleFrom(
+                                foregroundColor:
+                                    Colors.green[200], // Set the button color
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                              ),
+                              child: Text('Accept'),
+                            ),
+                            // Add some spacing between buttons
+                            OutlinedButton(
+                              onPressed: () {
+                                // Add logic for declining the request
+                              },
+                              style: OutlinedButton.styleFrom(
+                                foregroundColor: Colors.red,
+                                // Set the button border color
+                                side: BorderSide(color: Colors.red),
+                                // Set the button border
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                              ),
+                              child: Text('Decline'),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
-              )),
-        ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,5 +1,6 @@
 const mysql = require("mysql2");
 const { exceptions } = require("winston");
+const DuplicateTeamName = require("./errors/duplicateTeams");
 const DuplicateUsername = require("./errors/duplicateUser");
 
 const pool = mysql
@@ -304,8 +305,6 @@ async function getTeamFromId(id) {
         SELECT
             team_id,
             team_name,
-            team_location,
-            team_rating
         FROM teams 
         WHERE team_id = ?;`,
     [id]
@@ -315,29 +314,26 @@ async function getTeamFromId(id) {
 }
 
 async function createNewTeam(team) {
-  const { team_name, team_location, team_rating } = team;
+  const { team_id, team_name } = team;
   const [result] = await pool.query(
     `
-        INSERT INTO teams (team_name, team_location, team_rating) 
-        VALUES (?, ?, ?);`,
-    [team_name, team_location, team_rating]
+        INSERT INTO teams (team_id,team_name) 
+        VALUES (?, ?);`,
+    [team_id, team_name]
   );
 
   return result;
 }
 
-async function updateTeam(teamId, updatedTeam) {
-  const { team_name, team_location, team_rating } = updatedTeam;
-
+async function updateTeam(team_id, updatedTeam) {
   const [result] = await pool.query(
     `
         UPDATE teams
         SET
             team_name = ?,
-            team_location = ?,
-            team_rating = ?
+            
         WHERE team_id = ?;`,
-    [team_name, team_location, team_rating, teamId]
+    [team_name, team_id]
   );
 
   return result;
