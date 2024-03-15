@@ -1,22 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db");
-<<<<<<< HEAD
-<<<<<<< HEAD
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const DuplicateTeamName = require("../errors/duplicateTeams");
 const { authenticateToken } = require("../middleware/auth");
-=======
-const { authenticateToken } = require("../middleware/auth");
-const DuplicateTeamName = require("../errors/duplicateTeams");
->>>>>>> b24f2f4 (changes made in backend but not completed)
-=======
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const DuplicateTeamName = require("../errors/duplicateTeams");
-const { authenticateToken } = require("../middleware/auth");
->>>>>>> 8523146 (changes on node testing)
 
 router.get("/", (req, res) => {
   try {
@@ -34,7 +19,11 @@ router.get("/:id", (req, res) => {
   try {
     const id = req.params.id;
     db.getTeamFromId(id).then((teams) => {
-      res.json(teams);
+      if (teams == null) {
+        res.status(404).send({ error: "team not found" });
+      } else {
+        res.send(teams);
+      }
     });
   } catch (err) {
     console.error(err);
@@ -45,10 +34,15 @@ router.get("/:id", (req, res) => {
 //Create a new team
 router.post("/", authenticateToken, async (req, res) => {
   try {
-    const team = req.body;
+    if (!req.body || Object.keys(req.body).length != 1) {
+      res.status(400).send({ error: "missing arguments or malformed request" });
+      return;
+    }
+
+    const [teamData] = req.body;
     const newTeam = await db.createNewTeam(teamData);
 
-    db.createNewTeam(teams).then((result) => {
+    db.createNewTeam(teamData).then(result => {
       res.json(result);
     });
   } catch (err) {

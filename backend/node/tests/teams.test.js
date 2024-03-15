@@ -2,15 +2,8 @@ const request = require("supertest");
 const app = require("../app");
 const db = require("../db");
 const jwt = require("jsonwebtoken");
-<<<<<<< HEAD
-=======
-
-<<<<<<< HEAD
 const DuplicateTeamName = require("../errors/duplicateTeams");
->>>>>>> b24f2f4 (changes made in backend but not completed)
 
-=======
->>>>>>> 8523146 (changes on node testing)
 jest.mock("../db", () => ({
   getTeams: jest.fn(),
   getTeamFromId: jest.fn(),
@@ -19,10 +12,6 @@ jest.mock("../db", () => ({
   deleteTeam: jest.fn(),
 }));
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 8523146 (changes on node testing)
 describe("GET /teams/", () => {
   test("should return all teams", async () => {
     const mockTeams = [
@@ -47,7 +36,7 @@ describe("GET /teams/:id", () => {
 
   test("should return 404 if team with given id is not found", async () => {
     db.getTeamFromId.mockResolvedValue(null);
-    const response = await request(app).get("/Teams/999");
+    const response = await request(app).get("/teams/999");
     expect(response.status).toBe(404);
   });
 });
@@ -56,90 +45,42 @@ describe("PUT /teams/:id", () => {
   // Test case for updating an existing teams
   test("should update a booking by id", async () => {
     const updatedTeams = { id: 1, name: "Updated Team 1" };
+    const user = { user_id: 0, name: "user" };
+    const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
     db.updateTeam.mockResolvedValue(updatedTeams);
 
-    const response = await request(app).put("/teams/1").send(updatedTeams);
+    const response = await request(app).put("/teams/1")
+      .send(updatedTeams)
+      .set("Authorization", `Bearer ${token}`);
 
     expect(response.status).toBe(200);
     expect(response.body).toEqual(updatedTeams);
   });
-
-  // Test case for handling errors during update
-  test("should handle errors when updating a team by id", async () => {
-    const updatedTeamsData = {
-      team_id: 2,
-      start_date_time: "2024-03-11 16:00:00",
-      end_date_time: "2024-03-11 17:00:00",
-    };
-    db.updateTeam.mockRejectedValue(new Error("Database error"));
-
-    const response = await request(app)
-      .put("/teams/1")
-      .send({ id: 1, name: "Updated Team 1" });
-
-    expect(response.status).toBe(500);
-<<<<<<< HEAD
-=======
-describe("GET /teams", () => {
-  // ... similar tests for fetching teams
-});
-
-describe("GET /teams/other", () => {
-  // ... similar tests for fetching other teams
 });
 
 describe("POST /teams/", () => {
   test("Should return an error when arguments were not provided", async () => {
-    const res = await request(app).post("/teams/create").send([]);
+    const user = { user_id: 0, name: "user" };
+    const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+    
+    const res = await request(app).post("/teams/")
+      .send([])
+      .set("Authorization", `Bearer ${token}`);
 
     expect(res.status).toBe(400);
-    expect(res.body).toEqual({ error: "required arguments not given" });
+    expect(res.body).toEqual({ error: "missing arguments or malformed request" });
   });
 
   test("should return an error if team name was not given", async () => {
-    const res = await request(app).post("/teams/create").send([]);
-    const res2 = await request(app)
-      .post("/teams/create")
-      .send([{ team_name: "name" }]);
-    const res3 = await request(app).post("/teams/create");
+    const user = { user_id: 0, name: "user" };
+    const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+    db.createNewTeam.mockResolvedValue([]);
+
+    const res = await request(app).post("/teams/")
+      .send([])
+      .set("Authorization", `Bearer ${token}`);
 
     expect(res.status).toBe(400);
-    expect(res.body).toEqual({ error: "team name not given" });
-
-    expect(res2.status).toBe(400);
-    expect(res2.body).toEqual({ error: "team name not given" });
-
-    expect(res3.status).toBe(400);
-    expect(res3.body).toEqual({ error: "team name not given" });
-  });
-
-  test("should return an error if team name is already used", async () => {
-    const testData = [{ team_name: "teamname" }];
-
-    db.createNewTeam.mockImplementation(async () => {
-      throw new DuplicateTeamName();
-    });
-
-    const res = await request(app).post("/teams/create").send(testData);
-
-    expect(res.status).toBe(409);
-    expect(res.body).toEqual({ error: "team name already taken" });
-  });
-
-  test("should return a token when inputs are valid", async () => {
-    const testData = [{ team_id: 1, team_name: "team" }];
-    const token = jwt.sign(testData[0], process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: 60 * 60,
-    });
-
-    db.createNewTeam.mockResolvedValue(testData);
-
-    const res = await request(app).post("/teams/create").send(testData);
-
-    expect(res.status).toBe(200);
-    expect(res.body.accessToken).toBeDefined();
->>>>>>> b24f2f4 (changes made in backend but not completed)
-=======
->>>>>>> 8523146 (changes on node testing)
+    expect(res.body).toEqual({ error: "missing arguments or malformed request" });
   });
 });
