@@ -14,7 +14,7 @@ class _PlayerProfileState extends State<PlayerProfile> {
   bool isEditing = false;
   final UserRepository userRepository =
       UserRepository(); // Instantiate UserRepository
-  //AuthProvider authProvider = AuthProvider(); // Instantiate AuthProvider // wrong- reomve
+
   //get the authToken using context
   String? token;
 
@@ -29,10 +29,11 @@ class _PlayerProfileState extends State<PlayerProfile> {
   Future<void> updateUserProfile() async {
     try {
       final profileData = {
-        'username': playerNameController.text,
+        //'username': playerNameController.text,
         'age': int.parse(ageController.text),
         'player_city': cityNameController.text,
         'phone_no': phoneNumberController.text,
+        'player_availability': isAvailable,
       };
 
       // Update user profile using UserRepository
@@ -43,6 +44,7 @@ class _PlayerProfileState extends State<PlayerProfile> {
         SnackBar(
           content: Text('User profile updated successfully'),
           duration: Duration(seconds: 2),
+          backgroundColor: Colors.green,
         ),
       );
     } catch (e) {
@@ -82,11 +84,11 @@ class _PlayerProfileState extends State<PlayerProfile> {
 
       setState(() {
         playerNameController.text = userProfile['username'];
-        // ageController.text = userProfile['age'].toString();
+
         ageController.text =
             userProfile['age'] != null ? userProfile['age'].toString() : "0";
         cityNameController.text = userProfile['player_city'] ?? "Not set";
-        // phoneNumberController.text = userProfile['phoneNumber'];
+
         phoneNumberController.text = userProfile['phone_no'] ?? "07????????";
       });
     } catch (e) {
@@ -103,18 +105,11 @@ class _PlayerProfileState extends State<PlayerProfile> {
     // Fetch user profile data when the widget is initialized
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     token = authProvider.token;
-    fetchUserProfile(); //check this
-
-    // playerNameController.text = 'Player Name'; // defaults back?
-    // ageController.text = '25';
-    // cityNameController.text = 'City name';
-    // phoneNumberController.text = '123-456-7890';
+    fetchUserProfile();
   }
 
   @override
   Widget build(BuildContext context) {
-    // final authProvider = Provider.of<AuthProvider>(context);
-
     return Scaffold(
       appBar: TitleAppBar(),
       body: SingleChildScrollView(
@@ -139,18 +134,18 @@ class _PlayerProfileState extends State<PlayerProfile> {
                               children: [
                                 isEditing
                                     ? TextFormField(
+                                        readOnly: true,
                                         initialValue: playerNameController.text,
-                                        onChanged: (value) =>
-                                            {playerNameController.text = value},
-                                        // controller: playerNameController,
-                                        style: TextStyle(
-                                          fontSize: 30,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                        decoration: InputDecoration(
-                                          hintText: 'Enter your name',
-                                          hintStyle: TextStyle(fontSize: 25),
-                                        ),
+                                        // onChanged: (value) =>
+                                        //     {playerNameController.text = value},
+                                        // style: TextStyle(
+                                        //   fontSize: 30,
+                                        //   fontWeight: FontWeight.bold,
+                                        // ),
+                                        // decoration: InputDecoration(
+                                        //   hintText: 'Enter your name',
+                                        //   hintStyle: TextStyle(fontSize: 25),
+                                        // ),
                                       )
                                     : Text(
                                         playerNameController.text,
@@ -182,7 +177,6 @@ class _PlayerProfileState extends State<PlayerProfile> {
                                         initialValue: ageController.text,
                                         onChanged: (value) =>
                                             {ageController.text = value},
-                                        // controller: ageController,
                                         style: TextStyle(fontSize: 15),
                                         decoration: InputDecoration(
                                           hintText: 'Enter age',
@@ -261,10 +255,12 @@ class _PlayerProfileState extends State<PlayerProfile> {
                           Transform.scale(
                             scale: 0.7,
                             child: Switch(
-                              value: isAvailable,
+                              value: isAvailable, // Current availability status
                               onChanged: (value) {
+                                // When switch is toggled, triggers the onChanged callback with the new value (value)
                                 setState(() {
-                                  isAvailable = value;
+                                  isAvailable =
+                                      value; // Update the availability status with the new value
                                 });
                               },
                               activeTrackColor: Colors.teal,
