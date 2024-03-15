@@ -1,6 +1,7 @@
 const mysql = require("mysql2");
 const { exceptions } = require("winston");
 const DuplicateTeamName = require("./errors/duplicateTeams");
+const DuplicateUsername = require("./errors/duplicateUser");
 
 const pool = mysql
   .createPool({
