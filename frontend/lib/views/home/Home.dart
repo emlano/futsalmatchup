@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/providers/auth_provider.dart';
 import 'package:frontend/views/home/upcoming_bookings.dart';
 import 'package:frontend/views/home/teams.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:frontend/views/profile/player_profile.dart';
 import 'package:frontend/views/stadium/stadium_availability_page.dart';
 import 'package:frontend/views/team/create_team_page.dart';
+<<<<<<< HEAD
 import 'package:frontend/views/team/player_search_page.dart';
+=======
+import 'package:provider/provider.dart';
+
+>>>>>>> cc14fac (feat: added state management for signup page)
 class Home extends StatefulWidget {
   const Home({super.key});
 
