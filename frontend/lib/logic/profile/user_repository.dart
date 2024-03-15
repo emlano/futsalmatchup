@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-//import 'package:frontend/providers/auth_provider.dart'; // Import AuthProvider
 
 class UserRepository {
   final String baseUrl = 'http://localhost:3000'; // Your backend base URL
