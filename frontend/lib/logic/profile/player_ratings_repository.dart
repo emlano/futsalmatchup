@@ -1,25 +1,48 @@
-//PlayerRatingsRepository class, which is responsible for
-//making HTTP requests to rate a player
-//and the PlayerRatingPage widget that utilizes
-//this repository to allow users to rate a player.
-
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-// PlayerRatingsRepository class for handling player rating-related API requests
 class PlayerRatingsRepository {
   // Base URL for the backend API
   final String baseUrl = 'http://localhost:3000';
 
-  // Method to send a player rating to the backend
-  Future<void> ratePlayer(String userId, double skillLevelRating,
-      double sportsmanshipRating) async {
+  //Method to get player details (player name,age, city, player position ) of the selected player  from the backend and display in the frontend
+  //get player details by userId or getUserFromName
+  Future<Map<String, dynamic>> getPlayerDetails(
+      dynamic playerIdentifier) async {
+    try {
+      final response = await http.get(
+        Uri.parse(
+            '$baseUrl/users/other?id=${playerIdentifier['id']}&username=${playerIdentifier['username']}'),
+        headers: {"Content-Type": "application/json"},
+      ); //path correct??
+
+      if (response.statusCode == 200) {
+        print('Player details fetched successfully!');
+        return json.decode(response.body);
+      } else if (response.statusCode == 400) {
+        print('Bad request: ${response.body}');
+        throw Exception('Bad request');
+      } else if (response.statusCode >= 500) {
+        print('Server error: ${response.body}');
+        throw Exception('Server error');
+      } else {
+        throw Exception('Failed to fetch player details');
+      }
+    } catch (e) {
+      print('Error fetching player details: $e');
+      throw Exception('Failed to fetch player details');
+    }
+  }
+
+  // Method to update the player ratings of the player on the backend
+  Future<void> updatePlayerRatings(dynamic playerIdentifier,
+      double skillLevelRating, double sportsmanshipRating) async {
     try {
       // Send a POST request to the 'players/rate' endpoint with the user's ratings
       final response = await http.post(
-        Uri.parse('$baseUrl/players/rate'),
+        Uri.parse('$baseUrl/users/other'), //path correct??
         body: json.encode({
-          'userId': userId,
+          'userId': playerIdentifier['user_id'],
           'skillLevelRating': skillLevelRating,
           'sportsmanshipRating': sportsmanshipRating,
         }),
@@ -28,6 +51,14 @@ class PlayerRatingsRepository {
 
       if (response.statusCode == 200) {
         print('Player rated successfully!');
+      } else if (response.statusCode == 400) {
+        // Bad request - client-side error
+        print('Bad request: ${response.body}');
+        throw Exception('Bad request');
+      } else if (response.statusCode >= 500) {
+        // Server error
+        print('Server error: ${response.body}');
+        throw Exception('Server error');
       } else {
         throw Exception(
             'Failed to rate player. Status code: ${response.statusCode}');
