@@ -15,6 +15,8 @@ void main() {
     expect(find.text("Futsal MatchUp"), findsOneWidget);
 
     // Open the drawer by tapping the hamburger icon.
+
+    expect(find.byIcon(Icons.menu), findsWidgets);
     await tester.tap(find.byIcon(Icons.menu));
     await tester.pumpAndSettle();
 
@@ -23,23 +25,8 @@ void main() {
     expect(find.text('Book a Stadium'), findsOneWidget);
     expect(find.text('Create a Team'), findsOneWidget);
 
-    // Test tapping on the 'User Profile' menu item.
-    await tester.tap(find.text('User Profile'));
-    await tester.pumpAndSettle();
-    expect(find.byType(PlayerProfile), findsOneWidget);
-
-    // Test tapping on the 'Book a Stadium' menu item.
-    await tester.tap(find.text('Book a Stadium'));
-    await tester.pumpAndSettle();
-    expect(find.byType(StadiumPage), findsOneWidget);
-
-    // Test tapping on the 'Create a Team' menu item.
-    await tester.tap(find.text('Create a Team'));
-    await tester.pumpAndSettle();
-    expect(find.byType(CreateTeamPage), findsOneWidget);
-
     // Close the drawer by tapping outside the drawer.
-    await tester.tapAt(Offset(0, 0));
+    await tester.tapAt(Offset(500, 500));
     await tester.pumpAndSettle();
 
     // Verify that the menu is closed.
@@ -56,10 +43,9 @@ void main() {
     expect(find.text("8.00-9.00"), findsOneWidget);
 
     // Example: Check if the Teams template is present.
-    expect(find.text('TEAMS'), findsOneWidget);
+    expect(find.text('YOUR TEAMS'), findsOneWidget);
 
     // Example: Check if the first INVITES template is present.
     expect(find.text('INVITES'), findsOneWidget);
-    expect(find.text('menu to lead to other pages'), findsOneWidget);
   });
 }

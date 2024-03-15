@@ -84,37 +84,39 @@ Widget bookingTemplate(upcoming_bookings item) {
     child: Card(
       elevation: 4.0,
       color: Colors.grey[450],
-      child: Column(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(5),
-            child: Image.asset(
-              "assets/images/Futsal1.jpg",
-              fit: BoxFit.cover,
-              height: 129,
-              width: 275,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: Image.asset(
+                "assets/images/Futsal1.jpg",
+                fit: BoxFit.cover,
+                height: 129,
+                width: 275,
+              ),
             ),
-          ),
-          Text(item.teams,
+            Text(item.teams,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                )),
+            Text(
+              item.location,
               style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
+                fontSize: 14,
                 color: Colors.black,
-              )),
-          Text(
-            item.location,
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.black,
+              ),
             ),
-          ),
-          Text(
-            item.time,
-            style: TextStyle(
-              fontSize: 14,
+            Text(
+              item.time,
+              style: TextStyle(
+                fontSize: 14,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     ),
   );
@@ -219,17 +221,16 @@ class _HomeState extends State<Home> {
               },
             ),
             ListTile(
-              title: Row(
+              title: const Row(
                 children: [
                   Icon(
                     Icons.search,
                     color: Colors.grey,
-                    size: 30,
                   ),
                   SizedBox(
                     width: 5,
                   ),
-                  Text('Search a Player'),
+                  Text('Search Players'),
                 ],
               ),
               onTap: () {
