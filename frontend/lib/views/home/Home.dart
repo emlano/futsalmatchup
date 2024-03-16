@@ -227,7 +227,7 @@ class _HomeState extends State<Home> {
                     size: 30,
                   ),
                   SizedBox(
-                    width: 5,
+                    width: 0,
                   ),
                   Text('Search a Player'),
                 ],

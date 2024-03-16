@@ -11,7 +11,7 @@ class Booking {
   Booking(this.bookingId, this.stadiumId, this.teamId, this.userId, this.start, this.end);
 
   Booking.fromMap(Map<String, dynamic> map)
-    : bookingId = map['booking_id'],
+    : boogtkingId = map['booking_id'],
       stadiumId = map['stadium_id'],
       teamId = map['team_id'],
       userId = map['user_id'],
