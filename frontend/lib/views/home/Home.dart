@@ -228,7 +228,7 @@ class _HomeState extends State<Home> {
                     color: Colors.grey,
                   ),
                   SizedBox(
-                    width: 5,
+                    width: 0,
                   ),
                   Text('Search Players'),
                 ],
