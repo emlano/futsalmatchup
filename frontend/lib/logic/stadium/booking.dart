@@ -10,22 +10,12 @@ class Booking {
       this.end);
 
   Booking.fromMap(Map<String, dynamic> map)
-<<<<<<< HEAD
       : bookingId = map['booking_id'],
         stadiumId = map['stadium_id'],
         teamId = map['team_id'],
         userId = map['user_id'],
         start = map['start_date_time'],
         end = map['end_date_time'];
-=======
-    : boogtkingId = map['booking_id'],
-      stadiumId = map['stadium_id'],
-      teamId = map['team_id'],
-      userId = map['user_id'],
-      start = map['start_date_time'],
-      end = map['end_date_time'];
-
->>>>>>> teams-crud-final
 
   Map<String, dynamic> toMap() {
     return {
