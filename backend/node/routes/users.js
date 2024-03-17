@@ -167,7 +167,22 @@ router.put("/other", authenticateToken, async (req, res) => {
     }
 
     const [target] = req.body;
-    await db.updatePlayerRating(target);
+    const [player] = await db.getUserFromId(target.user_id);
+
+    if (player == null) res.status(404).send({ error: "no such user found!" })
+
+    const sportsmanshipRate = target.player_sportsmanship_rating;
+    const skillRate = target.player_skill_rating;
+    const ratedTimes = player.player_rated_times;
+    const overallRating = player.player_overall_rating;
+
+    const overallValue = overallRating * ratedTimes;
+    const newOverallRating = ((sportsmanshipRate + skillRate) / 2 + overallValue) / (ratedTimes + 1);
+
+    player.player_overall_rating = newOverallRating;
+    player.player_rated_times = ratedTimes + 1;
+    
+    await db.updatePlayerRating(player);
     res.send({ status: "success" });
   
   } catch (err) {
