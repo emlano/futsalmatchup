@@ -8,6 +8,7 @@ import 'package:frontend/views/login/signin_page.dart';
 import 'package:frontend/views/profile/player_profile.dart';
 import 'package:provider/provider.dart';
 import 'package:frontend/views/team/create_team_page.dart';
+import 'package:frontend/views/team/player_search_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
           "/home": (context) => const Home(),
           "/profile": (context) => PlayerProfile(),
           "/team": (context) => const CreateTeamPage(),
+          "/playerSearch": (context) => const PlayerSearchPage(),
         },
       ),
     );
