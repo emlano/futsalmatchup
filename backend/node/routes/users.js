@@ -159,6 +159,23 @@ router.put("/", authenticateToken, async (req, res) => {
   }
 });
 
+router.put("/other", authenticateToken, async (req, res) => {
+  try {
+    if (!req.body || Object.keys(req.body).length != 1) {
+      res.status(400).send({ error: "missing arguments or malformed request" });
+      return;
+    }
+
+    const [target] = req.body;
+    await db.updatePlayerRating(target);
+    res.send({ status: "success" });
+  
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ error: "internal server error" })
+  }
+})
+
 router.delete("/", authenticateToken, async (req, res) => {
   try {
     const id = req.user_id;
