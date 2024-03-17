@@ -1,67 +1,70 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:http/http.dart' as http;
 import 'package:frontend/models/header_app_bar.dart';
-import 'package:frontend/models/textboxes/text_input_box.dart';
+import 'dart:convert';
+
+import 'package:provider/provider.dart';
+
+import '../../providers/auth_provider.dart';
 
 class PlayerSearchPage extends StatefulWidget {
   const PlayerSearchPage({Key? key}) : super(key: key);
 
+  @override
   _PlayerSearchPageState createState() => _PlayerSearchPageState();
 }
 
 class _PlayerSearchPageState extends State<PlayerSearchPage> {
-  final TextEditingController playerNameController = TextEditingController();
-  final TextEditingController cityController = TextEditingController();
-
-  final List<Map<String, dynamic>> players = [
-    {
-      "name": "Nadil",
-      "city": "Bambalapitya",
-      "profilePicUrl": "assets/images/player_icon.png"
-    },
-    {
-      "name": "Lenmini",
-      "city": "Dehiwala",
-      "profilePicUrl": "assets/images/player_icon.png"
-    },
-    {
-      "name": "Rimaz",
-      "city": "Dehiwala",
-      "profilePicUrl": "assets/images/player_icon.png"
-    },
-    {
-      "name": "Ahmed",
-      "city": "Kollupitiya",
-      "profilePicUrl": "assets/images/player_icon.png"
-    },
-    {
-      "name": "Rachel",
-      "city": "Boralesgamuwa",
-      "profilePicUrl": "assets/images/player_icon.png"
-    },
-  ];
-  List<Map<String, dynamic>> filteredPlayers = [];
+  late TextEditingController playerNameController;
+  late AuthProvider authProvider;
+  Map<String, dynamic>? playerDetails;
 
   @override
   void initState() {
-    filteredPlayers = List.from(players);
     super.initState();
+    playerNameController = TextEditingController();
   }
 
-  void filterPlayers(String query, bool filterByName) {
-    setState(() {
-      filteredPlayers = players.where((player) {
-        if (filterByName) {
-          return player['name'].toLowerCase().contains(query.toLowerCase());
-        } else {
-          return player['city'].toLowerCase().contains(query.toLowerCase());
-        }
-      }).toList();
-    });
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    authProvider = Provider.of<AuthProvider>(context);
+  }
+
+  Future<void> fetchPlayerDetails(String playerName) async {
+    try {
+      final response = await http.post(
+        Uri.parse('http://localhost:3000/users/other'),
+        body: json.encode({"username": playerName}),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer ${authProvider.token}",
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final dynamic playerJson = json.decode(response.body);
+        setState(() {
+          playerDetails = playerJson;
+        });
+      } else {
+        throw Exception('Failed to load player details');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
+  void addToTeam() {
+    print('Player added to team');
+  }
+  void ratePlayer() {
+    print('Rate player');
   }
 
   @override
   Widget build(BuildContext context) {
+    // authProvider = Provider.of<AuthProvider>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: TitleAppBar(),
@@ -70,86 +73,62 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Column(
-                children: [
-                  const Text(
-                    'Search Players',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.teal,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  TextInputBox(
-                    // controller: playerNameController TODO,
-                    name: "Player Name",
-                    desc: "Enter player name",
-                    icon: Icons.person,
-                    length: 20,
-                    onChanged: (query) => filterPlayers(query, true)
-                  ),
-                  const SizedBox(height: 20),
-                  TextInputBox(
-                    // controller: cityController TODO,
-                    name: "City",
-                    desc: "Enter city",
-                    icon: Icons.location_city,
-                    length: 20,
-                    onChanged: (query) => filterPlayers(query, false),
-                  ),
-                ],
+            TextField(
+              controller: playerNameController,
+              decoration: InputDecoration(
+                labelText: 'Enter player name',
+                labelStyle: TextStyle(color: Colors.black),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.teal[100]!),
+                ),
               ),
             ),
             const SizedBox(height: 20),
-            Expanded(
-              child: ListView.builder(
-                itemCount: filteredPlayers.length,
-                itemBuilder: (context, index) {
-                  final player = filteredPlayers[index];
-                  return ListTile(
-                    leading: Container(
-                      width: 48,
-                      height: 48,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: Colors.black,
-                          width: 2.0,
-                        ),
-                      ),
-                      child: CircleAvatar(
-                        backgroundColor: Colors.transparent,
-                        backgroundImage: AssetImage(player['profilePicUrl']),
-                      ),
-                    ),
-                    title: Text(player['name']),
-                    subtitle: Text(
-                      player['city'],
-                      style: const TextStyle(fontSize: 14),
-                    ),
-                    trailing: ElevatedButton(
-                      onPressed: () {
-                        // Invite player to join team
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.teal.shade100,
-                      ),
-                      child: const Text(
-                        'Invite to Join Team',
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  );
-                },
+            ElevatedButton(
+              onPressed: () async {
+                String playerName = playerNameController.text;
+                await fetchPlayerDetails(playerName);
+              },
+              style: ElevatedButton.styleFrom(
+                primary: Colors.teal[100],
+              ),
+              child: Text(
+                'Search',
+                style: TextStyle(color: Colors.black),
               ),
             ),
+            const SizedBox(height: 20),
+            playerDetails != null
+                ? Column(
+              children: [
+                Text(
+                  'Player Name: ${playerDetails!['name']}',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                Text(
+                  'City: ${playerDetails!['city']}',
+                  style: TextStyle(color: Colors.black),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: addToTeam,
+                      child: Text('Add to team'),
+                    ),
+                    SizedBox(width: 10),
+                    ElevatedButton(
+                      onPressed: ratePlayer,
+                      child: Text('Rate Player'),
+                    ),
+                  ],
+                ),
+              ],
+            )
+                : const SizedBox(), // Show nothing if details are not fetched yet
           ],
         ),
       ),

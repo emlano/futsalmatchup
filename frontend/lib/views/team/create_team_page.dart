@@ -1,15 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import '../../providers/auth_provider.dart';
 import 'team_roster_page.dart';
 import 'package:frontend/models/header_app_bar.dart';
 
-void main() { //for testing
-  runApp(const MaterialApp(home: CreateTeamPage()));
-}
+// void main() {
+//   runApp(
+//     ChangeNotifierProvider(
+//       create: (context) => AuthProvider(),
+//       child: MaterialApp(
+//         home: CreateTeamPage(),
+//       ),
+//     ),
+//   );
+// }
 
 class CreateTeamPage extends StatelessWidget {
   const CreateTeamPage({Key? key}) : super(key: key);
 
+  @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
     String? teamName;
 
     return Scaffold(
@@ -29,7 +42,7 @@ class CreateTeamPage extends StatelessWidget {
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                   color: Colors.teal,
-                )
+                ),
               ),
               const SizedBox(height: 20),
               Container(
@@ -57,7 +70,7 @@ class CreateTeamPage extends StatelessWidget {
                           backgroundColor: Colors.teal.shade100,
                           radius: 50,
                         ),
-                        Icon(
+                        const Icon(
                           Icons.group,
                           size: 40,
                           color: Colors.black,
@@ -82,40 +95,78 @@ class CreateTeamPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
                     ElevatedButton(
-                        onPressed: () {
-                          if (teamName != null && teamName!.isNotEmpty) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => TeamRosterPage(teamName: teamName!),
-                            ),
+                      onPressed: () {
+                        if (teamName != null && teamName!.isNotEmpty) {
+                          final token = authProvider.token;
+                          if (token != null) {
+                            createTeam(token, teamName!, context);
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Authentication token not available.'),
+                              ),
                             );
                           }
-                          else {
-                            ScaffoldMessenger.of(context).showSnackBar(
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                            content: Text('Please enter a team name.'),
+                              content: Text('Please enter a team name.'),
                             ),
                           );
-                          }
-                        },
+                        }
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.teal.shade100,
                       ),
                       child: const Text(
                         'Create Team',
-                        style: TextStyle(
-                            color: Colors.black
-                        ),
+                        style: TextStyle(color: Colors.black),
                       ),
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
-        )
+        ),
       ),
     );
+  }
+
+  void createTeam(String token, String teamName, BuildContext context) async {
+    const url = 'http://localhost:3000/teams';
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+    final body = jsonEncode({'teamName': teamName});
+
+    try {
+      final response = await http.post(Uri.parse(url), headers: headers, body: body);
+
+      if (response.statusCode == 201) {
+        // Team created successfully
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TeamRosterPage(teamName: teamName),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Failed to create team. Please try again.'),
+          ),
+        );
+      }
+    } catch (error) {
+      // Handle errors
+      print('Error creating team: $error');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('An error occurred. Please try again later.'),
+        ),
+      );
+    }
   }
 }
