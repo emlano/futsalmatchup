@@ -88,7 +88,7 @@ class _PlayerProfileState extends State<PlayerProfile> {
             userProfile['age'] != null ? userProfile['age'].toString() : "0";
         cityNameController.text = userProfile['player_city'] ?? "Not set";
         phoneNumberController.text = userProfile['phone_no'] ?? "07????????";
-        isAvailable = userProfile['player_availability'] ?? false;
+        isAvailable = userProfile['player_availability'] == 1;
       });
     } catch (e) {
       // Handle any errors during fetching user profile
