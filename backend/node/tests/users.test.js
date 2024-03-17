@@ -99,12 +99,12 @@ describe("POST /users/other", () => {
     db.getUserFromName.mockResolvedValue([]);
 
     const res = await request(app)
-      .get("/users/other")
+      .post("/users/other")
       .set("Authorization", `Bearer ${token}`)
       .send([{ id: 2 }]);
 
     const res2 = await request(app)
-      .get("/users/other")
+      .post("/users/other")
       .set("Authorization", `Bearer ${token}`)
       .send([{ username: "name" }]);
 
@@ -121,7 +121,7 @@ describe("POST /users/other", () => {
     const token = jwt.sign(testdata, process.env.ACCESS_TOKEN_SECRET);
 
     const res = await request(app)
-      .get("/users/other")
+      .post("/users/other")
       .set("Authorization", `Bearer ${token}`)
       .send(other);
 
@@ -142,12 +142,12 @@ describe("POST /users/other", () => {
     db.getUserFromName.mockResolvedValue(user2);
 
     const res = await request(app)
-      .get("/users/other")
+      .post("/users/other")
       .set("Authorization", `Bearer ${token}`)
       .send([{ id: 2 }]);
 
     const res2 = await request(app)
-      .get("/users/other")
+      .post("/users/other")
       .set("Authorization", `Bearer ${token}`)
       .send([{ username: "user" }]);
 
