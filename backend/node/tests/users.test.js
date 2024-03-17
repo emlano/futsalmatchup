@@ -75,13 +75,13 @@ describe("GET /users", () => {
   });
 });
 
-describe("GET /users/other", () => {
+describe("POST /users/other", () => {
   test("Should return an error when arguments were not provided", async () => {
     const testdata = [{ user_id: 1, username: "user", password: "password" }];
     const token = await jwt.sign(testdata[0], process.env.ACCESS_TOKEN_SECRET);
 
     const res = await request(app)
-      .get("/users/other")
+      .post("/users/other")
       .set("Authorization", `Bearer ${token}`)
       .send([]);
 
