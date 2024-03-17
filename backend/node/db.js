@@ -70,6 +70,8 @@ async function getUserFromName(name) {
         SELECT
             user_id,
             username,
+            age,
+            phone_no,
             player_skill_rating,
             player_sportsmanship_rating,
             player_overall_rating,
@@ -249,6 +251,22 @@ async function updateUser(user, id) {
   }
 
   return result;
+}
+
+async function updatePlayerRating(user) {
+  const id = user.user_id;
+  const overallRating = user.player_overall_rating;
+  const ratedTimes = user.player_rated_times;
+
+  const [result] = await pool.query(
+    `
+      UPDATE players
+      SET 
+        player_overall_rating = ?,
+        player_rated_times = ?
+      WHERE user_id = ? ;`,
+      [overallRating, ratedTimes, id]
+  )
 }
 
 async function deleteUser(id) {
@@ -440,6 +458,7 @@ module.exports = {
   getUserFromNameWithPassword,
   createNewUser,
   updateUser,
+  updatePlayerRating,
   deleteUser,
   getBookings,
   getBookingFromId,

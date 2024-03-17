@@ -20,7 +20,7 @@ router.get("/", authenticateToken, (req, res) => {
   }
 });
 
-router.get("/other", authenticateToken, async (req, res) => {
+router.post("/other", authenticateToken, async (req, res) => {
   try {
     if (!req.body || Object.keys(req.body).length != 1) {
       res.status(400).send({ error: "missing arguments or malformed request" });
@@ -158,6 +158,38 @@ router.put("/", authenticateToken, async (req, res) => {
     res.status(500).send({ error: "internal server error" });
   }
 });
+
+router.put("/other", authenticateToken, async (req, res) => {
+  try {
+    if (!req.body || Object.keys(req.body).length != 1) {
+      res.status(400).send({ error: "missing arguments or malformed request" });
+      return;
+    }
+
+    const [target] = req.body;
+    const [player] = await db.getUserFromId(target.user_id);
+
+    if (player == null) res.status(404).send({ error: "no such user found!" })
+
+    const sportsmanshipRate = target.player_sportsmanship_rating;
+    const skillRate = target.player_skill_rating;
+    const ratedTimes = player.player_rated_times;
+    const overallRating = player.player_overall_rating;
+
+    const overallValue = overallRating * ratedTimes;
+    const newOverallRating = ((sportsmanshipRate + skillRate) / 2 + overallValue) / (ratedTimes + 1);
+
+    player.player_overall_rating = newOverallRating;
+    player.player_rated_times = ratedTimes + 1;
+    
+    await db.updatePlayerRating(player);
+    res.send({ status: "success" });
+  
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ error: "internal server error" })
+  }
+})
 
 router.delete("/", authenticateToken, async (req, res) => {
   try {
