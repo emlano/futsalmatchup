@@ -45,7 +45,7 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
       if (response.statusCode == 200) {
         final dynamic playerJson = json.decode(response.body);
         setState(() {
-          playerDetails = playerJson;
+          playerDetails = playerJson[0];
         });
       } else {
         throw Exception('Failed to load player details');
@@ -102,14 +102,18 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
                 ? Column(
               children: [
                 Text(
-                  'Player Name: ${playerDetails!['name']}',
+                  'Player Name: ${playerDetails!['username']}',
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
                 ),
                 Text(
-                  'City: ${playerDetails!['city']}',
+                  'Age: ${playerDetails!['age']}',
+                  style: TextStyle(color: Colors.black),
+                ),
+                Text(
+                  'City: ${playerDetails!['player_city']}',
                   style: TextStyle(color: Colors.black),
                 ),
                 Row(

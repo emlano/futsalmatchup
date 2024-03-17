@@ -56,7 +56,7 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
 
       // Show success message to the user
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Player ratings updated successfully'),
           duration: Duration(seconds: 2),
           backgroundColor: Colors.green,
@@ -68,7 +68,7 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
 
       // Show error message to the user
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Error updating player ratings. Please try again.'),
           duration: Duration(seconds: 2),
         ),
@@ -82,18 +82,18 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
       appBar: TitleAppBar(),
       body: Center(
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // Player Information Card
               Container(
-                constraints: BoxConstraints(
+                constraints: const BoxConstraints(
                   maxWidth: 400,
                 ),
                 child: Card(
-                  color: Color(0xFFC2FBED),
+                  color: const Color(0xFFC2FBED),
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
@@ -103,10 +103,10 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
                         // Player details
                         Text(
                           playerDetails['username'] ?? 'Player Name',
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 25, fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         // Player image
                         Container(
                           width: 180,
@@ -116,21 +116,21 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
                             fit: BoxFit.cover,
                           ),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Text(playerDetails['player_position'] ??
                             'Player Position'),
                         Text(playerDetails['age']?.toString() ?? 'Age'),
                         Text(playerDetails['player_city'] ?? 'City'),
-                        SizedBox(height: 20),
-                        Text('Rate the player:',
+                        const SizedBox(height: 20),
+                        const Text('Rate the player:',
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold)),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             // Skill Level
-                            Text('Skill Level:',
+                            const Text('Skill Level:',
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold)),
                             RatingBar.builder(
@@ -139,7 +139,7 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
                               allowHalfRating: true,
                               itemCount: 5,
                               itemSize: 28,
-                              itemBuilder: (context, _) => Icon(
+                              itemBuilder: (context, _) => const Icon(
                                 Icons.star,
                                 color: Colors.yellow,
                               ),
@@ -151,12 +151,12 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             // Sportsmanship
-                            Text('Sportsmanship:',
+                            const Text('Sportsmanship:',
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold)),
                             RatingBar.builder(
@@ -165,7 +165,7 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
                               allowHalfRating: true,
                               itemCount: 5,
                               itemSize: 28,
-                              itemBuilder: (context, _) => Icon(
+                              itemBuilder: (context, _) => const Icon(
                                 Icons.star,
                                 color: Colors.yellow,
                               ),
@@ -177,13 +177,13 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                       ],
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () async {
                   try {
@@ -203,9 +203,9 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.teal,
-                  minimumSize: Size(180, 45),
+                  minimumSize: const Size(180, 45),
                 ),
-                child: Text(
+                child: const Text(
                   'Done',
                   style: TextStyle(
                     color: Colors.white,
