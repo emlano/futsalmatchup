@@ -10,7 +10,7 @@ class PlayerProfile extends StatefulWidget {
 }
 
 class _PlayerProfileState extends State<PlayerProfile> {
-  bool isAvailable = true;
+  bool isAvailable = false;
   bool isEditing = false;
   final UserRepository userRepository =
       UserRepository(); // Instantiate UserRepository
@@ -84,12 +84,11 @@ class _PlayerProfileState extends State<PlayerProfile> {
 
       setState(() {
         playerNameController.text = userProfile['username'];
-
         ageController.text =
             userProfile['age'] != null ? userProfile['age'].toString() : "0";
         cityNameController.text = userProfile['player_city'] ?? "Not set";
-
         phoneNumberController.text = userProfile['phone_no'] ?? "07????????";
+        isAvailable = userProfile['player_availability'] ?? false;
       });
     } catch (e) {
       // Handle any errors during fetching user profile
