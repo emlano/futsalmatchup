@@ -35,7 +35,7 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
     try {
       final response = await http.post(
         Uri.parse('http://localhost:3000/users/other'),
-        body: json.encode({"username": playerName}),
+        body: json.encode([{"username": playerName}]),
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer ${authProvider.token}",
@@ -64,7 +64,7 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    // authProvider = Provider.of<AuthProvider>(context);
+    authProvider = Provider.of<AuthProvider>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: TitleAppBar(),

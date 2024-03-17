@@ -139,12 +139,12 @@ class CreateTeamPage extends StatelessWidget {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $token',
     };
-    final body = jsonEncode({'teamName': teamName});
+    final body = jsonEncode([{'teamName': teamName}]);
 
     try {
       final response = await http.post(Uri.parse(url), headers: headers, body: body);
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         // Team created successfully
         Navigator.push(
           context,
