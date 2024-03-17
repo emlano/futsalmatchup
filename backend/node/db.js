@@ -251,6 +251,19 @@ async function updateUser(user, id) {
   return result;
 }
 
+async function updatePlayerRating(user) {
+  const id = user.user_id;
+  const overallRating = user.player_overall_rating;
+
+  const [result] = await pool.query(
+    `
+      UPDATE players
+      SET player_overall_rating = ?
+      WHERE user_id = ? ;`,
+      [overallRating, id]
+  )
+}
+
 async function deleteUser(id) {
   const [result] = await pool.query(
     `
