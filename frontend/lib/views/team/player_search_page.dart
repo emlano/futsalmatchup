@@ -43,7 +43,7 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
       );
 
       if (response.statusCode == 200) {
-        final dynamic playerJson = json.decode(response.body);
+        final List<dynamic> playerJson = json.decode(response.body);
         setState(() {
           playerDetails = playerJson[0];
         });
