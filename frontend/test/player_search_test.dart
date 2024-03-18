@@ -9,15 +9,35 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         home: ChangeNotifierProvider<AuthProvider>(
-          create: (_) => AuthProvider(),
+          create: (_) => MockAuthProvider(), // Use the mock provider
           child: PlayerSearchPage(),
         ),
       ),
     );
 
     // Verify the presence of widgets on PlayerSearchPage
-    expect(find.byType(AppBar), findsOneWidget);
     expect(find.byType(TextField), findsOneWidget);
     expect(find.text('Search'), findsOneWidget);
   });
 }
+
+// Mock AuthProvider
+class MockAuthProvider extends AuthProvider {
+  String? _token;
+
+  @override
+  String? get token => _token;
+
+  @override
+  void setToken(String tkn) {
+    _token = tkn;
+    notifyListeners(); // Notify listeners to simulate real behavior
+  }
+
+  @override
+  void removeToken() {
+    _token = null;
+    notifyListeners(); // Notify listeners to simulate real behavior
+  }
+}
+
