@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:frontend/models/header_app_bar.dart';
 import 'dart:convert';
+import 'package:frontend/views/profile/player_ratings.dart';
 
 import 'package:provider/provider.dart';
 
@@ -63,6 +64,13 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
 
   void ratePlayer() {
     print('Rate player');
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => PlayerRatingPage(
+        playerId: playerDetails!['id'],
+        playerName: playerDetails![username],
+      )),
+    );
   }
 
   @override

@@ -25,7 +25,7 @@ class RecommendedPlayersPage extends StatelessWidget {
       );
 
       if (response.statusCode == 200) {
-        List<dynamic> recommendedPlayersList = jsonDecode(response.body);
+        final List<dynamic> recommendedPlayersList = jsonDecode(response.body);
         print(recommendedPlayersList);
         // Handle the recommended players here
       } else {
