@@ -6,17 +6,6 @@ import '../../providers/auth_provider.dart';
 import 'team_roster_page.dart';
 import 'package:frontend/models/header_app_bar.dart';
 
-// void main() {
-//   runApp(
-//     ChangeNotifierProvider(
-//       create: (context) => AuthProvider(),
-//       child: MaterialApp(
-//         home: CreateTeamPage(),
-//       ),
-//     ),
-//   );
-// }
-
 class CreateTeamPage extends StatelessWidget {
   const CreateTeamPage({Key? key}) : super(key: key);
 
@@ -145,7 +134,7 @@ class CreateTeamPage extends StatelessWidget {
       final response = await http.post(Uri.parse(url), headers: headers, body: body);
 
       if (response.statusCode == 200) {
-        // Team created successfully
+        print('Team created succssfully');
         Navigator.push(
           context,
           MaterialPageRoute(
