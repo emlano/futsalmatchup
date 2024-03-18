@@ -35,7 +35,9 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
     try {
       final response = await http.post(
         Uri.parse('http://localhost:3000/users/other'),
-        body: json.encode([{"username": playerName}]),
+        body: json.encode([
+          {"username": playerName}
+        ]),
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer ${authProvider.token}",
@@ -58,6 +60,7 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
   void addToTeam() {
     print('Player added to team');
   }
+
   void ratePlayer() {
     print('Rate player');
   }
@@ -90,7 +93,7 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
                 await fetchPlayerDetails(playerName);
               },
               style: ElevatedButton.styleFrom(
-                primary: Colors.teal[100],
+                backgroundColor: Colors.teal[100],
               ),
               child: Text(
                 'Search',
@@ -100,38 +103,38 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
             const SizedBox(height: 20),
             playerDetails != null
                 ? Column(
-              children: [
-                Text(
-                  'Player Name: ${playerDetails!['username']}',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-                Text(
-                  'Age: ${playerDetails!['age']}',
-                  style: TextStyle(color: Colors.black),
-                ),
-                Text(
-                  'City: ${playerDetails!['player_city']}',
-                  style: TextStyle(color: Colors.black),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      onPressed: addToTeam,
-                      child: Text('Add to team'),
-                    ),
-                    SizedBox(width: 10),
-                    ElevatedButton(
-                      onPressed: ratePlayer,
-                      child: Text('Rate Player'),
-                    ),
-                  ],
-                ),
-              ],
-            )
+                    children: [
+                      Text(
+                        'Player Name: ${playerDetails!['username']}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      Text(
+                        'Age: ${playerDetails!['age']}',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      Text(
+                        'City: ${playerDetails!['player_city']}',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ElevatedButton(
+                            onPressed: addToTeam,
+                            child: Text('Add to team'),
+                          ),
+                          SizedBox(width: 10),
+                          ElevatedButton(
+                            onPressed: ratePlayer,
+                            child: Text('Rate Player'),
+                          ),
+                        ],
+                      ),
+                    ],
+                  )
                 : const SizedBox(), // Show nothing if details are not fetched yet
           ],
         ),
