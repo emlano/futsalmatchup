@@ -14,7 +14,7 @@ class TeamRosterPage extends StatefulWidget {
 
 class _TeamRosterPageState extends State<TeamRosterPage> {
   List<Map<String, dynamic>> teamPlayers = [
-    {"name": 'Ahmed', "profilePicUrl": 'assets/images/player_icon.png'},
+    {"name": 'Ahmed Zavahir', "profilePicUrl": 'assets/images/player_icon.png'},
   ];
 
   @override
