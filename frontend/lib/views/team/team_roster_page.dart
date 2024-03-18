@@ -12,18 +12,11 @@ class TeamRosterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> teamPlayers = [
       {"name": 'Nadil', "profilePicUrl": 'assets/images/player_icon.png'},
-      {"name": 'Ahmed', "profilePicUrl": 'assets/images/player_icon.png'},
-      {"name": 'Rimaz', "profilePicUrl": 'assets/images/player_icon.png'},
-      {"name": 'Lenmini', "profilePicUrl": 'assets/images/player_icon.png'},
-      {"name": 'Rachel', "profilePicUrl": 'assets/images/player_icon.png'},
     ];
 
     List<Map<String, dynamic>> recommendedPlayers = [
       {"name": 'John', "profilePicUrl": 'assets/images/player_icon.png'},
       {"name": 'Emily', "profilePicUrl": 'assets/images/player_icon.png'},
-      {"name": 'Michael', "profilePicUrl": 'assets/images/player_icon.png'},
-      {"name": 'Sophia', "profilePicUrl": 'assets/images/player_icon.png'},
-      {"name": 'David', "profilePicUrl": 'assets/images/player_icon.png'},
     ];
 
     return Scaffold(
