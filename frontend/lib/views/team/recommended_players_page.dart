@@ -40,7 +40,6 @@ class RecommendedPlayersPage extends StatelessWidget {
     AuthProvider authProvider = Provider.of<AuthProvider>(context, listen: false);
     String? token = authProvider.token;
 
-    // Replace this with your actual logic to fetch user details using the token
     try {
       final response = await http.get(
         Uri.parse('http://localhost:3000/users'),
@@ -51,7 +50,7 @@ class RecommendedPlayersPage extends StatelessWidget {
 
       if (response.statusCode == 200) {
         // Parse user details from the response
-        Map<String, dynamic> userData = jsonDecode(response.body);
+        final Map<String, dynamic> userData = jsonDecode(response.body);
         return {
           'age': userData['age'],
           'player_overall_rating': userData['player_overall_rating'],

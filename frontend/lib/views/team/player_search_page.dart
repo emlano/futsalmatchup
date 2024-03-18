@@ -64,13 +64,13 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
 
   void ratePlayer() {
     print('Rate player');
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => PlayerRatingPage(
-        playerId: playerDetails!['id'],
-        playerName: playerDetails![username],
-      )),
-    );
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(builder: (context) => PlayerRatingPage(
+    //     playerId: playerDetails!['id'],
+    //     // playerName: playerDetails![username],
+    //   )),
+    // );
   }
 
   @override
