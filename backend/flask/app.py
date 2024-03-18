@@ -1,34 +1,19 @@
 from flask import Flask, request, jsonify
-import pandas as pd
 import numpy as np
 from sklearn.cluster import KMeans
 from scipy.stats import zscore
 from scipy.spatial import distance
 from sklearn.metrics import silhouette_score
+import traceback
+import requests
 
 app = Flask(__name__)
 
 # Functions for recommendation
-def load_dataset(file_path):
-    """Load the dataset from a CSV file."""
-    return pd.read_csv(file_path)
-
-def drop_columns(dataset):
-    """Drop irrelevant columns from the dataset."""
-    columns_to_drop = ['full_name', 'birth_date', 'height_cm', 'weight_kgs', 'positions', 'potential', 'value_euro',
-                       'wage_euro', 'preferred_foot', 'international_reputation(1-5)', 'weak_foot(1-5)',
-                       'skill_moves(1-5)', 'body_type', 'release_clause_euro', 'national_team', 'national_rating',
-                       'national_team_position', 'national_jersey_number', 'crossing', 'finishing', 'heading_accuracy',
-                       'short_passing', 'volleys', 'dribbling', 'curve', 'freekick_accuracy', 'long_passing',
-                       'ball_control', 'acceleration', 'sprint_speed', 'agility', 'reactions', 'balance', 'shot_power',
-                       'jumping', 'stamina', 'strength', 'long_shots', 'aggression', 'interceptions', 'positioning',
-                       'vision', 'penalties', 'composure', 'marking', 'standing_tackle', 'sliding_tackle']
-    return dataset.drop(columns=columns_to_drop, errors='ignore')
-
 def prepare_data(dataset, features):
     """Prepare the data for clustering."""
-    X = dataset[features].dropna()
-    X_normalized = X.apply(zscore)
+    X = np.array([[player[features[0]], player[features[1]]] for player in dataset])
+    X_normalized = zscore(X)
     return X_normalized
 
 def find_optimal_k(X_normalized, k_values):
@@ -48,59 +33,65 @@ def fit_kmeans(X_normalized, optimal_k):
     kmeans.fit(X_normalized)
     return kmeans
 
-def recommend_players(kmeans, dataset, input_data, input_nationality, features):
+def recommend_players(kmeans, dataset, input_data, input_nationality):
     """Recommend players based on input data and nationality."""
     distances = distance.cdist([input_data], kmeans.cluster_centers_, 'euclidean')
-
-    # Get the nearest cluster index
     nearest_cluster_index = distances.argmin()
-
-    # Get indices of players within the nearest cluster and with the same nationality
-    nearest_cluster_indices = np.where((kmeans.labels_ == nearest_cluster_index))[0]
-    nationality_indices = np.where(dataset['nationality'] == input_nationality)[0]
-    common_indices = np.intersect1d(nearest_cluster_indices, nationality_indices)
-
-    # Get recommended players
-    nearest_cluster_players = dataset.iloc[common_indices]
-
-    # Calculate the Euclidean distance for each player in the nearest cluster
-    nearest_cluster_players['distance'] = nearest_cluster_players.apply(
-        lambda row: distance.euclidean(input_data, [row[feature] for feature in features]), axis=1)
-
-    # Sort recommended players by distance (ascending order)
-    nearest_cluster_players_sorted = nearest_cluster_players.sort_values(by='distance')
-
-    # Return sorted recommendations
-    return nearest_cluster_players_sorted[['name', 'age', 'overall_rating', 'nationality']].head(10)
-
-# Initialize variables and load data
-file_path = "fifa_players.csv"
-dataset = load_dataset(file_path)
-dataset = drop_columns(dataset)
-features = ['age', 'overall_rating']
-X_normalized = prepare_data(dataset, features)
-k_values = range(2, 11)
-optimal_k = find_optimal_k(X_normalized, k_values)
-kmeans = fit_kmeans(X_normalized, optimal_k)
+    nearest_cluster_players = [player for player in dataset if kmeans.labels_[dataset.index(player)] == nearest_cluster_index and player['player_city'] == input_nationality]
+    nearest_cluster_players_sorted = sorted(nearest_cluster_players, key=lambda player: distance.euclidean(input_data, [player['age'], player['player_overall_rating']]))
+    return nearest_cluster_players_sorted[:5]
 
 # Flask route for recommending players
-@app.route('/recommend_players', methods=['GET'])
+@app.route('/recommend', methods=['POST'])
 def recommend_players_route():
-    # Get player data from the node server
-    player_data = request.json
-    input_age = player_data['age']
-    input_rating = player_data['rating']
-    input_nationality = player_data['location']
-    input_data = [input_age, input_rating]
+    try:
+        # Get player data from the node server
+        body = request.json[0]
+        input_age = body['age']
+        input_rating = body['player_overall_rating']
+        input_nationality = body['player_city']
+        input_data = np.array([input_age, input_rating], dtype=np.float64)
 
-    # Recommend players based on input data
-    recommended_players = recommend_players(kmeans, dataset, input_data, input_nationality, features)
+        # Assuming you have a function to retrieve all players from the database
+        dataset = request.json[1:]
 
-    # Convert recommended players to JSON format
-    recommended_players_json = recommended_players.to_json(orient='records')
+        if not dataset:
+            return jsonify({'error': 'Player dataset is empty or missing.'}), 400
 
-    # Return recommended players as JSON response
-    return jsonify(recommended_players_json)
+        # Prepare data for clustering
+        features = ['age', 'player_overall_rating']
+        X_normalized = prepare_data(dataset, features)
+
+        # Fit KMeans clustering
+        k_values = range(2, 11)
+        optimal_k = find_optimal_k(X_normalized, k_values)
+        kmeans = fit_kmeans(X_normalized, optimal_k)
+
+        # Recommend players based on input data
+        recommended_players = recommend_players(kmeans, dataset, input_data, input_nationality)
+
+        if not recommended_players:
+            return jsonify({'error': 'No players found matching the criteria.'}), 404
+
+        # Convert recommended players to JSON format
+        recommended_players_json = jsonify(recommended_players[:5])
+
+        # Return recommended players as JSON response
+        return recommended_players_json
+
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({'error': str(e)}), 500
+
+# # Function to fetch players from the database
+# def fetch_players_from_database():
+#     # Make a request to the Node server to fetch player data from the database
+#     response = requests.get('http://localhost:3000/users')
+#     if response.status_code == 200:
+#         dataset = response.json()
+#         return dataset
+#     else:
+#         return None
 
 if __name__ == '__main__':
     app.run(debug=True, port=8080)

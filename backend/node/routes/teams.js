@@ -15,21 +15,32 @@ router.get("/", (req, res) => {
 });
 
 //Get team by id
-router.get("/:id", (req, res) => {
+router.get("/:teamId", authenticateToken, (req, res) => {
   try {
-    const id = req.params.id;
-    db.getTeamFromId(id).then((teams) => {
-      if (teams == null) {
-        res.status(404).send({ error: "team not found" });
+    const userId = req.user_id;
+    const teamId = req.params.teamId;
+
+    // Fetch team details including its members
+    db.getTeamDetails(teamId).then((team) => {
+      if (!team) {
+        res.status(404).send({ error: "Team not found" });
       } else {
-        res.send(teams);
+        // Filter team members to include only the logged-in user's name
+        const user = team.members.find(member => member.id === userId);
+        if (!user) {
+          res.status(404).send({ error: "User not found in the team" });
+        } else {
+          const teamRoster = [{ "name": user.name, "profilePicUrl": user.profilePicUrl }];
+          res.send(teamRoster);
+        }
       }
     });
   } catch (err) {
     console.error(err);
-    res.status(500).send();
+    res.status(500).send({ error: "Internal server error" });
   }
 });
+
 
 //Create a new team
 router.post("/", authenticateToken, async (req, res) => {
