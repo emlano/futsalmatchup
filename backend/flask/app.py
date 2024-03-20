@@ -41,6 +41,10 @@ def recommend_players(kmeans, dataset, input_data, input_nationality):
     nearest_cluster_players_sorted = sorted(nearest_cluster_players, key=lambda player: distance.euclidean(input_data, [player['age'], player['player_overall_rating']]))
     return nearest_cluster_players_sorted[:5]
 
+@app.route('/', methods=['GET'])
+def basic_response():
+    return "Connected to Flask at port 8080"
+
 # Flask route for recommending players
 @app.route('/recommend', methods=['POST'])
 def recommend_players_route():
