@@ -41,10 +41,6 @@ def recommend_players(kmeans, dataset, input_data, input_nationality):
     nearest_cluster_players_sorted = sorted(nearest_cluster_players, key=lambda player: distance.euclidean(input_data, [player['age'], player['player_overall_rating']]))
     return nearest_cluster_players_sorted[:5]
 
-@app.route('/', methods=['GET'])
-def basic_response():
-    return "Connected to Flask at port 8080"
-
 # Flask route for recommending players
 @app.route('/recommend', methods=['POST'])
 def recommend_players_route():
@@ -59,9 +55,6 @@ def recommend_players_route():
         # Assuming you have a function to retrieve all players from the database
         dataset = request.json[1:]
 
-        if not dataset:
-            return jsonify({'error': 'Player dataset is empty or missing.'}), 400
-
         # Prepare data for clustering
         features = ['age', 'player_overall_rating']
         X_normalized = prepare_data(dataset, features)
@@ -74,11 +67,8 @@ def recommend_players_route():
         # Recommend players based on input data
         recommended_players = recommend_players(kmeans, dataset, input_data, input_nationality)
 
-        if not recommended_players:
-            return jsonify({'error': 'No players found matching the criteria.'}), 404
-
         # Convert recommended players to JSON format
-        recommended_players_json = jsonify(recommended_players[:5])
+        recommended_players_json = jsonify(recommended_players)
 
         # Return recommended players as JSON response
         return recommended_players_json
