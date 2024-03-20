@@ -7,69 +7,6 @@ import 'dart:convert';
 import '../../providers/auth_provider.dart';
 
 class RecommendedPlayersPage extends StatelessWidget {
-  final List<Map<String, dynamic>> recommendedPlayers;
-
-  const RecommendedPlayersPage({Key? key, required this.recommendedPlayers})
-      : super(key: key);
-
-  Future<void> _recommendPlayers(BuildContext context) async {
-    try {
-      // final userDetails = await _getUserDetails(context);
-      final authProvider = Provider.of<AuthProvider>(context);
-      final String? token = authProvider.token;
-
-      final response = await http.post(
-        Uri.parse('http://localhost:3000/users/recommend'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': 'Bearer $token'
-        },
-      );
-
-      if (response.statusCode == 200) {
-        final List<dynamic> body = jsonDecode(response.body);
-        final Map<String, dynamic> recommendedPlayersList = body[0];
-        print(recommendedPlayersList);
-        // Handle the recommended players here
-      } else {
-        throw Exception('Failed to load recommended players');
-      }
-    } catch (e) {
-      print('Error recommending players: $e');
-    }
-  }
-
-  Future<Map<String, dynamic>> _getUserDetails(BuildContext context) async {
-    AuthProvider authProvider =
-        Provider.of<AuthProvider>(context, listen: false);
-    String? token = authProvider.token;
-
-    try {
-      final response = await http.get(
-        Uri.parse('http://localhost:3000/users'),
-        headers: <String, String>{
-          'Authorization': 'Bearer $token',
-        },
-      );
-
-      if (response.statusCode == 200) {
-        // Parse user details from the response
-        final List<dynamic> body = jsonDecode(response.body);
-        final Map<String, dynamic> userData = body[0];
-        return {
-          'age': userData['age'],
-          'player_overall_rating': userData['player_overall_rating'],
-          'player_city': userData['player_city'],
-        };
-      } else {
-        throw Exception('Failed to fetch user details');
-      }
-    } catch (e) {
-      print('Error fetching user details: $e');
-      throw e;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,79 +39,44 @@ class RecommendedPlayersPage extends StatelessWidget {
                       child: Text('Error: ${snapshot.error}'),
                     );
                   } else {
-                    return ListView.builder(
-                      itemCount: recommendedPlayers.length,
-                      itemBuilder: (context, index) {
-                        final player = recommendedPlayers[index];
-                        return Card(
-                          elevation: 2.0,
-                          margin: const EdgeInsets.symmetric(vertical: 8.0),
-                          color: Colors.teal.shade100,
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    CircleAvatar(
-                                      radius: 30,
-                                      backgroundImage:
-                                          AssetImage(player['profilePicUrl']),
-                                    ),
-                                    const SizedBox(width: 16.0),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            player['name'],
-                                            style: const TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                          Text(
-                                            'Age: ${player['age']}',
-                                            style: const TextStyle(
-                                                fontSize: 16,
-                                                color: Colors.black),
-                                          ),
-                                          Text(
-                                            'Rating: ${player['rating']}',
-                                            style: const TextStyle(
-                                                fontSize: 16,
-                                                color: Colors.black),
-                                          ),
-                                          Text(
-                                            'City: ${player['city']}',
-                                            style: const TextStyle(
-                                                fontSize: 16,
-                                                color: Colors.black),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 16.0),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    // Handle invite logic
-                                  },
-                                  child: const Text(
-                                    'Add to team',
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                ),
-                              ],
+                    final recommendedPlayer = snapshot.data as Map<String, dynamic>;
+                    return Card(
+                      elevation: 2.0,
+                      margin: const EdgeInsets.symmetric(vertical: 8.0),
+                      color: Colors.teal.shade100,
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Text(
+                              'Recommended Player:',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
                             ),
-                          ),
-                        );
-                      },
+                            const SizedBox(height: 10),
+                            Text(
+                              'Username: ${recommendedPlayer['username']}',
+                              style: TextStyle(fontSize: 16, color: Colors.black),
+                            ),
+                            Text(
+                              'Age: ${recommendedPlayer['age']}',
+                              style: TextStyle(fontSize: 16, color: Colors.black),
+                            ),
+                            Text(
+                              'City: ${recommendedPlayer['player_city']}',
+                              style: TextStyle(fontSize: 16, color: Colors.black),
+                            ),
+                            Text(
+                              'Overall Rating: ${recommendedPlayer['player_overall_rating']}',
+                              style: TextStyle(fontSize: 16, color: Colors.black),
+                            ),
+                          ],
+                        ),
+                      ),
                     );
                   }
                 },
@@ -184,5 +86,32 @@ class RecommendedPlayersPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<Map<String, dynamic>> _recommendPlayers(BuildContext context) async {
+    try {
+      final authProvider = Provider.of<AuthProvider>(context);
+      final String? token = authProvider.token;
+
+      final response = await http.post(
+        Uri.parse('http://localhost:3000/users/recommend'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $token'
+        },
+        body: jsonEncode({}), // Sending an empty body since we only need the token for authentication
+      );
+
+      if (response.statusCode == 200) {
+        final List<dynamic> body = jsonDecode(response.body);
+        final Map<String, dynamic> recommendedPlayer = body[0];
+        return recommendedPlayer;
+      } else {
+        throw Exception('Failed to load recommended player. Status code: ${response.statusCode}. Response body: ${response.body}');
+      }
+    } catch (e) {
+      print('Error recommending players: $e');
+      throw e;
+    }
   }
 }

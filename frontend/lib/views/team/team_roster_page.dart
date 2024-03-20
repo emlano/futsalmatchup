@@ -19,11 +19,6 @@ class _TeamRosterPageState extends State<TeamRosterPage> {
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> recommendedPlayers = [
-      {"name": 'John', "profilePicUrl": 'assets/images/player_icon.png'},
-      {"name": 'Emily', "profilePicUrl": 'assets/images/player_icon.png'},
-    ];
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: TitleAppBar(),
@@ -113,7 +108,7 @@ class _TeamRosterPageState extends State<TeamRosterPage> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => RecommendedPlayersPage(recommendedPlayers: recommendedPlayers)),
+                        MaterialPageRoute(builder: (context) => RecommendedPlayersPage()),
                       );
                     },
                     style: ElevatedButton.styleFrom(
