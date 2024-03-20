@@ -70,7 +70,7 @@ router.post("/signup", async (req, res) => {
     const result = await db.createNewUser(candidate);
     const [user] = result;
     const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: '30d',
+      expiresIn: "30d",
     });
     res.send({ accessToken: accessToken });
   } catch (err) {
@@ -105,7 +105,7 @@ router.post("/login", async (req, res) => {
       (await bcrypt.compare(candidate.username, hashedUsername))
     ) {
       const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
-        expiresIn: '30d',
+        expiresIn: "30d",
       });
       res.send({ accessToken: accessToken });
     } else {
@@ -118,28 +118,29 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/recommend", authenticateToken, async (req, res) => {
+  const flaskservice = process.env.FLASK_SERVICE;
+
   try {
     const [target] = await db.getUserFromId(req.user_id);
     const payload = await db.getAllUsersExcept(req.user_id);
 
     payload.unshift(target);
 
-    const response = await fetch('http://localhost:8080', {
+    const response = await fetch(`http://${flaskservice}:8080`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(payload)
-    })
+      body: JSON.stringify(payload),
+    });
 
     const result = JSON.parse(await response.text());
     res.status(405).send(result);
-  
   } catch (e) {
     res.status(500).send({ error: "internal server error" });
     console.error(e);
   }
-})
+});
 
 router.put("/", authenticateToken, async (req, res) => {
   try {
@@ -169,7 +170,7 @@ router.put("/other", authenticateToken, async (req, res) => {
     const [target] = req.body;
     const [player] = await db.getUserFromId(target.user_id);
 
-    if (player == null) res.status(404).send({ error: "no such user found!" })
+    if (player == null) res.status(404).send({ error: "no such user found!" });
 
     const sportsmanshipRate = target.player_sportsmanship_rating;
     const skillRate = target.player_skill_rating;
@@ -177,19 +178,19 @@ router.put("/other", authenticateToken, async (req, res) => {
     const overallRating = player.player_overall_rating;
 
     const overallValue = overallRating * ratedTimes;
-    const newOverallRating = ((sportsmanshipRate + skillRate) / 2 + overallValue) / (ratedTimes + 1);
+    const newOverallRating =
+      ((sportsmanshipRate + skillRate) / 2 + overallValue) / (ratedTimes + 1);
 
     player.player_overall_rating = newOverallRating;
     player.player_rated_times = ratedTimes + 1;
-    
+
     await db.updatePlayerRating(player);
     res.send({ status: "success" });
-  
   } catch (err) {
     console.error(err);
-    res.status(500).send({ error: "internal server error" })
+    res.status(500).send({ error: "internal server error" });
   }
-})
+});
 
 router.delete("/", authenticateToken, async (req, res) => {
   try {
