@@ -236,7 +236,7 @@ async function updateUser(user, id) {
         UPDATE players
         SET age = ?
         WHERE user_id = ? ;`,
-        [age, id]
+      [age, id]
     );
   }
 
@@ -246,7 +246,7 @@ async function updateUser(user, id) {
         UPDATE players
         SET phone_no = ?
         WHERE user_id = ? ;`,
-        [phone_no, id]
+      [phone_no, id]
     );
   }
 
@@ -265,8 +265,8 @@ async function updatePlayerRating(user) {
         player_overall_rating = ?,
         player_rated_times = ?
       WHERE user_id = ? ;`,
-      [overallRating, ratedTimes, id]
-  )
+    [overallRating, ratedTimes, id]
+  );
 }
 
 async function deleteUser(id) {

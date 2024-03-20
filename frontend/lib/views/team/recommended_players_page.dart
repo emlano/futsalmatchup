@@ -37,7 +37,8 @@ class RecommendedPlayersPage extends StatelessWidget {
   }
 
   Future<Map<String, dynamic>> _getUserDetails(BuildContext context) async {
-    AuthProvider authProvider = Provider.of<AuthProvider>(context, listen: false);
+    AuthProvider authProvider =
+        Provider.of<AuthProvider>(context, listen: false);
     String? token = authProvider.token;
 
     try {
@@ -103,29 +104,26 @@ class RecommendedPlayersPage extends StatelessWidget {
                         final player = recommendedPlayers[index];
                         return Card(
                           elevation: 2.0,
-                          margin:
-                          const EdgeInsets.symmetric(vertical: 8.0),
+                          margin: const EdgeInsets.symmetric(vertical: 8.0),
                           color: Colors.teal.shade100,
                           child: Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: Column(
-                              crossAxisAlignment:
-                              CrossAxisAlignment.stretch,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 Row(
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     CircleAvatar(
                                       radius: 30,
-                                      backgroundImage: AssetImage(
-                                          player['profilePicUrl']),
+                                      backgroundImage:
+                                          AssetImage(player['profilePicUrl']),
                                     ),
                                     const SizedBox(width: 16.0),
                                     Expanded(
                                       child: Column(
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             player['name'],
