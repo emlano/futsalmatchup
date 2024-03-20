@@ -164,7 +164,7 @@ class RecommendedPlayersPage extends StatelessWidget {
                                     // Handle invite logic
                                   },
                                   child: const Text(
-                                    'Invite to Join Team',
+                                    'Add to team',
                                     style: TextStyle(color: Colors.black),
                                   ),
                                 ),
