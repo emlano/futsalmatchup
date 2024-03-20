@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/models/header_app_bar.dart';
-import 'package:frontend/providers/auth_provider.dart'; // Import AuthProvider
+import 'package:frontend/providers/auth_provider.dart';
 import 'package:frontend/logic/profile/user_repository.dart';
 import 'package:provider/provider.dart';
 
@@ -24,22 +24,18 @@ class _PlayerProfileState extends State<PlayerProfile> {
   TextEditingController cityNameController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
 
-  // Function to update the user profile
-
+  // Function to update the user profile information
   Future<void> updateUserProfile() async {
     try {
       final profileData = {
-        //'username': playerNameController.text,
         'age': int.parse(ageController.text),
         'player_city': cityNameController.text,
         'phone_no': phoneNumberController.text,
         'player_availability': isAvailable,
       };
-
-      // Update user profile using UserRepository
       await userRepository.updateUserProfile(token, profileData);
 
-      // Show success message to the user
+      // Success message
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('User profile updated successfully'),
@@ -48,10 +44,9 @@ class _PlayerProfileState extends State<PlayerProfile> {
         ),
       );
     } catch (e) {
-      // Handle any errors during the update
       print('Error updating user profile: $e');
 
-      // Show error message to the user
+      // Error message
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Error updating user profile. Please try again.'),
@@ -61,27 +56,23 @@ class _PlayerProfileState extends State<PlayerProfile> {
     }
   }
 
-  // Define saveChanges method
   void saveChanges() {
-    // Save the changes to the backend
     updateUserProfile();
   }
 
-  // Define toggleEditMode method
   void toggleEditMode() {
-    // Toggles the editing mode
     setState(() {
       isEditing = !isEditing;
     });
   }
 
-// Function to fetch user profile from backend
+  // Function to fetch user profile data from backend
   Future<void> fetchUserProfile() async {
     try {
       // Fetch user profile data from the backend using UserRepository
       final userProfile = await userRepository.getUserProfile(token);
-      // Update text controllers with fetched user profile data
 
+      // Update text controllers with fetched user profile data
       setState(() {
         playerNameController.text = userProfile['username'];
         ageController.text =
@@ -91,13 +82,10 @@ class _PlayerProfileState extends State<PlayerProfile> {
         isAvailable = userProfile['player_availability'] == 1;
       });
     } catch (e) {
-      // Handle any errors during fetching user profile
       print('Error fetching user profile: $e');
-      // Show error message to the user or perform any other error handling actions
     }
   }
 
-  // Text controllers initialized with default values in the initState method
   @override
   void initState() {
     super.initState();
@@ -135,16 +123,6 @@ class _PlayerProfileState extends State<PlayerProfile> {
                                     ? TextFormField(
                                         readOnly: true,
                                         initialValue: playerNameController.text,
-                                        // onChanged: (value) =>
-                                        //     {playerNameController.text = value},
-                                        // style: TextStyle(
-                                        //   fontSize: 30,
-                                        //   fontWeight: FontWeight.bold,
-                                        // ),
-                                        // decoration: InputDecoration(
-                                        //   hintText: 'Enter your name',
-                                        //   hintStyle: TextStyle(fontSize: 25),
-                                        // ),
                                       )
                                     : Text(
                                         playerNameController.text,
@@ -240,7 +218,7 @@ class _PlayerProfileState extends State<PlayerProfile> {
 
                       SizedBox(height: 1),
 
-                      // Update Status
+                      // Update Availability Status
                       Row(
                         children: [
                           Text(
@@ -254,12 +232,10 @@ class _PlayerProfileState extends State<PlayerProfile> {
                           Transform.scale(
                             scale: 0.7,
                             child: Switch(
-                              value: isAvailable, // Current availability status
+                              value: isAvailable,
                               onChanged: (value) {
-                                // When switch is toggled, triggers the onChanged callback with the new value (value)
                                 setState(() {
-                                  isAvailable =
-                                      value; // Update the availability status with the new value
+                                  isAvailable = value;
                                 });
                               },
                               activeTrackColor: Colors.teal,
@@ -276,9 +252,6 @@ class _PlayerProfileState extends State<PlayerProfile> {
                             toggleEditMode();
                           }
                         },
-                        // onPressed: isEditing
-                        //     ? toggleEditMode
-                        //     : () => saveChanges(authProvider.token),
                         style: OutlinedButton.styleFrom(
                           side: BorderSide(color: Colors.teal, width: 2.0),
                           shape: RoundedRectangleBorder(

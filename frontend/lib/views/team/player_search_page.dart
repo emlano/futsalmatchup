@@ -60,11 +60,22 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
 
   void addToTeam() {
     print('Player added to team');
-    Navigator.pop(context, playerNameController.text);
   }
 
   void ratePlayer() {
     print('Rate player');
+    if (playerDetails != null) {
+      // Navigate to the PlayerRatingPage
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          // Pass player details as arguments to the PlayerRatingPage constructor
+          builder: (context) => PlayerRatingPage(playerInfo: playerDetails!),
+        ),
+      );
+    } else {
+      print('Player details not fetched.');
+    }
   }
 
   @override

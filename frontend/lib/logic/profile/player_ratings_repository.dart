@@ -2,55 +2,26 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class PlayerRatingsRepository {
-  // Base URL for the backend API
-  final String baseUrl = 'http://localhost:3000';
-
-  //Method to get player details (player name,age, city, player position ) of the selected player  from the backend and display in the frontend
-  //get player details by userId or getUserFromName
-  Future<Map<String, dynamic>> getPlayerDetails(
-      dynamic playerIdentifier) async {
-    try {
-      final response = await http.get(
-        Uri.parse(
-            '$baseUrl/users/other?id=${playerIdentifier['id']}&username=${playerIdentifier['username']}'),
-        headers: {"Content-Type": "application/json"},
-      ); //path correct??
-
-      if (response.statusCode == 200) {
-        print('Player details fetched successfully!');
-        return json.decode(response.body);
-      } else if (response.statusCode == 400) {
-        print('Bad request: ${response.body}');
-        throw Exception('Bad request');
-      } else if (response.statusCode >= 500) {
-        print('Server error: ${response.body}');
-        throw Exception('Server error');
-      } else {
-        throw Exception('Failed to fetch player details');
-      }
-    } catch (e) {
-      print('Error fetching player details: $e');
-      throw Exception('Failed to fetch player details');
-    }
-  }
-
   // Method to update the player ratings of the player on the backend
-  Future<void> updatePlayerRatings(dynamic playerIdentifier,
-      double skillLevelRating, double sportsmanshipRating) async {
+  Future<void> updatePlayerRatings(
+      int userId, double skillLevelRating, double sportsmanshipRating) async {
     try {
-      // Send a POST request to the 'players/rate' endpoint with the user's ratings
+      // Send a POST request with the user's ratings
       final response = await http.post(
-        Uri.parse('$baseUrl/users/other'), //path correct??
-        body: json.encode({
-          'userId': playerIdentifier['user_id'],
-          'skillLevelRating': skillLevelRating,
-          'sportsmanshipRating': sportsmanshipRating,
-        }),
+        Uri.parse('http://localhost:3000/users/other'),
+        body: json.encode([
+          {
+            'user_id': userId,
+            'player_skill_rating': skillLevelRating,
+            'player_sportsmanship_rating': sportsmanshipRating,
+          }
+        ]),
         headers: {"Content-Type": "application/json"},
       );
 
+      // Handle response status code
       if (response.statusCode == 200) {
-        print('Player rated successfully!');
+        print('Player ratings saved successfully!');
       } else if (response.statusCode == 400) {
         // Bad request - client-side error
         print('Bad request: ${response.body}');
@@ -61,11 +32,11 @@ class PlayerRatingsRepository {
         throw Exception('Server error');
       } else {
         throw Exception(
-            'Failed to rate player. Status code: ${response.statusCode}');
+            'Failed to save player ratings. Status code: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error rating player: $e');
-      throw Exception('Failed to rate player. Check your network connection.');
+      print('Error saving player ratings: $e');
+      throw Exception('Failed to save player ratings.');
     }
   }
 }
