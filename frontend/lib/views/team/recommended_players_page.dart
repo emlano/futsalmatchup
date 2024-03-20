@@ -14,18 +14,21 @@ class RecommendedPlayersPage extends StatelessWidget {
 
   Future<void> _recommendPlayers(BuildContext context) async {
     try {
-      final userDetails = await _getUserDetails(context);
+      // final userDetails = await _getUserDetails(context);
+      final authProvider = Provider.of<AuthProvider>(context);
+      final String? token = authProvider.token;
 
       final response = await http.post(
         Uri.parse('http://localhost:3000/users/recommend'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $token'
         },
-        body: jsonEncode(userDetails),
       );
 
       if (response.statusCode == 200) {
-        final List<dynamic> recommendedPlayersList = jsonDecode(response.body);
+        final List<dynamic> body = jsonDecode(response.body);
+        final Map<String, dynamic> recommendedPlayersList = body[0];
         print(recommendedPlayersList);
         // Handle the recommended players here
       } else {
@@ -37,7 +40,8 @@ class RecommendedPlayersPage extends StatelessWidget {
   }
 
   Future<Map<String, dynamic>> _getUserDetails(BuildContext context) async {
-    AuthProvider authProvider = Provider.of<AuthProvider>(context, listen: false);
+    AuthProvider authProvider =
+        Provider.of<AuthProvider>(context, listen: false);
     String? token = authProvider.token;
 
     try {
@@ -50,7 +54,8 @@ class RecommendedPlayersPage extends StatelessWidget {
 
       if (response.statusCode == 200) {
         // Parse user details from the response
-        final Map<String, dynamic> userData = jsonDecode(response.body);
+        final List<dynamic> body = jsonDecode(response.body);
+        final Map<String, dynamic> userData = body[0];
         return {
           'age': userData['age'],
           'player_overall_rating': userData['player_overall_rating'],
@@ -103,29 +108,26 @@ class RecommendedPlayersPage extends StatelessWidget {
                         final player = recommendedPlayers[index];
                         return Card(
                           elevation: 2.0,
-                          margin:
-                          const EdgeInsets.symmetric(vertical: 8.0),
+                          margin: const EdgeInsets.symmetric(vertical: 8.0),
                           color: Colors.teal.shade100,
                           child: Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: Column(
-                              crossAxisAlignment:
-                              CrossAxisAlignment.stretch,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 Row(
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     CircleAvatar(
                                       radius: 30,
-                                      backgroundImage: AssetImage(
-                                          player['profilePicUrl']),
+                                      backgroundImage:
+                                          AssetImage(player['profilePicUrl']),
                                     ),
                                     const SizedBox(width: 16.0),
                                     Expanded(
                                       child: Column(
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             player['name'],
