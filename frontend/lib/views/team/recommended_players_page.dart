@@ -7,6 +7,11 @@ import 'dart:convert';
 import '../../providers/auth_provider.dart';
 
 class RecommendedPlayersPage extends StatelessWidget {
+
+  void addToTeam() {
+    print('Player added to team');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,6 +78,10 @@ class RecommendedPlayersPage extends StatelessWidget {
                             Text(
                               'Overall Rating: ${recommendedPlayer['player_overall_rating']}',
                               style: TextStyle(fontSize: 16, color: Colors.black),
+                            ),
+                            ElevatedButton(
+                              onPressed: addToTeam,
+                              child: Text('Add to team'),
                             ),
                           ],
                         ),
