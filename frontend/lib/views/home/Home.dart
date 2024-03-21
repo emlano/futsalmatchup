@@ -170,6 +170,26 @@ class _HomeState extends State<Home> {
               title: Row(
                 children: [
                   Icon(
+                    Icons.home,
+                    color: Colors.grey,
+                    size: 27,
+                  ),
+                  SizedBox(
+                    width: 3,
+                  ),
+                  Text('Home'),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Home()));
+              },
+            ),
+
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(
                     Icons.account_circle,
                     color: Colors.grey,
                   ),

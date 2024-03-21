@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
           useMaterial3: true,
         ),
-        home: const LoginScreen(title: "Futsal MatchUp"),
+        home: const Home(),
         routes: {
           "/login": (context) => const LoginPage(),
           "/signup": (context) => const SigninPage(),
