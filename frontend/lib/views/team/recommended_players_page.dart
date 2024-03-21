@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/models/header_app_bar.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'dart:convert';
 
+import '../../models/header_app_bar.dart';
 import '../../providers/auth_provider.dart';
 
 class RecommendedPlayersPage extends StatelessWidget {
@@ -28,6 +28,7 @@ class RecommendedPlayersPage extends StatelessWidget {
           children: [
             const Text(
               'Recommended Players for You',
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -49,45 +50,55 @@ class RecommendedPlayersPage extends StatelessWidget {
                     );
                   } else {
                     final recommendedPlayer = snapshot.data as Map<String, dynamic>;
-                    return Card(
-                      elevation: 2.0,
-                      margin: const EdgeInsets.symmetric(vertical: 8.0),
-                      color: Colors.teal.shade100,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Text(
-                              'Recommended Player:',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
+                    return Align(
+                      alignment: Alignment.topCenter,
+                      child: Container(
+                        width: double.infinity,
+                        child: Card(
+                          elevation: 2.0,
+                          color: Colors.teal.shade100,
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Text(
+                                  'Recommended Player:',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                SizedBox(height: 10),
+                                _buildPlayerInfo(
+                                  'Username',
+                                  recommendedPlayer['username'],
+                                ),
+                                _buildPlayerInfo(
+                                  'Age',
+                                  recommendedPlayer['age'].toString(),
+                                ),
+                                _buildPlayerInfo(
+                                  'City',
+                                  recommendedPlayer['player_city'],
+                                ),
+                                _buildPlayerInfo(
+                                  'Overall Rating',
+                                  recommendedPlayer['player_overall_rating']
+                                      .toString(),
+                                ),
+                                SizedBox(height: 10),
+                                ElevatedButton(
+                                  onPressed: () => addToTeam(
+                                      recommendedPlayer['username']),
+                                  child: Text('Add to Team'),
+                                ),
+                              ],
                             ),
-                            const SizedBox(height: 10),
-                            Text(
-                              'Username: ${recommendedPlayer['username']}',
-                              style: TextStyle(fontSize: 16, color: Colors.black),
-                            ),
-                            Text(
-                              'Age: ${recommendedPlayer['age']}',
-                              style: TextStyle(fontSize: 16, color: Colors.black),
-                            ),
-                            Text(
-                              'City: ${recommendedPlayer['player_city']}',
-                              style: TextStyle(fontSize: 16, color: Colors.black),
-                            ),
-                            Text(
-                              'Overall Rating: ${recommendedPlayer['player_overall_rating']}',
-                              style: TextStyle(fontSize: 16, color: Colors.black),
-                            ),
-                            ElevatedButton(
-                              onPressed: () => addToTeam(recommendedPlayer['username']),
-                              child: Text('Add to team'),
-                            ),
-                          ],
+                          ),
                         ),
                       ),
                     );
@@ -98,6 +109,13 @@ class RecommendedPlayersPage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildPlayerInfo(String label, String value) {
+    return Text(
+      '$label: $value',
+      style: TextStyle(fontSize: 16, color: Colors.black),
     );
   }
 
@@ -115,17 +133,9 @@ class RecommendedPlayersPage extends StatelessWidget {
         body: jsonEncode({}), // Sending an empty body since we only need the token for authentication
       );
 
-      // if (response.statusCode == 200) {
-      //   final List<dynamic> body = jsonDecode(response.body);
-      //   final Map<String, dynamic> recommendedPlayer = body[0];
-      //   return recommendedPlayer;
-      // }
       final List<dynamic> body = jsonDecode(response.body);
       final Map<String, dynamic> recommendedPlayer = body[0];
       return recommendedPlayer;
-      // else {
-      //   throw Exception('Failed to load recommended player. Status code: ${response.statusCode}. Response body: ${response.body}');
-      // }
     } catch (e) {
       print('Error recommending players: $e');
       throw e;
