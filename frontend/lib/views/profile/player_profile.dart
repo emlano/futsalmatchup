@@ -182,9 +182,24 @@ class _PlayerProfileState extends State<PlayerProfile> {
                                         ),
                                       )
                                     : Text(
-                                        '${ageController.text} years | ${cityNameController.text}',
+                                        '${ageController.text} years |',
                                         style: TextStyle(fontSize: 15),
                                       ),
+
+                                isEditing
+                                    ? TextFormField(
+                                        controller:
+                                            cityNameController, // Use cityNameController for city input
+                                        style: TextStyle(fontSize: 15),
+                                        decoration: InputDecoration(
+                                          hintText: 'Enter city',
+                                        ),
+                                      )
+                                    : Text(
+                                        cityNameController.text,
+                                        style: TextStyle(fontSize: 15),
+                                      ),
+
                                 isEditing
                                     ? TextFormField(
                                         controller: phoneNumberController,
