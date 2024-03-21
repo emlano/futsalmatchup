@@ -105,10 +105,16 @@ class _TeamRosterPageState extends State<TeamRosterPage> {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
+                    onPressed: () async {
+                      final addedPlayer = await Navigator.push<String>(
                         context,
-                        MaterialPageRoute(builder: (context) => RecommendedPlayersPage()),
+                        MaterialPageRoute(builder: (context) => RecommendedPlayersPage(
+                          addToTeamCallback: (playerName) {
+                            setState(() {
+                              teamPlayers.add({"name": playerName, "profilePicUrl": 'assets/images/player_icon.png'});
+                            });
+                          },
+                        )),
                       );
                     },
                     style: ElevatedButton.styleFrom(

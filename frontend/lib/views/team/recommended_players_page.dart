@@ -7,9 +7,13 @@ import 'dart:convert';
 import '../../providers/auth_provider.dart';
 
 class RecommendedPlayersPage extends StatelessWidget {
+  final Function(String) addToTeamCallback;
 
-  void addToTeam() {
+  RecommendedPlayersPage({required this.addToTeamCallback});
+
+  void addToTeam(String playerName) {
     print('Player added to team');
+    addToTeamCallback(playerName);
   }
 
   @override
@@ -80,7 +84,7 @@ class RecommendedPlayersPage extends StatelessWidget {
                               style: TextStyle(fontSize: 16, color: Colors.black),
                             ),
                             ElevatedButton(
-                              onPressed: addToTeam,
+                              onPressed: () => addToTeam(recommendedPlayer['username']),
                               child: Text('Add to team'),
                             ),
                           ],
