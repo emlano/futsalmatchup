@@ -196,7 +196,7 @@ class _PlayerProfileState extends State<PlayerProfile> {
                                         ),
                                       )
                                     : Text(
-                                        '${cityNameController.text} years',
+                                        '${cityNameController.text}',
                                         style: TextStyle(fontSize: 15),
                                       ),
 
