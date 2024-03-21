@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:frontend/models/header_app_bar.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:frontend/logic/profile/player_ratings_repository.dart';
+import 'package:frontend/providers/auth_provider.dart';
+import 'package:provider/provider.dart';
 import 'successful_page.dart';
 
 class PlayerRatingPage extends StatefulWidget {
@@ -28,6 +30,8 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
     int playerAge = widget.playerInfo['age'];
     String playerCity = widget.playerInfo['player_city'];
     String playerPosition = widget.playerInfo['player_position'];
+
+    final authProvider = Provider.of<AuthProvider>(context);
 
     return Scaffold(
       appBar: TitleAppBar(),
@@ -140,7 +144,10 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
                   try {
                     // Call updatePlayerRatings() to update the backend with the ratings
                     await playerRatingsRepository.updatePlayerRatings(
-                        userId, sportsmanshipRating, skillLevelRating);
+                        userId,
+                        sportsmanshipRating,
+                        skillLevelRating,
+                        authProvider.token!);
                     //Navigate to the successful page
                     Navigator.push(
                       context,

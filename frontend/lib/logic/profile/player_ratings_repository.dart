@@ -3,11 +3,11 @@ import 'package:http/http.dart' as http;
 
 class PlayerRatingsRepository {
   // Method to update the player ratings of the player on the backend
-  Future<void> updatePlayerRatings(
-      int userId, double skillLevelRating, double sportsmanshipRating) async {
+  Future<void> updatePlayerRatings(int userId, double skillLevelRating,
+      double sportsmanshipRating, String token) async {
     try {
       // Send a POST request with the user's ratings
-      final response = await http.post(
+      final response = await http.put(
         Uri.parse('http://localhost:3000/users/other'),
         body: json.encode([
           {
@@ -16,7 +16,10 @@ class PlayerRatingsRepository {
             'player_sportsmanship_rating': sportsmanshipRating,
           }
         ]),
-        headers: {"Content-Type": "application/json"},
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $token"
+        },
       );
 
       // Handle response status code
