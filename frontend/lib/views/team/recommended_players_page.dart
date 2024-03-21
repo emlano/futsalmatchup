@@ -102,13 +102,17 @@ class RecommendedPlayersPage extends StatelessWidget {
         body: jsonEncode({}), // Sending an empty body since we only need the token for authentication
       );
 
-      if (response.statusCode == 200) {
-        final List<dynamic> body = jsonDecode(response.body);
-        final Map<String, dynamic> recommendedPlayer = body[0];
-        return recommendedPlayer;
-      } else {
-        throw Exception('Failed to load recommended player. Status code: ${response.statusCode}. Response body: ${response.body}');
-      }
+      // if (response.statusCode == 200) {
+      //   final List<dynamic> body = jsonDecode(response.body);
+      //   final Map<String, dynamic> recommendedPlayer = body[0];
+      //   return recommendedPlayer;
+      // }
+      final List<dynamic> body = jsonDecode(response.body);
+      final Map<String, dynamic> recommendedPlayer = body[0];
+      return recommendedPlayer;
+      // else {
+      //   throw Exception('Failed to load recommended player. Status code: ${response.statusCode}. Response body: ${response.body}');
+      // }
     } catch (e) {
       print('Error recommending players: $e');
       throw e;
