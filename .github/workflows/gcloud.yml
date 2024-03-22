@@ -28,7 +28,7 @@ jobs:
           INSTANCE_NAME: ${{ secrets.COMPUTE_INSTANCE }}
           INSTANCE_ZONE: ${{ secrets.COMPUTE_INSTANCE_ZONE }}
         run: |
-          gcloud compute scp -recurse ./* $INSTANCE_NAME:~/ --zone $INSTANCE_ZONE
+          gcloud compute scp --recurse ./* $INSTANCE_NAME:~/ --zone $INSTANCE_ZONE
 
       - name: Deploy and run compute engine
         env:
