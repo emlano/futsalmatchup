@@ -15,7 +15,7 @@ jobs:
       - name: code checkout 
         uses: actions/checkout@v2
 
-      - name: 'Authenticate into Google cloud'
+      - id: 'auth'
         uses: 'google-github-actions/auth@v2'
         env:
           CREDENTIALS: '${{ secrets.GOOGLE_CLOUD_CREDENTIALS }}'
