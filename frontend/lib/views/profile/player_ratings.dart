@@ -81,28 +81,81 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold)),
                         SizedBox(height: 10),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //   children: [
+                        //     // Skill Level Rating
+                        //     Text('Skill Level:',
+                        //         style: TextStyle(
+                        //             fontSize: 18, fontWeight: FontWeight.bold)),
+                        //     RatingBar.builder(
+                        //       initialRating: skillLevelRating,
+                        //       direction: Axis.horizontal,
+                        //       allowHalfRating: true,
+                        //       itemCount: 5,
+                        //       itemSize: 28,
+                        //       itemBuilder: (context, _) => Icon(
+                        //         Icons.star,
+                        //         color: Colors.yellow,
+                        //       ),
+                        //       onRatingUpdate: (rating) {
+                        //         setState(() {
+                        //           skillLevelRating = rating;
+                        //         });
+                        //       },
+                        //     ),
+                        //   ],
+                        // ),
+                        // SizedBox(height: 10),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //   children: [
+                        //     // Sportsmanship Rating
+                        //     Text('Sportsmanship:',
+                        //         style: TextStyle(
+                        //             fontSize: 18, fontWeight: FontWeight.bold)),
+                        //     RatingBar.builder(
+                        //       initialRating: sportsmanshipRating,
+                        //       direction: Axis.horizontal,
+                        //       allowHalfRating: true,
+                        //       itemCount: 5,
+                        //       itemSize: 28,
+                        //       itemBuilder: (context, _) => Icon(
+                        //         Icons.star,
+                        //         color: Colors.yellow,
+                        //       ),
+                        //       onRatingUpdate: (rating) {
+                        //         setState(() {
+                        //           sportsmanshipRating = rating;
+                        //         });
+                        //       },
+                        //     ),
+                        //   ],
+                        // ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            // Skill Level Rating
-                            Text('Skill Level:',
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
-                            RatingBar.builder(
-                              initialRating: skillLevelRating,
-                              direction: Axis.horizontal,
-                              allowHalfRating: true,
-                              itemCount: 5,
-                              itemSize: 28,
-                              itemBuilder: (context, _) => Icon(
-                                Icons.star,
-                                color: Colors.yellow,
+                            Expanded(
+                              child: Text('Skill Level:',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold)),
+                            ),
+                            Expanded(
+                              child: RatingBar.builder(
+                                initialRating: skillLevelRating,
+                                direction: Axis.horizontal,
+                                allowHalfRating: true,
+                                itemCount: 5,
+                                itemSize: 28,
+                                itemBuilder: (context, _) =>
+                                    Icon(Icons.star, color: Colors.yellow),
+                                onRatingUpdate: (rating) {
+                                  setState(() {
+                                    skillLevelRating = rating;
+                                  });
+                                },
                               ),
-                              onRatingUpdate: (rating) {
-                                setState(() {
-                                  skillLevelRating = rating;
-                                });
-                              },
                             ),
                           ],
                         ),
@@ -110,25 +163,27 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            // Sportsmanship Rating
-                            Text('Sportsmanship:',
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
-                            RatingBar.builder(
-                              initialRating: sportsmanshipRating,
-                              direction: Axis.horizontal,
-                              allowHalfRating: true,
-                              itemCount: 5,
-                              itemSize: 28,
-                              itemBuilder: (context, _) => Icon(
-                                Icons.star,
-                                color: Colors.yellow,
+                            Expanded(
+                              child: Text('Sportsmanship:',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold)),
+                            ),
+                            Expanded(
+                              child: RatingBar.builder(
+                                initialRating: skillLevelRating,
+                                direction: Axis.horizontal,
+                                allowHalfRating: true,
+                                itemCount: 5,
+                                itemSize: 28,
+                                itemBuilder: (context, _) =>
+                                    Icon(Icons.star, color: Colors.yellow),
+                                onRatingUpdate: (rating) {
+                                  setState(() {
+                                    skillLevelRating = rating;
+                                  });
+                                },
                               ),
-                              onRatingUpdate: (rating) {
-                                setState(() {
-                                  sportsmanshipRating = rating;
-                                });
-                              },
                             ),
                           ],
                         ),
