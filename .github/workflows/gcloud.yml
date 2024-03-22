@@ -15,13 +15,13 @@ jobs:
       - name: code checkout 
         uses: actions/checkout@v2
 
-      - name: install gcloud-cli
-        uses: google-github-actions/setup-gcloud@v0
-
+      - name: 'Authenticate into Google cloud'
+        uses: 'google-github-actions/auth@v2'
         with:
-          project_id: ${{ secrets.GOOGLE_PROJECT }}
-          service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-          expose_default_credentials: true
+          credentials_json: '${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}'
+
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v2'
 
       - name: Copy files at ./backend/ to the compute engine
         env:
