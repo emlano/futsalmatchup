@@ -189,6 +189,7 @@ class _StadiumDetailsPageState extends State<StadiumDetailsPage> {
           width: 180,
           child: ElevatedButton(
             onPressed: () {
+            
               if (!isReserved && !isBooked) {
                 setState(() {
                   _slotStatus[_selectedDay]![index] = true;
@@ -208,5 +209,44 @@ class _StadiumDetailsPageState extends State<StadiumDetailsPage> {
         ),
       ],
     );
+  }
+}
+
+
+void createBooking(String token, String teamName, BuildContext context) async {
+    const url = 'http://localhost:3000/teams';
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+    final body = jsonEncode([{'teamName': teamName}]);
+
+    try {
+      final response = await http.post(Uri.parse(url), headers: headers, body: body);
+
+      if (response.statusCode == 200) {
+        print('Team created succssfully');
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TeamRosterPage(teamName: teamName),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Failed to create team. Please try again.'),
+          ),
+        );
+      }
+    } catch (error) {
+      // Handle errors
+      print('Error creating team: $error');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('An error occurred. Please try again later.'),
+        ),
+      );
+    }
   }
 }
