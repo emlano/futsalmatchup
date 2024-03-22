@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 
 import '../../providers/auth_provider.dart';
 
+// Define a StatefulWidget for the player search page
 class PlayerSearchPage extends StatefulWidget {
   const PlayerSearchPage({Key? key}) : super(key: key);
 
@@ -16,39 +17,39 @@ class PlayerSearchPage extends StatefulWidget {
 }
 
 class _PlayerSearchPageState extends State<PlayerSearchPage> {
-  late TextEditingController playerNameController;
-  late AuthProvider authProvider;
-  Map<String, dynamic>? playerDetails;
+  late TextEditingController playerNameController; // Controller for player name text field
+  late AuthProvider authProvider; // Authentication provider
+  Map<String, dynamic>? playerDetails; // Details of the searched player
 
   @override
   void initState() {
     super.initState();
-    playerNameController = TextEditingController();
+    playerNameController = TextEditingController(); // Initialize the controller
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    authProvider = Provider.of<AuthProvider>(context);
+    authProvider = Provider.of<AuthProvider>(context); // Access the authentication provider
   }
 
   Future<void> fetchPlayerDetails(String playerName) async {
     try {
       final response = await http.post(
-        Uri.parse('http://localhost:3000/users/other'),
+        Uri.parse('http://localhost:3000/users/other'), // Path to API endpoint
         body: json.encode([
           {"username": playerName}
         ]),
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer ${authProvider.token}",
+          "Authorization": "Bearer ${authProvider.token}", // Send authorization token
         },
       );
 
       if (response.statusCode == 200) {
         final List<dynamic> playerJson = json.decode(response.body);
         setState(() {
-          playerDetails = playerJson[0];
+          playerDetails = playerJson[0]; // Set player details received from the server
         });
       } else {
         throw Exception('Failed to load player details');
@@ -60,7 +61,7 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
 
   void addToTeam() {
     print('Player added to team');
-    Navigator.pop(context, playerNameController.text);
+    Navigator.pop(context, playerNameController.text); // Pop the context with player name
   }
 
   void ratePlayer() {
@@ -69,7 +70,7 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    authProvider = Provider.of<AuthProvider>(context);
+    authProvider = Provider.of<AuthProvider>(context); // Access the authentication provider
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: TitleAppBar(),
@@ -82,7 +83,7 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
               controller: playerNameController,
               decoration: InputDecoration(
                 labelText: 'Enter player name',
-                labelStyle: TextStyle(color: Colors.black),
+                labelStyle: const TextStyle(color: Colors.black),
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.teal[100]!),
                 ),
@@ -97,7 +98,7 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.teal[100],
               ),
-              child: Text(
+              child: const Text(
                 'Search',
                 style: TextStyle(color: Colors.black),
               ),
@@ -115,23 +116,23 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
                       ),
                       Text(
                         'Age: ${playerDetails!['age']}',
-                        style: TextStyle(color: Colors.black),
+                        style: const TextStyle(color: Colors.black),
                       ),
                       Text(
                         'City: ${playerDetails!['player_city']}',
-                        style: TextStyle(color: Colors.black),
+                        style: const TextStyle(color: Colors.black),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           ElevatedButton(
                             onPressed: addToTeam,
-                            child: Text('Add to team'),
+                            child: const Text('Add to team'),
                           ),
-                          SizedBox(width: 10),
+                          const SizedBox(width: 10),
                           ElevatedButton(
                             onPressed: ratePlayer,
-                            child: Text('Rate Player'),
+                            child: const Text('Rate Player'),
                           ),
                         ],
                       ),

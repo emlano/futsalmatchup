@@ -6,14 +6,17 @@ import 'dart:convert';
 import '../../models/header_app_bar.dart';
 import '../../providers/auth_provider.dart';
 
+// Class for the Recommended Players Page
 class RecommendedPlayersPage extends StatelessWidget {
-  final Function(String) addToTeamCallback;
+  final Function(String) addToTeamCallback; // Callback function to add players to the team
 
   RecommendedPlayersPage({required this.addToTeamCallback});
 
+
+  // Function to add a player to the team
   void addToTeam(String playerName) {
     print('Player added to team');
-    addToTeamCallback(playerName);
+    addToTeamCallback(playerName); // Calling the callback function
   }
 
   @override
@@ -26,6 +29,7 @@ class RecommendedPlayersPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            // Title of the page
             const Text(
               'Recommended Players for You',
               textAlign: TextAlign.center,
@@ -125,17 +129,17 @@ class RecommendedPlayersPage extends StatelessWidget {
       final String? token = authProvider.token;
 
       final response = await http.post(
-        Uri.parse('http://localhost:3000/users/recommend'),
+        Uri.parse('http://localhost:3000/users/recommend'), // API endpoint for recommending players
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': 'Bearer $token'
+          'Authorization': 'Bearer $token' // Send token for authentication
         },
-        body: jsonEncode({}), // Sending an empty body since we only need the token for authentication
+        body: jsonEncode({}), // Send an empty body since we only need the token for authentication
       );
 
       final List<dynamic> body = jsonDecode(response.body);
       final Map<String, dynamic> recommendedPlayer = body[0];
-      return recommendedPlayer;
+      return recommendedPlayer; // Return recommended player information
     } catch (e) {
       print('Error recommending players: $e');
       throw e;
