@@ -137,7 +137,7 @@ INSERT INTO players (username, password, phone_no, age, player_skill_rating, pla
 ('Ederson', '$2b$10$KybkVidx50fSUBY3.Ahm0e0fEBUHeHeSRjKfVrpmWz85sBYSVEhMC', '1234567808', 28, 3.99, 3.60, 3.80, 10, 'Manchester', TRUE, 'Goalkeeper', 8),
 ('Luis Suarez', '$2b$10$4VdLpJ6qk6gdwGcCHKxzT.akGkc7pgKpuVFTjIPoclW9yHRqo6s6m', '1234567809', 35, 0.86, 2.26, 1.56, 10, 'Madrid', TRUE, 'Forward', 2);
 ('TomSmith', '$2b$10$kKu/ZnRJXa1qwZb7O/85e.JoKPGm55vOBvPeRxARaVnxvZ4opzK3G', '1234567893', 28, 0.25, 3.64, 1.94, 10, 'Barcelona', TRUE, 'Forward', 1),
-('Kevin De Bruyne', '$2b$10$ZFscgOFgM4K2QvS.k4BNkOK9UUn3XkBpS7P2oT4Cv7uEABD8.sKoq', '1234567894', 30, 3.84, 2.11, 2.98, 10,'Manchester', TRUE, 'Midfielder', 8),
+('Kevin De Bruyne', '$2b$10$ZFscgOFgM4K2QvS.k4BNkOK9UUn3XkBpS7P2oT4Cv7uEABD8.sKoq', '1234567894', 30, 3.84, 2.11, 2.98, 10,'Manchester', TRUE, 'Midfielder', 8);
 
 
 -- Insert 20 values into the 'managers' table
