@@ -1,0 +1,41 @@
+name: Deploy to Google Cloud Platform
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend/
+    steps:
+
+      - name: code checkout 
+        uses: actions/checkout@v2
+
+      - name: 'Authenticate into Google cloud'
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: '${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}'
+          expose_default_credentials: true
+
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v2'
+
+      - name: Copy files at ./backend/ to the compute engine
+        env:
+          INSTANCE_NAME: ${{ secrets.COMPUTE_INSTANCE }}
+          INSTANCE_ZONE: ${{ secrets.COMPUTE_INSTANCE_ZONE }}
+        run: |
+          gcloud compute scp -r ./* $INSTANCE_NAME:~/ --zone $INSTANCE_ZONE
+
+      - name: Deploy and run compute engine
+        env:
+          INSTANCE_NAME: ${{ secrets.COMPUTE_INSTANCE }}
+          INSTANCE_ZONE: ${{ secrets.COMPUTE_INSTANCE_ZONE }}
+          INSTANCE_PROJECT: ${{ secrets.COMPUTE_INSTANCE_PROJECT }}
+        run: |
+          gcloud compute ssh --zone "$INSTANCE_ZONE" "$INSTANCE_NAME" --project "$INSTANCE_PROJECT" --command "cd ~ && docker-compose up -d"
+

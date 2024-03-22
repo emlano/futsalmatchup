@@ -48,7 +48,7 @@ class LoginPage extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, 'signin-page');
+                      Navigator.pushNamed(context, '/signup');
                     },
                     child: const Text(
                       "Sign in!",
