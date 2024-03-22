@@ -10,8 +10,8 @@ class PlayerProfile extends StatefulWidget {
 }
 
 class _PlayerProfileState extends State<PlayerProfile> {
-  bool isAvailable = false;
-  bool isEditing = false;
+  bool isAvailable = false; // Availability status
+  bool isEditing = false; // Edit mode
   final UserRepository userRepository =
       UserRepository(); // Instantiate UserRepository
 
@@ -27,15 +27,17 @@ class _PlayerProfileState extends State<PlayerProfile> {
   // Function to update the user profile information
   Future<void> updateUserProfile() async {
     try {
+      // Prepare profile data
       final profileData = {
         'age': int.parse(ageController.text),
         'player_city': cityNameController.text,
         'phone_no': phoneNumberController.text,
         'player_availability': isAvailable,
       };
+      // Update profile data using userRepository
       await userRepository.updateUserProfile(token, profileData);
 
-      // Success message
+      // Show Success message
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('User profile updated successfully'),
@@ -46,7 +48,7 @@ class _PlayerProfileState extends State<PlayerProfile> {
     } catch (e) {
       print('Error updating user profile: $e');
 
-      // Error message
+      // Show Error message
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Error updating user profile. Please try again.'),
@@ -56,10 +58,12 @@ class _PlayerProfileState extends State<PlayerProfile> {
     }
   }
 
+// Function to save changes
   void saveChanges() {
     updateUserProfile();
   }
 
+// Function to toggle edit mode
   void toggleEditMode() {
     setState(() {
       isEditing = !isEditing;
@@ -148,7 +152,7 @@ class _PlayerProfileState extends State<PlayerProfile> {
                                         color: Colors.amber, size: 24.0),
                                   ],
                                 ),
-
+                                // Age
                                 isEditing
                                     ? TextFormField(
                                         initialValue: ageController.text,
@@ -163,6 +167,7 @@ class _PlayerProfileState extends State<PlayerProfile> {
                                         '${ageController.text} years',
                                         style: TextStyle(fontSize: 15),
                                       ),
+                                // City
                                 isEditing
                                     ? TextFormField(
                                         initialValue: cityNameController.text,
@@ -177,7 +182,7 @@ class _PlayerProfileState extends State<PlayerProfile> {
                                         '${cityNameController.text}',
                                         style: TextStyle(fontSize: 15),
                                       ),
-
+                                // Phone number
                                 isEditing
                                     ? TextFormField(
                                         controller: phoneNumberController,
@@ -194,7 +199,7 @@ class _PlayerProfileState extends State<PlayerProfile> {
 
                                 Row(
                                   children: [
-                                    // Player jersey image
+                                    // Player jersey image and position
                                     Image.asset('assets/images/jersey.png',
                                         width: 35, height: 35),
                                     SizedBox(width: 10),
@@ -258,6 +263,7 @@ class _PlayerProfileState extends State<PlayerProfile> {
                           ),
                         ],
                       ),
+                      // Edit/Save Button
                       OutlinedButton(
                         onPressed: () {
                           if (!isEditing) {
