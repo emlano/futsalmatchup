@@ -81,57 +81,8 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold)),
                         SizedBox(height: 10),
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //   children: [
-                        //     // Skill Level Rating
-                        //     Text('Skill Level:',
-                        //         style: TextStyle(
-                        //             fontSize: 18, fontWeight: FontWeight.bold)),
-                        //     RatingBar.builder(
-                        //       initialRating: skillLevelRating,
-                        //       direction: Axis.horizontal,
-                        //       allowHalfRating: true,
-                        //       itemCount: 5,
-                        //       itemSize: 28,
-                        //       itemBuilder: (context, _) => Icon(
-                        //         Icons.star,
-                        //         color: Colors.yellow,
-                        //       ),
-                        //       onRatingUpdate: (rating) {
-                        //         setState(() {
-                        //           skillLevelRating = rating;
-                        //         });
-                        //       },
-                        //     ),
-                        //   ],
-                        // ),
-                        // SizedBox(height: 10),
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //   children: [
-                        //     // Sportsmanship Rating
-                        //     Text('Sportsmanship:',
-                        //         style: TextStyle(
-                        //             fontSize: 18, fontWeight: FontWeight.bold)),
-                        //     RatingBar.builder(
-                        //       initialRating: sportsmanshipRating,
-                        //       direction: Axis.horizontal,
-                        //       allowHalfRating: true,
-                        //       itemCount: 5,
-                        //       itemSize: 28,
-                        //       itemBuilder: (context, _) => Icon(
-                        //         Icons.star,
-                        //         color: Colors.yellow,
-                        //       ),
-                        //       onRatingUpdate: (rating) {
-                        //         setState(() {
-                        //           sportsmanshipRating = rating;
-                        //         });
-                        //       },
-                        //     ),
-                        //   ],
-                        // ),
+
+                        // Skill Level Rating
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -160,6 +111,7 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
                           ],
                         ),
                         SizedBox(height: 10),
+                        // Sportsmanship Rating
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -241,11 +193,3 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
     );
   }
 }
-
-
-// New chnages done
-// Wrapped the star ratings in Expanded
-//push() -> // Navigate to the successful page and replace the current route
-// was chamged to pushReplacement
-//Navigator.pushReplacement instead of Navigator.push will replace the current route (PlayerRatingPage) with the new route (SuccessfulPage)
-//This prevents the user from going back to the PlayerRatingPage using the back button.

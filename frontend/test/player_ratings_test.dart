@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:frontend/views/profile/player_ratings.dart';
-//import 'package:frontend/views/profile/successful_page.dart';
 import 'package:frontend/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  // Test the PlayerRatingPage widget
   testWidgets('PlayerRatingPage Widget Test', (WidgetTester tester) async {
-    // Build the PlayerRatingPage widget with necessary providers
     await tester.pumpWidget(
       MaterialApp(
         home: ChangeNotifierProvider<AuthProvider>(
