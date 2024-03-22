@@ -171,7 +171,7 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
                             ),
                             Expanded(
                               child: RatingBar.builder(
-                                initialRating: skillLevelRating,
+                                initialRating: sportsmanshipRating,
                                 direction: Axis.horizontal,
                                 allowHalfRating: true,
                                 itemCount: 5,
@@ -180,7 +180,7 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
                                     Icon(Icons.star, color: Colors.yellow),
                                 onRatingUpdate: (rating) {
                                   setState(() {
-                                    skillLevelRating = rating;
+                                    sportsmanshipRating = rating;
                                   });
                                 },
                               ),
@@ -241,3 +241,11 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
     );
   }
 }
+
+
+// New chnages done
+// Wrapped the star ratings in Expanded
+//push() -> // Navigate to the successful page and replace the current route
+// was chamged to pushReplacement
+//Navigator.pushReplacement instead of Navigator.push will replace the current route (PlayerRatingPage) with the new route (SuccessfulPage)
+//This prevents the user from going back to the PlayerRatingPage using the back button.
