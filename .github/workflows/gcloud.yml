@@ -16,11 +16,13 @@ jobs:
         uses: actions/checkout@v2
 
       - id: 'auth'
-        uses: 'google-github-actions/auth@v2'
+      - uses: 'google-github-actions/auth@v2'
         env:
-          CREDENTIALS: '${{ secrets.GOOGLE_CLOUD_CREDENTIALS }}'
+          PROJECT_ID: ${{ secrets.PROJECT_ID }}
+          WORKLOAD_IDENTITY_PROVIDER: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
         with:
-          credentials_json: '$CREDENTIALS'
+          project_id: $PROJECT_ID
+          workload_identity_provider: $WORKLOAD_IDENTITY_PROVIDER
 
       - name: 'Set up Cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v2'
