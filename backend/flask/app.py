@@ -54,7 +54,7 @@ def recommend_players_route():
 
         # Assuming you have a function to retrieve all players from the database
         dataset = request.json[1:]
-        print(dataset)
+        # print(dataset)
 
         # Prepare data for clustering
         features = ['age', 'player_overall_rating']
