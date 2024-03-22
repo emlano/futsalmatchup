@@ -5,7 +5,7 @@ services:
     container_name: futsalmatchupdb
     volumes:
       - ./node/config/FutsalMatchUp.sql:/docker-entrypoint-initdb.d/0_init.sql
-      - ./../../futsaldb:/var/lib/mysql
+      - ./../futsaldb:/var/lib/mysql
     environment:
       MYSQL_DATABASE: futsalMatchUp
       MYSQL_USER: 'admin'
@@ -33,10 +33,24 @@ services:
       MYSQL_DATABASE: futsalMatchUp
       ACCESS_TOKEN_SECRET: 628903f4aeaa823310c3ac26e15b488a03c1b82d63a49611db97561e04f1f4dc879ef12cc31753919a83b190a0c7bea3e8d60b57741b4dc0bcf5c9fe3a0586a6
       REFRESH_TOKEN: 8ac9979eab443c0934a1ed35905880c37e387e4d3ea436c5cb2dae8e83a042d3a7044b7ffdb6d7c096e4ac0e8b811fa0b197fa356e20d391766363f462f8d3d5
+      FLASK_HOST: flaskml
     expose:
       - 3000
     depends_on:
       - mysqldb
+    networks:
+      - futsalbackend
+
+  flaskml:
+    container_name: futsalmatchupflask
+    build: ./flask/
+    image: flaskapp:v1
+    ports:
+      - 8080:8080
+    expose:
+      - 8080
+    depends_on:
+      - nodeapp
     networks:
       - futsalbackend
       

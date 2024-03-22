@@ -54,9 +54,7 @@ def recommend_players_route():
 
         # Assuming you have a function to retrieve all players from the database
         dataset = request.json[1:]
-
-        if not dataset:
-            return jsonify({'error': 'Player dataset is empty or missing.'}), 400
+        # print(dataset)
 
         # Prepare data for clustering
         features = ['age', 'player_overall_rating']
@@ -70,11 +68,8 @@ def recommend_players_route():
         # Recommend players based on input data
         recommended_players = recommend_players(kmeans, dataset, input_data, input_nationality)
 
-        if not recommended_players:
-            return jsonify({'error': 'No players found matching the criteria.'}), 404
-
         # Convert recommended players to JSON format
-        recommended_players_json = jsonify(recommended_players[:5])
+        recommended_players_json = jsonify(recommended_players)
 
         # Return recommended players as JSON response
         return recommended_players_json

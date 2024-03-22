@@ -19,32 +19,60 @@ class _StadiumDetailsPageState extends State<StadiumDetailsPage> {
   late String _selectedDay;
   final Map<String, List<String>> _dayTimeSlots = {
     'Mon': [
-      '8am - 9am', '9am - 10am', '10am - 11am',
-      '11am - 12pm', '12pm - 1pm', '1pm - 2pm'
+      '8am - 9am',
+      '9am - 10am',
+      '10am - 11am',
+      '11am - 12pm',
+      '12pm - 1pm',
+      '1pm - 2pm'
     ],
     'Tue': [
-      '8am - 9am', '9am - 10am', '10am - 11am',
-      '11am - 12pm', '12pm - 1pm', '1pm - 2pm'
+      '8am - 9am',
+      '9am - 10am',
+      '10am - 11am',
+      '11am - 12pm',
+      '12pm - 1pm',
+      '1pm - 2pm'
     ],
     'Wed': [
-      '8am - 9am', '9am - 10am', '10am - 11am',
-      '11am - 12pm', '12pm - 1pm', '1pm - 2pm'
+      '8am - 9am',
+      '9am - 10am',
+      '10am - 11am',
+      '11am - 12pm',
+      '12pm - 1pm',
+      '1pm - 2pm'
     ],
     'Thu': [
-      '8am - 9am', '9am - 10am', '10am - 11am',
-      '11am - 12pm', '12pm - 1pm', '1pm - 2pm'
+      '8am - 9am',
+      '9am - 10am',
+      '10am - 11am',
+      '11am - 12pm',
+      '12pm - 1pm',
+      '1pm - 2pm'
     ],
     'Fri': [
-      '8am - 9am', '9am - 10am', '10am - 11am',
-      '11am - 12pm', '12pm - 1pm', '1pm - 2pm'
+      '8am - 9am',
+      '9am - 10am',
+      '10am - 11am',
+      '11am - 12pm',
+      '12pm - 1pm',
+      '1pm - 2pm'
     ],
     'Sat': [
-      '8am - 9am', '9am - 10am', '10am - 11am',
-      '11am - 12pm', '12pm - 1pm', '1pm - 2pm'
+      '8am - 9am',
+      '9am - 10am',
+      '10am - 11am',
+      '11am - 12pm',
+      '12pm - 1pm',
+      '1pm - 2pm'
     ],
     'Sun': [
-      '8am - 9am', '9am - 10am', '10am - 11am',
-      '11am - 12pm', '12pm - 1pm', '1pm - 2pm'
+      '8am - 9am',
+      '9am - 10am',
+      '10am - 11am',
+      '11am - 12pm',
+      '12pm - 1pm',
+      '1pm - 2pm'
     ],
   };
 
@@ -196,10 +224,18 @@ class _StadiumDetailsPageState extends State<StadiumDetailsPage> {
               }
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: isReserved ? Colors.grey : isBooked ? Colors.red : Colors.teal.shade100,
+              backgroundColor: isReserved
+                  ? Colors.grey
+                  : isBooked
+                      ? Colors.red
+                      : Colors.teal.shade100,
             ),
             child: Text(
-              isReserved ? 'Reserved' : isBooked ? 'Reserved' : 'Book this slot',
+              isReserved
+                  ? 'Reserved'
+                  : isBooked
+                      ? 'Reserved'
+                      : 'Book this slot',
               style: const TextStyle(color: Colors.black),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
