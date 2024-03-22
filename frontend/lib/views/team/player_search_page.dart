@@ -17,7 +17,8 @@ class PlayerSearchPage extends StatefulWidget {
 }
 
 class _PlayerSearchPageState extends State<PlayerSearchPage> {
-  late TextEditingController playerNameController; // Controller for player name text field
+  late TextEditingController
+      playerNameController; // Controller for player name text field
   late AuthProvider authProvider; // Authentication provider
   Map<String, dynamic>? playerDetails; // Details of the searched player
 
@@ -30,7 +31,8 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    authProvider = Provider.of<AuthProvider>(context); // Access the authentication provider
+    authProvider = Provider.of<AuthProvider>(
+        context); // Access the authentication provider
   }
 
   Future<void> fetchPlayerDetails(String playerName) async {
@@ -42,14 +44,16 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
         ]),
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer ${authProvider.token}", // Send authorization token
+          "Authorization":
+              "Bearer ${authProvider.token}", // Send authorization token
         },
       );
 
       if (response.statusCode == 200) {
         final List<dynamic> playerJson = json.decode(response.body);
         setState(() {
-          playerDetails = playerJson[0]; // Set player details received from the server
+          playerDetails =
+              playerJson[0]; // Set player details received from the server
         });
       } else {
         throw Exception('Failed to load player details');
@@ -61,16 +65,28 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
 
   void addToTeam() {
     print('Player added to team');
-    Navigator.pop(context, playerNameController.text); // Pop the context with player name
   }
 
   void ratePlayer() {
     print('Rate player');
+    if (playerDetails != null) {
+      // Navigate to the PlayerRatingPage
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          // Pass player details as arguments to the PlayerRatingPage constructor
+          builder: (context) => PlayerRatingPage(playerInfo: playerDetails!),
+        ),
+      );
+    } else {
+      print('Player details not fetched.');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    authProvider = Provider.of<AuthProvider>(context); // Access the authentication provider
+    authProvider = Provider.of<AuthProvider>(
+        context); // Access the authentication provider
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: TitleAppBar(),

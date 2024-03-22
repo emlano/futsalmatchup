@@ -12,7 +12,8 @@ class CreateTeamPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context, listen: false); // Access the authentication provider
+    final authProvider = Provider.of<AuthProvider>(context,
+        listen: false); // Access the authentication provider
     String? teamName;
 
     return Scaffold(
@@ -96,14 +97,16 @@ class CreateTeamPage extends StatelessWidget {
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                content: Text('Authentication token not available.'), // Show error message if the token is not available
+                                content: Text(
+                                    'Authentication token not available.'), // Show error message if the token is not available
                               ),
                             );
                           }
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text('Please enter a team name.'), // Show error message if team name is not provided
+                              content: Text(
+                                  'Please enter a team name.'), // Show error message if team name is not provided
                             ),
                           );
                         }
@@ -133,10 +136,13 @@ class CreateTeamPage extends StatelessWidget {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $token',
     };
-    final body = jsonEncode([{'teamName': teamName}]); // Request body
+    final body = jsonEncode([
+      {'teamName': teamName}
+    ]); // Request body
 
     try {
-      final response = await http.post(Uri.parse(url), headers: headers, body: body); // Send POST request
+      final response = await http.post(Uri.parse(url),
+          headers: headers, body: body); //Send POST request
 
       // If team is created successfully navigate to the team roster page
       if (response.statusCode == 200) {
@@ -150,12 +156,12 @@ class CreateTeamPage extends StatelessWidget {
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Failed to create team. Please try again.'), // Show error message if team creation fails
+            content: Text(
+                'Failed to create team. Please try again.'), // Show error message if team creation fails
           ),
         );
       }
-    }
-    catch (error) {
+    } catch (error) {
       print('Error creating team: $error');
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
