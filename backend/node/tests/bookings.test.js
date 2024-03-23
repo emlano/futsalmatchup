@@ -11,27 +11,31 @@ jest.mock("../db", () => ({
     deleteBooking: jest.fn(),
 }))
 
+// Test for GET /bookings endpoint
 describe("GET /bookings", () => {
+
+    // Test case for getting all bookings
     test("should return all bookings", async () => {
         const mockBookings = [{ id: 1, name: "Booking 1" }, { id: 2, name: "Booking 2" }];
         db.getBookings.mockResolvedValue(mockBookings);
         const response = await request(app).get("/bookings");
-        expect(response.status).toBe(200);
-        expect(response.body).toEqual(mockBookings);
-
-
+        expect(response.status).toBe(200); // Expecting a successful response
+        expect(response.body).toEqual(mockBookings); // Expecting the response body to match mock bookings
     });
 });
 
+// Test for GET /bookings/:id endpoint
 describe("GET /bookings/:id", () => {
+
+    // Test case for getting a booking by ID
     test("should return booking with given id", async () => {
       const mockBooking = { id: 1, name: "Booking 1" };
       db.getBookingFromId.mockResolvedValue(mockBooking);
       const response = await request(app).get("/bookings/1");
-      expect(response.status).toBe(200);
-      expect(response.body).toEqual(mockBooking);
+      expect(response.status).toBe(200); // Expecting a successful response
+      expect(response.body).toEqual(mockBooking); // Expecting the response body to match mock bookings
     });
-  });
+});
 
 
   // Test block for updating a booking by id
