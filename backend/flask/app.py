@@ -1,9 +1,11 @@
 from flask import Flask, request, jsonify
 import numpy as np
+import pandas as pd
 from sklearn.cluster import KMeans
 from scipy.stats import zscore
 from scipy.spatial import distance
 from sklearn.metrics import silhouette_score
+from io import StringIO
 import traceback
 import requests
 import json
@@ -42,21 +44,25 @@ def recommend_players(kmeans, dataset, input_data, input_nationality):
     nearest_cluster_players_sorted = sorted(nearest_cluster_players, key=lambda player: distance.euclidean(input_data, [player['age'], player['player_overall_rating']]))
     return nearest_cluster_players_sorted[:5]
 
-def json_to_csv(val):
+def json_to_pandas_df(val):
     json_obj = val[0]
-    keys = json_obj.keys()
-    csv = "{keys[0]}"
+    keys = list(json_obj.keys())
+    csv = f"{keys[0]}"
 
     for i in range(1, len(keys)):
-        csv + ",{keys[i]}"
+        csv += f",{keys[i]}"
 
-    return csv
+    for player in val:
+        csv += f"\n{player[keys[0]]}"
+        for j in range(1, len(keys)):
+            csv += f",{player[keys[j]]}"
+
+    return pd.read_csv(StringIO(csv))
 
 # Flask route for recommending players
 @app.route('/recommend', methods=['POST'])
 def recommend_players_route():
     try:
-        print("Hello World")
         # Get player data from the node server
         first = request.json[0]
         input_age = first['age']
@@ -65,8 +71,8 @@ def recommend_players_route():
         input_data = np.array([input_age, input_rating], dtype=np.float64)
 
         # Assuming you have a function to retrieve all players from the database
-        dataset = request.json[1:]
-        print(json_to_csv(dataset))
+        # dataset = request.json[1:]
+        dataset = json_to_pandas_df(request.json[1:])
 
         # Prepare data for clustering
         features = ['age', 'player_overall_rating']
@@ -101,5 +107,5 @@ def recommend_players_route():
 #         return None
 
 if __name__ == '__main__':
-    print("Connected at localhost port: 8080")
-    app.run(host='0.0.0.0', debug=false, port=8080)
+    print("Connected at https://localhost:8080")
+    app.run(host='0.0.0.0', debug=False, port=8080)
