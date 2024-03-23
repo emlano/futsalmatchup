@@ -102,4 +102,4 @@ def recommend_players_route():
 
 if __name__ == '__main__':
     print("Connected at localhost port: 8080")
-    app.run(host='0.0.0.0', debug=True, port=8080)
+    app.run(host='0.0.0.0', debug=false, port=8080)

@@ -1,12 +1,12 @@
 FROM python:3.10
 
-WORKDIR /pyapp
+WORKDIR /app
 
-COPY requirements.txt requirements.txt
+COPY requirements.txt /app
 
-RUN pip3 install -r requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
 
-COPY . .
+COPY . ./app
 
 EXPOSE 8080
 

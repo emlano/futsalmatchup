@@ -18,7 +18,7 @@ services:
     expose:
       - 3306
     networks:
-      - futsalbackend
+      - default_network
 
   nodeapp:
     container_name: futsalmatchupserver
@@ -39,7 +39,7 @@ services:
     depends_on:
       - mysqldb
     networks:
-      - futsalbackend
+      - default_network
 
   flaskml:
     container_name: futsalmatchupflask
@@ -52,8 +52,8 @@ services:
     depends_on:
       - nodeapp
     networks:
-      - futsalbackend
+      - default_network
       
 networks:
-  futsalbackend:
+  default_network:
     driver: bridge
