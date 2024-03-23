@@ -6,6 +6,12 @@ import 'package:frontend/views/profile/player_profile.dart';
 import 'package:frontend/views/stadium/stadium_availability_page.dart';
 import 'package:frontend/views/team/create_team_page.dart';
 import 'package:frontend/views/team/player_search_page.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+import 'package:provider/provider.dart';
+
+import '../../providers/auth_provider.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -79,7 +85,7 @@ Widget historyTemplate(teams items) {
 
 Widget bookingTemplate(upcoming_bookings item) {
   return Container(
-    height: 205,
+    height: 250,
     width: 300,
     child: Card(
       elevation: 4.0,
@@ -115,6 +121,12 @@ Widget bookingTemplate(upcoming_bookings item) {
                 fontSize: 14,
               ),
             ),
+            ElevatedButton(
+              onPressed: () {
+                // Add your onPressed logic here
+              },
+              child: Text('Check Booking'),
+            )
           ],
         ),
       ),
@@ -123,6 +135,9 @@ Widget bookingTemplate(upcoming_bookings item) {
 }
 
 class _HomeState extends State<Home> {
+
+  late AuthProvider authProvider;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
