@@ -223,7 +223,10 @@ class _StadiumDetailsPageState extends State<StadiumDetailsPage> {
           width: 180,
           child: ElevatedButton(
             onPressed: () {
+
               if (!isReserved && !isBooked) { // Allowing booking if the slot is not reserved or booked
+            
+         
                 setState(() {
                   _slotStatus[_selectedDay]![index] = true; // Updating slot status
                 });
@@ -252,3 +255,4 @@ class _StadiumDetailsPageState extends State<StadiumDetailsPage> {
     );
   }
 }
+
