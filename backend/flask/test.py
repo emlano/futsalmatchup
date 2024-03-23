@@ -1,64 +1,61 @@
-# Import required libraries
 import unittest
+from app import *
 
-# Importing functions from the clustering module
-from clustering import *
+class TestRecommendationSystem(unittest.TestCase):
 
-class TestPlayerRecommendation(unittest.TestCase):
+    def setUp(self): # Setting up the testing environment
+        app.config['TESTING'] = True
+        self.app = app.test_client()
 
-    def setUp(self):
-        # Setting up a sample DataFrame for testing
-        self.dataset = pd.DataFrame({
-            'name': ['Player1', 'Player2', 'Player3'],
-            'age': [25, 30, 28],
-            'overall_rating': [85, 90, 88],
-            'nationality': ['England', 'France', 'Spain']
-        })
+    def test_recommendation_endpoint(self):
+        # Test the recommendation endpoint with valid input
+        data = [
+            {
+                "age": 25,
+                "player_overall_rating": 85,
+                "player_city": "Barcelona"
+            },
+            {
+                "age": 28,
+                "player_overall_rating": 82,
+                "player_city": "Barcelona"
+            },
+            {
+                "age": 24,
+                "player_overall_rating": 87,
+                "player_city": "Madrid"
+            },
+            {
+                "age": 30,
+                "player_overall_rating": 80,
+                "player_city": "Madrid"
+            },
+            {
+                "age": 27,
+                "player_overall_rating": 83,
+                "player_city": "Barcelona"
+            }
+        ]
+        response = self.app.post('/recommend', json=data)
+        self.assertEqual(len(response.json), 1) # Asserting that the response contains recommendations
 
-    def test_load_dataset(self):
-        # Test loading dataset
-        file_path = "fifa_players.csv"
-        data = load_dataset(file_path) # Call the load_dataset function
+    def test_invalid_input(self):
+        # Test the recommendation endpoint with invalid input or missing data
+        data = {}
+        response = self.app.post('/recommend', json=data)
+        self.assertEqual(response.status_code, 500) # Asserting that the response status code is 500 (Internal Server Error)
 
-        # Check if the returned object is a DataFrame
-        self.assertIsInstance(data, pd.DataFrame)
+    def test_empty_dataset(self):
+        # Test the recommendation endpoint with empty dataset
+        data = [
+            {
+                "age": 25,
+                "player_overall_rating": 85,
+                "player_city": "Paris"
+            }
+        ]
+        response = self.app.post('/recommend', json=data)
+        self.assertEqual(response.status_code, 500) # Asserting that the response status code is 500 (Internal Server Error)
 
-    def test_drop_columns(self):
-        # Call the function with the sample DataFrame
-        processed_df = drop_columns(self.dataset) # Call the drop_columns function
-
-        # Define the expected columns after dropping
-        expected_columns = ['name', 'age', 'overall_rating', 'nationality']
-
-        # Check if the columns of the processed DataFrame match the expected columns
-        self.assertListEqual(list(processed_df.columns), expected_columns)
-
-    def test_prepare_data(self):
-        # Test preparing data
-        features = ['age', 'overall_rating']
-        prepared_data = prepare_data(self.dataset, features) # Call the prepare_data function
-
-        # Check if the returned object is a DataFrame
-        self.assertIsInstance(prepared_data, pd.DataFrame)
-
-        # Check if the number of columns matches the number of features
-        self.assertEqual(prepared_data.shape[1], len(features))
-
-    def test_find_optimal_k(self):
-        # Test finding optimal k
-        X_normalized = pd.DataFrame(np.random.rand(100, 2), columns=['age', 'overall_rating'])
-        k_values = range(2, 11)
-        optimal_k = find_optimal_k(X_normalized, k_values) # Call the find_optimal_k function
-
-        # Check if the optimal k is within the specified range of k_values
-        self.assertIn(optimal_k, k_values)
-
-    def test_fit_kmeans(self):
-        # Test fitting KMeans
-        X_normalized = pd.DataFrame(np.random.rand(100, 2), columns=['age', 'overall_rating'])
-        optimal_k = 3  # Define optimal_k
-        kmeans = fit_kmeans(X_normalized, optimal_k) # Call the fit_kmeans function
-
-        # Check if the returned object is an instance of KMeans
-        self.assertIsInstance(kmeans, KMeans)
-
+if __name__ == '__main__':
+    unittest.main()
