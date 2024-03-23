@@ -3,6 +3,7 @@ import 'player_search_page.dart';
 import 'recommended_players_page.dart';
 import 'package:frontend/models/header_app_bar.dart';
 
+// Create a StatefulWidget for the team roster page
 class TeamRosterPage extends StatefulWidget {
   final String teamName;
 
@@ -13,17 +14,13 @@ class TeamRosterPage extends StatefulWidget {
 }
 
 class _TeamRosterPageState extends State<TeamRosterPage> {
+  // List to hold team players data
   List<Map<String, dynamic>> teamPlayers = [
     {"name": 'Ahmed Zavahir', "profilePicUrl": 'assets/images/player_icon.png'},
   ];
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> recommendedPlayers = [
-      {"name": 'John', "profilePicUrl": 'assets/images/player_icon.png'},
-      {"name": 'Emily', "profilePicUrl": 'assets/images/player_icon.png'},
-    ];
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: TitleAppBar(),
@@ -32,6 +29,7 @@ class _TeamRosterPageState extends State<TeamRosterPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            // Display team name
             Center(
               child: Text(
                 widget.teamName,
@@ -43,6 +41,7 @@ class _TeamRosterPageState extends State<TeamRosterPage> {
               ),
             ),
             const SizedBox(height: 10),
+            // Header for team members
             const Center(
               child: Text(
                 'Team Members',
@@ -58,6 +57,7 @@ class _TeamRosterPageState extends State<TeamRosterPage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Expanded(
+                    // Display team members list
                     child: ListView.builder(
                       itemCount: teamPlayers.length,
                       itemBuilder: (context, index) {
@@ -89,6 +89,8 @@ class _TeamRosterPageState extends State<TeamRosterPage> {
                     ),
                   ),
                   const SizedBox(height: 20),
+
+                  // Button to add players through player search
                   ElevatedButton(
                     onPressed: () async {
                       final addedPlayer = await Navigator.push<String>(
@@ -109,11 +111,19 @@ class _TeamRosterPageState extends State<TeamRosterPage> {
                       style: TextStyle(color: Colors.black),
                     ),
                   ),
+
+                  // Button to see recommended players matching the team
                   ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
+                    onPressed: () async {
+                      final addedPlayer = await Navigator.push<String>(
                         context,
-                        MaterialPageRoute(builder: (context) => RecommendedPlayersPage(recommendedPlayers: recommendedPlayers)),
+                        MaterialPageRoute(builder: (context) => RecommendedPlayersPage(
+                          addToTeamCallback: (playerName) {
+                            setState(() {
+                              teamPlayers.add({"name": playerName, "profilePicUrl": 'assets/images/player_icon.png'});
+                            });
+                          },
+                        )),
                       );
                     },
                     style: ElevatedButton.styleFrom(

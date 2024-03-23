@@ -34,6 +34,7 @@ class _StadiumAvailabilityPageState extends State<StadiumAvailabilityPage> {
     'Club Fusion Boralesgamuwa',
   ];
 
+  // Map to store stadium names with their image paths
   Map<String, String> stadiumImagePaths = {
     'CR7 Futsal & Indoor Cricket Court': 'assets/images/stadium_icon.png',
     'Colombo Futsal Club': 'assets/images/stadium_icon.png',
@@ -41,14 +42,14 @@ class _StadiumAvailabilityPageState extends State<StadiumAvailabilityPage> {
     'Club Fusion Boralesgamuwa': 'assets/images/stadium_icon.png',
   };
 
-  List<String> filteredStadiums = [];
+  List<String> filteredStadiums = []; // List to store filtered stadiums
 
-  TextEditingController searchController = TextEditingController();
+  TextEditingController searchController = TextEditingController(); // Controller for search input field
 
   @override
   void initState() {
     super.initState();
-    filteredStadiums.addAll(stadiums);
+    filteredStadiums.addAll(stadiums); // Initialize filtered stadiums list with all stadiums
   }
 
   void filterStadiums(String query) {

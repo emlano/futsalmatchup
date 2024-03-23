@@ -126,7 +126,7 @@ router.post("/recommend", authenticateToken, async (req, res) => {
 
     payload.unshift(target);
 
-    const response = await fetch(`http://${flaskservice}:8080`, {
+    const response = await fetch(`http://${flaskservice}:8080/recommend`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

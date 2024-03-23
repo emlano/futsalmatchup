@@ -28,15 +28,28 @@ describe("GET /teams/", () => {
 describe("GET /teams/:id", () => {
   test("should return teams with given id", async () => {
     const mockTeams = { id: 1, name: "team 1" };
+
+    const user = { user_id: 0, name: "user" };
+    const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+
     db.getTeamFromId.mockResolvedValue(mockTeams);
-    const response = await request(app).get("/teams/1");
+    const response = await request(app)
+      .get("/teams/1")
+      .set("Authorization", `Bearer ${token}`);
+
     expect(response.status).toBe(200);
     expect(response.body).toEqual(mockTeams);
   });
 
   test("should return 404 if team with given id is not found", async () => {
+    const user = { user_id: 0, name: "user" };
+    const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+
     db.getTeamFromId.mockResolvedValue(null);
-    const response = await request(app).get("/teams/999");
+    const response = await request(app)
+      .get("/teams/999")
+      .set("Authorization", `Bearer ${token}`);
+
     expect(response.status).toBe(404);
   });
 });
@@ -49,7 +62,8 @@ describe("PUT /teams/:id", () => {
     const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
     db.updateTeam.mockResolvedValue(updatedTeams);
 
-    const response = await request(app).put("/teams/1")
+    const response = await request(app)
+      .put("/teams/1")
       .send(updatedTeams)
       .set("Authorization", `Bearer ${token}`);
 
@@ -62,13 +76,16 @@ describe("POST /teams/", () => {
   test("Should return an error when arguments were not provided", async () => {
     const user = { user_id: 0, name: "user" };
     const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
-    
-    const res = await request(app).post("/teams/")
+
+    const res = await request(app)
+      .post("/teams/")
       .send([])
       .set("Authorization", `Bearer ${token}`);
 
     expect(res.status).toBe(400);
-    expect(res.body).toEqual({ error: "missing arguments or malformed request" });
+    expect(res.body).toEqual({
+      error: "missing arguments or malformed request",
+    });
   });
 
   test("should return an error if team name was not given", async () => {
@@ -76,11 +93,14 @@ describe("POST /teams/", () => {
     const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
     db.createNewTeam.mockResolvedValue([]);
 
-    const res = await request(app).post("/teams/")
+    const res = await request(app)
+      .post("/teams/")
       .send([])
       .set("Authorization", `Bearer ${token}`);
 
     expect(res.status).toBe(400);
-    expect(res.body).toEqual({ error: "missing arguments or malformed request" });
+    expect(res.body).toEqual({
+      error: "missing arguments or malformed request",
+    });
   });
 });

@@ -2,98 +2,53 @@ import 'package:flutter/material.dart';
 import 'package:frontend/models/header_app_bar.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:frontend/logic/profile/player_ratings_repository.dart';
+import 'package:frontend/providers/auth_provider.dart';
+import 'package:provider/provider.dart';
 import 'successful_page.dart';
 
 class PlayerRatingPage extends StatefulWidget {
-  final int playerId;
-  final String playerName;
-
-  // Constructor to initialize playerId and playerName
-  PlayerRatingPage({required this.playerId, required this.playerName});
+  final Map<String, dynamic>
+      playerInfo; // Player details received from player_search_[age]
+  PlayerRatingPage({required this.playerInfo});
 
   @override
   _PlayerRatingPageState createState() => _PlayerRatingPageState();
 }
 
 class _PlayerRatingPageState extends State<PlayerRatingPage> {
-  double skillLevelRating = 0;
-  double sportsmanshipRating = 0;
+  double skillLevelRating = 0; // Initial skill level rating
+  double sportsmanshipRating = 0; // Initial sportsmanship rating
 
-  // Instantiate PlayerRatingsRepository to handle backend interactions
   final PlayerRatingsRepository playerRatingsRepository =
-      PlayerRatingsRepository();
-
-  // Map to store player details fetched from the backend
-  late Map<String, dynamic> playerDetails = {};
-
-  @override
-  void initState() {
-    super.initState();
-    // Fetch player details when the widget is initialized
-    fetchPlayerDetails();
-  }
-
-  // Function to fetch player details from backend
-  Future<void> fetchPlayerDetails() async {
-    try {
-      final fetchedPlayerDetails =
-          await playerRatingsRepository.getPlayerDetails(widget.playerId);
-      setState(() {
-        playerDetails = fetchedPlayerDetails;
-      });
-    } catch (e) {
-      print('Error fetching player details: $e');
-    }
-  }
-
-  Future<void> updatePlayerRatings() async {
-    try {
-      await playerRatingsRepository.updatePlayerRatings(
-        widget.playerId,
-        skillLevelRating,
-        sportsmanshipRating,
-      );
-
-      // Show success message to the user
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Player ratings updated successfully'),
-          duration: Duration(seconds: 2),
-          backgroundColor: Colors.green,
-        ),
-      );
-    } catch (e) {
-      // Handle any errors during the update
-      print('Error updating player ratings: $e');
-
-      // Show error message to the user
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Error updating player ratings. Please try again.'),
-          duration: Duration(seconds: 2),
-        ),
-      );
-    }
-  }
+      PlayerRatingsRepository(); // Instantiate PlayerRatingsRepository
 
   @override
   Widget build(BuildContext context) {
+    // Extract player details from the received playerInfo map
+    int userId = widget.playerInfo['user_id'];
+    String playerName = widget.playerInfo['username'];
+    int playerAge = widget.playerInfo['age'];
+    String playerCity = widget.playerInfo['player_city'];
+    String playerPosition = widget.playerInfo['player_position'];
+
+    final authProvider = Provider.of<AuthProvider>(context);
+
     return Scaffold(
       appBar: TitleAppBar(),
       body: Center(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // Player Information Card
               Container(
-                constraints: const BoxConstraints(
+                constraints: BoxConstraints(
                   maxWidth: 400,
                 ),
                 child: Card(
-                  color: const Color(0xFFC2FBED),
+                  color: Color(0xFFC2FBED),
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
@@ -102,11 +57,11 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
                       children: [
                         // Player details
                         Text(
-                          playerDetails['username'] ?? 'Player Name',
-                          style: const TextStyle(
+                          '$playerName', // Display player name
+                          style: TextStyle(
                               fontSize: 25, fontWeight: FontWeight.bold),
                         ),
-                        const SizedBox(height: 10),
+                        SizedBox(height: 10),
                         // Player image
                         Container(
                           width: 180,
@@ -116,80 +71,91 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
                             fit: BoxFit.cover,
                           ),
                         ),
-                        const SizedBox(height: 10),
-                        Text(playerDetails['player_position'] ??
-                            'Player Position'),
-                        Text(playerDetails['age']?.toString() ?? 'Age'),
-                        Text(playerDetails['player_city'] ?? 'City'),
-                        const SizedBox(height: 20),
-                        const Text('Rate the player:',
+                        SizedBox(height: 10),
+                        Text('$playerPosition'), // Display player position
+                        Text('$playerAge'), // Display player age
+                        Text('$playerCity'), // Display player city
+
+                        SizedBox(height: 20),
+                        Text('Rate the player:',
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold)),
-                        const SizedBox(height: 10),
+                        SizedBox(height: 10),
+
+                        // Skill Level Rating
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            // Skill Level
-                            const Text('Skill Level:',
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
-                            RatingBar.builder(
-                              initialRating: skillLevelRating,
-                              direction: Axis.horizontal,
-                              allowHalfRating: true,
-                              itemCount: 5,
-                              itemSize: 28,
-                              itemBuilder: (context, _) => const Icon(
-                                Icons.star,
-                                color: Colors.yellow,
+                            Expanded(
+                              child: Text('Skill Level:',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold)),
+                            ),
+                            Expanded(
+                              child: RatingBar.builder(
+                                initialRating: skillLevelRating,
+                                direction: Axis.horizontal,
+                                allowHalfRating: true,
+                                itemCount: 5,
+                                itemSize: 28,
+                                itemBuilder: (context, _) =>
+                                    Icon(Icons.star, color: Colors.yellow),
+                                onRatingUpdate: (rating) {
+                                  setState(() {
+                                    skillLevelRating = rating;
+                                  });
+                                },
                               ),
-                              onRatingUpdate: (rating) {
-                                setState(() {
-                                  skillLevelRating = rating;
-                                });
-                              },
                             ),
                           ],
                         ),
-                        const SizedBox(height: 10),
+                        SizedBox(height: 10),
+                        // Sportsmanship Rating
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            // Sportsmanship
-                            const Text('Sportsmanship:',
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
-                            RatingBar.builder(
-                              initialRating: sportsmanshipRating,
-                              direction: Axis.horizontal,
-                              allowHalfRating: true,
-                              itemCount: 5,
-                              itemSize: 28,
-                              itemBuilder: (context, _) => const Icon(
-                                Icons.star,
-                                color: Colors.yellow,
+                            Expanded(
+                              child: Text('Sportsmanship:',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold)),
+                            ),
+                            Expanded(
+                              child: RatingBar.builder(
+                                initialRating: sportsmanshipRating,
+                                direction: Axis.horizontal,
+                                allowHalfRating: true,
+                                itemCount: 5,
+                                itemSize: 28,
+                                itemBuilder: (context, _) =>
+                                    Icon(Icons.star, color: Colors.yellow),
+                                onRatingUpdate: (rating) {
+                                  setState(() {
+                                    sportsmanshipRating = rating;
+                                  });
+                                },
                               ),
-                              onRatingUpdate: (rating) {
-                                setState(() {
-                                  sportsmanshipRating = rating;
-                                });
-                              },
                             ),
                           ],
                         ),
-                        const SizedBox(height: 10),
+                        SizedBox(height: 10),
                       ],
                     ),
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () async {
                   try {
-                    // Call the updatePlayerRatings method to update the backend with the ratings
-                    await updatePlayerRatings();
-                    // Navigate to the successful page after successfully rating the player
+                    // Call updatePlayerRatings() to update the backend with the ratings
+                    await playerRatingsRepository.updatePlayerRatings(
+                        userId,
+                        sportsmanshipRating,
+                        skillLevelRating,
+                        authProvider.token!);
+                    //Navigate to the successful page
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -197,15 +163,21 @@ class _PlayerRatingPageState extends State<PlayerRatingPage> {
                       ),
                     );
                   } catch (e) {
+                    // Display error to the user
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Failed to update player ratings.'),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
                     print('Error rating player: $e');
-                    // Handle error
                   }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.teal,
-                  minimumSize: const Size(180, 45),
+                  minimumSize: Size(180, 45),
                 ),
-                child: const Text(
+                child: Text(
                   'Done',
                   style: TextStyle(
                     color: Colors.white,

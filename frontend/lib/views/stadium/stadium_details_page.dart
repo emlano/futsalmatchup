@@ -19,32 +19,60 @@ class _StadiumDetailsPageState extends State<StadiumDetailsPage> {
   late String _selectedDay;
   final Map<String, List<String>> _dayTimeSlots = {
     'Mon': [
-      '8am - 9am', '9am - 10am', '10am - 11am',
-      '11am - 12pm', '12pm - 1pm', '1pm - 2pm'
+      '8am - 9am',
+      '9am - 10am',
+      '10am - 11am',
+      '11am - 12pm',
+      '12pm - 1pm',
+      '1pm - 2pm'
     ],
     'Tue': [
-      '8am - 9am', '9am - 10am', '10am - 11am',
-      '11am - 12pm', '12pm - 1pm', '1pm - 2pm'
+      '8am - 9am',
+      '9am - 10am',
+      '10am - 11am',
+      '11am - 12pm',
+      '12pm - 1pm',
+      '1pm - 2pm'
     ],
     'Wed': [
-      '8am - 9am', '9am - 10am', '10am - 11am',
-      '11am - 12pm', '12pm - 1pm', '1pm - 2pm'
+      '8am - 9am',
+      '9am - 10am',
+      '10am - 11am',
+      '11am - 12pm',
+      '12pm - 1pm',
+      '1pm - 2pm'
     ],
     'Thu': [
-      '8am - 9am', '9am - 10am', '10am - 11am',
-      '11am - 12pm', '12pm - 1pm', '1pm - 2pm'
+      '8am - 9am',
+      '9am - 10am',
+      '10am - 11am',
+      '11am - 12pm',
+      '12pm - 1pm',
+      '1pm - 2pm'
     ],
     'Fri': [
-      '8am - 9am', '9am - 10am', '10am - 11am',
-      '11am - 12pm', '12pm - 1pm', '1pm - 2pm'
+      '8am - 9am',
+      '9am - 10am',
+      '10am - 11am',
+      '11am - 12pm',
+      '12pm - 1pm',
+      '1pm - 2pm'
     ],
     'Sat': [
-      '8am - 9am', '9am - 10am', '10am - 11am',
-      '11am - 12pm', '12pm - 1pm', '1pm - 2pm'
+      '8am - 9am',
+      '9am - 10am',
+      '10am - 11am',
+      '11am - 12pm',
+      '12pm - 1pm',
+      '1pm - 2pm'
     ],
     'Sun': [
-      '8am - 9am', '9am - 10am', '10am - 11am',
-      '11am - 12pm', '12pm - 1pm', '1pm - 2pm'
+      '8am - 9am',
+      '9am - 10am',
+      '10am - 11am',
+      '11am - 12pm',
+      '12pm - 1pm',
+      '1pm - 2pm'
     ],
   };
 
@@ -197,10 +225,18 @@ class _StadiumDetailsPageState extends State<StadiumDetailsPage> {
               }
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: isReserved ? Colors.grey : isBooked ? Colors.red : Colors.teal.shade100,
+              backgroundColor: isReserved
+                  ? Colors.grey
+                  : isBooked
+                      ? Colors.red
+                      : Colors.teal.shade100,
             ),
             child: Text(
-              isReserved ? 'Reserved' : isBooked ? 'Reserved' : 'Book this slot',
+              isReserved
+                  ? 'Reserved'
+                  : isBooked
+                      ? 'Reserved'
+                      : 'Book this slot',
               style: const TextStyle(color: Colors.black),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
@@ -212,41 +248,3 @@ class _StadiumDetailsPageState extends State<StadiumDetailsPage> {
   }
 }
 
-
-void createBooking(String token, String teamName, BuildContext context) async {
-    const url = 'http://localhost:3000/teams';
-    final headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
-    };
-    final body = jsonEncode([{'teamName': teamName}]);
-
-    try {
-      final response = await http.post(Uri.parse(url), headers: headers, body: body);
-
-      if (response.statusCode == 200) {
-        print('Team created succssfully');
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => TeamRosterPage(teamName: teamName),
-          ),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Failed to create team. Please try again.'),
-          ),
-        );
-      }
-    } catch (error) {
-      // Handle errors
-      print('Error creating team: $error');
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('An error occurred. Please try again later.'),
-        ),
-      );
-    }
-  }
-}
