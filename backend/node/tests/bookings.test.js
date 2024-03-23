@@ -101,3 +101,4 @@ describe("GET /bookings/:id", () => {
       expect(response.status).toBe(404);
     });
   });
+

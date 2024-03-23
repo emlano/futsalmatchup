@@ -2,39 +2,38 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db"); // Importing the database functions
 
-//Get all bookings
+// Route to get all bookings
 router.get("/", (req, res) => {
+
+
   // Retrieve all bookings from the database
   db.getBookings().then((bookings) => {
-    // Send the retrieved bookings as a JSON response
-    res.json(bookings);
+    res.json(bookings); // Respond with JSON containing all bookings
+
   });
 });
 
-//Get booking by id
+// Route to get a booking by its ID
 router.get("/:id", (req, res) => {
-  const id = req.params.id; // Extract the booking ID from request parameters
-  // Retrieve the booking with the specified ID from the database
-  db.getBookingFromId(id).then((booking) => {
-    // If booking is not found, return a 404 status with an error message
-    if (!booking) {
-      return res.status(404).json({ error: "Booking not found" });
-    }
-    // Send the retrieved booking as a JSON response
-    res.json(booking);
+  const id = req.params.id;
+
+  // Retrieve booking with specified ID from the database
+  db.getBookingFromId(id).then((bookings) => {
+    res.json(bookings); // Respond with JSON containing the booking
   });
 });
 
-
-//Create a new booking
+// Route to create a new booking
 router.post("/", (req, res) => {
-  const bookings = req.body; // Extract the booking details from request body
- // Insert the new booking into the database
+
+   // Extract booking data from the request body
+  const bookings = req.body;
+
+  // Create a new booking in the database
   db.createNewBooking(bookings).then((result) => {
-    res.json(result);
+    res.json(result); // Respond with JSON containing the result of the post method
   });
 });
-
 
 // Update booking by id
 router.put("/:id", (req, res) => {
@@ -73,3 +72,7 @@ router.delete("/:id", (req, res) => {
 });
 
 module.exports = router;
+
+
+
+     
