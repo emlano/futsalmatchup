@@ -59,7 +59,7 @@ class LoginScreenState extends State<LoginScreen> {
           FilledIconButton(
               text: "Log in",
               icon: Icons.account_circle,
-              onPressed: () { Navigator.pushNamed(context, 'login-page'); }),
+              onPressed: () { Navigator.pushNamed(context, '/login'); }),
           const SizedBox(height: 30),
           const InterText(
               text: "New user?",
@@ -70,7 +70,7 @@ class LoginScreenState extends State<LoginScreen> {
           FilledIconButton(
               text: "Sign in",
               icon: Icons.group_add,
-              onPressed: () { Navigator.pushNamed(context, 'signin-page'); }
+              onPressed: () { Navigator.pushNamed(context, '/signup'); }
           ),
         ])
       ]),

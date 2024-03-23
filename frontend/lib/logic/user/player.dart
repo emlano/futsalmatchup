@@ -4,44 +4,48 @@ class Player extends User {
   double skill;
   double sportsmanship;
   double overall;
+  double timesReviewed;
   String city;
   bool availability;
 
   Player(
-      String userId,
+      int userId,
       String username,
       String password,
       String phoneNo,
       this.skill,
       this.sportsmanship,
       this.overall,
+      this.timesReviewed,
       this.city,
       this.availability)
       : super(userId, username, password, phoneNo);
 
   @override
-  Player.fromMap(Map<String, dynamic> map)
-      : sportsmanship = map['sportsmanship'],
-        overall = map['overall'],
-        city = map['city'],
-        availability = map['availability'],
-        skill = map['skill'],
-        super.fromMap(map);
+  Player.fromJSON(Map<String, dynamic> json)
+      : sportsmanship = json['player_sportsmanship_rating'],
+        overall = json['player_overall_rating'],
+        timesReviewed = json['player_times_rated'],
+        city = json['player_city'],
+        availability = json['player_availability'],
+        skill = json['player_skill_rating'],
+        super.fromJson(json);
 
   @override
-  Map<String, dynamic> toMap() {
-    Map<String, dynamic> map = super.toMap();
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = super.toJson();
     map.addAll({
       'skill': skill,
-      'sportsmanship': sportsmanship,
-      'overall': overall,
-      'city': city,
-      'availability': availability
+      'player_sportsmanship_rating': sportsmanship,
+      'player_overall_rating': overall,
+      'player_times_rated': timesReviewed,
+      'player_city': city,
+      'player_availability': availability
     });
 
     return map;
   }
 
   @override
-  String toString() => toMap().toString();
+  String toString() => toJson().toString();
 }

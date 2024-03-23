@@ -9,7 +9,7 @@ class SigninPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-        appBar: TitleAppBar(),
+      appBar: TitleAppBar(),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
@@ -27,8 +27,7 @@ class SigninPage extends StatelessWidget {
                   fontSize: 21,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Inter',
-                  color: Colors.teal
-              ),
+                  color: Colors.teal),
             ),
             const SizedBox(height: 10),
             const SigninForm(),
@@ -38,24 +37,23 @@ class SigninPage extends StatelessWidget {
                 const Text(
                   "Already have an account?",
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontFamily: 'Inter'
-                  ),
+                  style: TextStyle(fontSize: 14, fontFamily: 'Inter'),
                 ),
                 TextButton(
-                  onPressed: () { Navigator.pushNamed(context, 'login-page'); },
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/login');
+                  },
                   child: const Text(
                     "Log in!",
                     style: TextStyle(
                         fontFamily: 'Inter',
                         fontWeight: FontWeight.bold,
                         fontSize: 14,
-                        color: Colors.teal
-                    ),
+                        color: Colors.teal),
                   ),
                 )
-              ],),
+              ],
+            ),
           ],
         ),
       ),
