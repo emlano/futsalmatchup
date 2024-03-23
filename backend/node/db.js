@@ -280,13 +280,15 @@ async function deleteUser(id) {
   return result;
 }
 
+// Function to get all bookings
 async function getBookings() {
-  const [rows] = await pool.query("SELECT * FROM `bookings`;");
+  const [rows] = await pool.query("SELECT * FROM `bookings`;"); // Retrieving all bookings from the database
   return rows;
 }
 
+// Function to get a booking by its ID
 async function getBookingFromId(id) {
-  const [rows] = await pool.query(
+  const [rows] = await pool.query( // Retrieving a booking from the database by its ID
     `
     SELECT * 
     FROM bookings 
@@ -297,7 +299,10 @@ async function getBookingFromId(id) {
   return rows;
 }
 
+// Function to create a new booking
 async function createNewBooking(booking) {
+
+  // Creating a new booking in the database
   const { stadium_id, team_id, user_id, start_date_time, end_date_time } =
     booking;
   const [result] = await pool.query(
@@ -308,7 +313,11 @@ async function createNewBooking(booking) {
   );
   return result;
 }
+
+// Function to update a booking
 async function updateBooking(bookingId, updatedBooking) {
+
+  // Updating a booking in the database
   const { stadium_id, team_id, user_id, start_date_time, end_date_time } =
     updatedBooking;
 
@@ -327,7 +336,11 @@ async function updateBooking(bookingId, updatedBooking) {
 
   return result;
 }
+
+// Function to delete a booking
 async function deleteBooking(bookingId) {
+
+  // Deleting a booking from the database
   const [result] = await pool.query(
     `
         DELETE FROM bookings
