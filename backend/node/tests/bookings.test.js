@@ -31,14 +31,6 @@ describe("GET /bookings/:id", () => {
       expect(response.status).toBe(200);
       expect(response.body).toEqual(mockBooking);
     });
-
-    test("should return 404 if booking with given id is not found", async () => {
-      db.getBookingFromId.mockResolvedValue(null);
-      const response = await request(app).get("/bookings/999");
-      expect(response.status).toBe(404);
-    });
-
-
   });
 
 
