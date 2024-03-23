@@ -31,16 +31,16 @@ describe("GET /bookings/:id", () => {
       expect(response.status).toBe(200);
       expect(response.body).toEqual(mockBooking);
     });
-  
+
     test("should return 404 if booking with given id is not found", async () => {
       db.getBookingFromId.mockResolvedValue(null);
       const response = await request(app).get("/bookings/999");
       expect(response.status).toBe(404);
     });
 
-   
+
   });
-  
+
 
   // Test block for updating a booking by id
   describe("PUT /bookings/:id", () => {
@@ -48,28 +48,28 @@ describe("GET /bookings/:id", () => {
     test("should update a booking by id", async () => {
       const updatedBooking = { id: 1, name: "Updated Booking 1" };
       db.updateBooking.mockResolvedValue(updatedBooking);
-  
+
       const response = await request(app)
         .put("/bookings/1")
         .send(updatedBooking);
-  
+
       expect(response.status).toBe(200);
       expect(response.body).toEqual(updatedBooking);
     });
-  
+
     // Test case for handling errors during update
     test("should handle errors when updating a booking by id", async () => {
       const updatedBookingData = { team_id: 2, user_id: 3, start_date_time: "2024-03-11 16:00:00", end_date_time: "2024-03-11 17:00:00" };
       db.updateBooking.mockRejectedValue(new Error("Database error"));
-  
+
       const response = await request(app)
         .put("/bookings/1")
         .send({ id: 1, name: "Updated Booking 1" });
-  
+
       expect(response.status).toBe(500);
     });
   });
-  
+
   // Test block for deleting a booking by id
   describe("DELETE /bookings/:id", () => {
     // Test case for deleting a booking
@@ -86,9 +86,9 @@ describe("GET /bookings/:id", () => {
     // Test case for handling errors during deletion
     test("should handle errors when deleting a booking by id", async () => {
       db.deleteBooking.mockRejectedValue(new Error("Database error"));
-  
+
       const response = await request(app).delete("/bookings/1");
-  
+
       expect(response.status).toBe(500);
     });
 
@@ -101,4 +101,3 @@ describe("GET /bookings/:id", () => {
       expect(response.status).toBe(404);
     });
   });
-
