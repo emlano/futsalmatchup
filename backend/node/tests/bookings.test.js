@@ -20,10 +20,6 @@ describe("GET /bookings", () => {
         expect(response.body).toEqual(mockBookings);
 
 
-        // test("should handle errors when fetching bookings", async () => {
-        //   db.getBookings.mockRejectedValue(new Error("Database error"));
-        //   const response = await request(app).get("/bookings");
-        //   expect(response.status).toBe(500);
     });
 });
 
@@ -42,11 +38,7 @@ describe("GET /bookings/:id", () => {
       expect(response.status).toBe(404);
     });
 
-    // test("should return 400 if invalid booking id is provided", async () => {
-    //   const res = await request(app).get("/bookings/invalidID");
-  
-    //   expect(res.status).toBe(400);
-    // });
+   
   });
   
 
