@@ -6,6 +6,7 @@ from scipy.spatial import distance
 from sklearn.metrics import silhouette_score
 import traceback
 import requests
+import json
 
 app = Flask(__name__)
 
@@ -41,20 +42,31 @@ def recommend_players(kmeans, dataset, input_data, input_nationality):
     nearest_cluster_players_sorted = sorted(nearest_cluster_players, key=lambda player: distance.euclidean(input_data, [player['age'], player['player_overall_rating']]))
     return nearest_cluster_players_sorted[:5]
 
+def json_to_csv(val):
+    json_obj = val[0]
+    keys = json_obj.keys()
+    csv = "{keys[0]}"
+
+    for i in range(1, len(keys)):
+        csv + ",{keys[i]}"
+
+    return csv
+
 # Flask route for recommending players
 @app.route('/recommend', methods=['POST'])
 def recommend_players_route():
     try:
+        print("Hello World")
         # Get player data from the node server
-        body = request.json[0]
-        input_age = body['age']
-        input_rating = body['player_overall_rating']
-        input_nationality = body['player_city']
+        first = request.json[0]
+        input_age = first['age']
+        input_rating = first['player_overall_rating']
+        input_nationality = first['player_city']
         input_data = np.array([input_age, input_rating], dtype=np.float64)
 
         # Assuming you have a function to retrieve all players from the database
         dataset = request.json[1:]
-        # print(dataset)
+        print(json_to_csv(dataset))
 
         # Prepare data for clustering
         features = ['age', 'player_overall_rating']
