@@ -131,7 +131,7 @@ class RecommendedPlayersPage extends StatelessWidget {
 
       final response = await http.post(
         Uri.parse(
-            'http://localhost:3000/users/recommend'), // API endpoint for recommending players
+            'http://35.213.185.204:3000/users/recommend'), // API endpoint for recommending players
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           'Authorization': 'Bearer $token' // Send token for authentication

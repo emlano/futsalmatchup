@@ -38,7 +38,7 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
   Future<void> fetchPlayerDetails(String playerName) async {
     try {
       final response = await http.post(
-        Uri.parse('http://localhost:3000/users/other'), // Path to API endpoint
+        Uri.parse('http://35.213.185.204:3000/users/other'), // Path to API endpoint
         body: json.encode([
           {"username": playerName}
         ]),
