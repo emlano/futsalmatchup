@@ -8,7 +8,6 @@ import 'package:frontend/views/team/create_team_page.dart';
 import 'package:frontend/views/team/player_search_page.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 import 'package:provider/provider.dart';
 
 import '../../providers/auth_provider.dart';
@@ -511,3 +510,22 @@ class _HomeState extends State<Home> {
     );
   }
 }
+//Function to create the booked
+// Future<List<Booked>> getBooked() async {
+//   final response = await http.get(
+//     Uri.parse(''http://localhost:3000/Booked'),
+//     headers: {
+//     'Content-Type': 'application/json',
+//     'Authorization': 'Bearer $token',
+//     },
+//   );
+//
+//   if (response.statusCode == 200) {
+//     final List<dynamic> jsonList = jsonDecode(response.body);
+//     final List<Booked> bookedList =
+//     jsonList.map((json) => Booked.fromJson(json)).toList();
+//     return bookedList;
+//   } else {
+//     throw Exception('Failed to load booked list');
+//   }
+// }
