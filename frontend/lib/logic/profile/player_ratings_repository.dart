@@ -8,7 +8,7 @@ class PlayerRatingsRepository {
     try {
       // Send a POST request with the user's ratings
       final response = await http.put(
-        Uri.parse('http://localhost:3000/users/other'),
+        Uri.parse('http://35.213.185.204:3000/users/other'),
         body: json.encode([
           {
             'user_id': userId,
