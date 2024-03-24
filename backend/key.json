@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "futsalmatchup",
+  "private_key_id": "e23e6f5340542fa91ef02c23e8411df8cf6e7673",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC3X5Zt5UvkTk8Q\nM1ysOBFBzCnVB9L0WTlroatbDPdm3uIzWYOZR4uWYaUKuPBHZV7LO7ZVxHHhX/nV\nd6ZTxVdIo3AZe6n9IZAzT71eFQxsFNeyINqzKHGOVz/z10Mgl5JyrWzQDTUgTJ+R\nkII5oSsK2iUhuVDU2oW+8PFOi6av9r+7Ffe7meiED1swJuLT6mXgpHlyvwgYtZp0\nTKmIhdNIHva6pgjdrGnYECjz3M3ro/BvbiaN8h+OzC6pEDa4W4A+crv3oPvgwc9Z\nkhXrYwH6oxGGJpu+1TfB7mJx2A86Y/f4/SHg3SZcFdAjp+NNyEFW0gcJa4R0RDBE\n8HLAnAbrAgMBAAECggEADZ0dnGwNDdaYfRHrG+gPs+xV4Lhze2uSXUDD6X8VcQA0\nF+7Z28vZe6ElMR4YzJwkhP8aYtSyRbKr6CK5aPe6Kqzjmii5ro7K11xgqTbz1KRZ\nfSJ+ShXDFHe6yj4dgDJwj237qZiJbKvznsl1OZUTDnuyjQXmj97nVg0qRRQOHHsb\nfehqhtKc2j0ryOCwBITz9S4GudFeftdbRHJFEmAJR56y8fdFUAVPwQbLAQPjzaVW\nPsY8ilTrN0t94MjXxuRJhrWTbPGJ4kEi1TjWySNcXswQvUK9RlDOdEr0pKFzCQKo\nvU8ZkjwFjqWSbE2fMU1ZgPQv45AzNL/DkQBEBEijUQKBgQDijIbmbGgMuVhjyYsP\nQtzQVqjZ27e0M8KHI9ikKEfFKIVqngK8NONB/LdsKx9cs0S+PuJ02mrea9pbUh1A\nP7KniCebOZRhQXy1c9JEL7TwYZcJNybUWL500qOCnXsSNvMtDf0DgnHVABylcZta\nbsjF5QyDtcA4CUR9Udx6rvAX2wKBgQDPNjFjsUMvpGjU1HiUZBhEKZDsp0FmCRqi\n8DEDr0PVr2zLZkL/qu+8DnXA0b4pgOvKPf1n2h+0dUbXxWdEClJgpN9Wl9o1I1Va\nzlOQEgOYNLaBGKYKo2hoAptnzzO6quewsN5ze52nxWhdm4A8bMtMSPwOnODztg5j\nbwxxr9NCMQKBgQCKjWk/aVNlXMF7HdrHNZw4apePzbmXIwS4g6rOErh6EuMtpn+D\nvVCznaxMIj9nAVhshacX0jED4LBFo32yOoK3xSR74YYmyNdNXg1dmFOvo++sOies\nPK4WYnCPxGJtbF/i0ShJSjD2FMBwSn+5mgF+TiwOLUzmuHxDrJoMCgtaewKBgFqB\nUCc8GJ1pkURMnXIrGhJDmYJUN5NqrJC4mqACYH2oBrv8qYzkS5v3MOWMdyPHpLWM\nR++hbTGz+8Jo/YbRf1OpD8fRwcRt720fK46E378OXxyZ+IQzBXpQkTJRZUXGOjaJ\nuk/0kVLjPYeNUQCTgGSMiFOVoAey4Cv8KBJL+tkxAoGAa0jKJ6HPs3cDEC4FwGjL\neq1wAcyvzbOsPad71zAkWl9fJz/7gnCqJv/ZZIopvJ4b5tH+Y70Yyoax3yElKxNR\nYSW3qZC/r2orGCCMRiv04v6bPstq7epoz9gMgTMe+3UVCgjYq2x1HxEN9MWsvpbF\n/0dQMWFgSwUHxCOUkVmwI2A=\n-----END PRIVATE KEY-----\n",
+  "client_email": "my-service-account@futsalmatchup.iam.gserviceaccount.com",
+  "client_id": "108898950736757711253",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/my-service-account%40futsalmatchup.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
