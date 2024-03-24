@@ -131,7 +131,7 @@ class CreateTeamPage extends StatelessWidget {
 
   // Function to create a team
   void createTeam(String token, String teamName, BuildContext context) async {
-    const url = 'http://localhost:3000/teams'; // Path to API endpoint
+    const url = 'http://35.213.185.204:3000/teams'; // Path to API endpoint
     final headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $token',
