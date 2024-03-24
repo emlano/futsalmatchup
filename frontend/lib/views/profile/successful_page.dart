@@ -7,15 +7,18 @@ class SuccessfulPage extends StatefulWidget {
 }
 
 class _SuccessfulPageState extends State<SuccessfulPage> {
+  // Variable to hold the rating value
   double rating = 5.0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Background color
       backgroundColor: Colors.teal,
       appBar: AppBar(
         title: null,
         backgroundColor: Colors.teal,
+        // Back button
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
@@ -23,6 +26,7 @@ class _SuccessfulPageState extends State<SuccessfulPage> {
             color: Colors.white,
           ),
           onPressed: () {
+            // Navigate back to the previous page when pressed
             Navigator.pop(context);
           },
         ),
@@ -32,6 +36,7 @@ class _SuccessfulPageState extends State<SuccessfulPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            // Animation for the rating bar
             TweenAnimationBuilder(
               duration: Duration(seconds: 1),
               tween: Tween<double>(begin: 0, end: rating),
@@ -50,7 +55,9 @@ class _SuccessfulPageState extends State<SuccessfulPage> {
                   onRatingUpdate: (rating) {},
                 );
               },
+              // Callback when the animation ends
               onEnd: () {
+                // Reset the rating after a delay
                 Future.delayed(Duration(milliseconds: 500), () {
                   setState(() {
                     rating = 5.0;
@@ -59,6 +66,7 @@ class _SuccessfulPageState extends State<SuccessfulPage> {
               },
             ),
             SizedBox(height: 20),
+            // Animation for the success message
             TweenAnimationBuilder(
               duration: Duration(seconds: 1),
               tween: Tween<double>(begin: 0, end: 1),
@@ -67,6 +75,7 @@ class _SuccessfulPageState extends State<SuccessfulPage> {
                   opacity: value,
                   child: Column(
                     children: [
+                      // Success message text
                       Text(
                         'Rating Successfully',
                         style: TextStyle(

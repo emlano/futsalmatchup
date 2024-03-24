@@ -32,7 +32,7 @@ void main() {
     expect(find.byType(Switch), findsOneWidget);
   });
 
-// Test case for Edit Button in PlayerProfile
+  // Test case for Edit Button in PlayerProfile
   testWidgets('PlayerProfile Edit Button Test', (WidgetTester tester) async {
     await tester.pumpWidget(
       MaterialApp(
@@ -68,7 +68,7 @@ void main() {
     expect(find.byType(Switch), findsOneWidget);
     expect(find.text('Update Status'), findsOneWidget);
 
-// Toggle the switch and verify if the state is updated
+    // Toggle the switch and verify if the state is updated
     await tester.tap(find.byType(Switch));
     await tester.pump();
 
@@ -77,7 +77,7 @@ void main() {
     expect(find.text('Update Status'), findsOneWidget);
   });
 
-// Test case for Player Information Section in PlayerProfile
+  // Test case for Player Information Section in PlayerProfile
   testWidgets('PlayerProfile Player Information Section Test',
       (WidgetTester tester) async {
     await tester.pumpWidget(
@@ -89,7 +89,7 @@ void main() {
       ),
     );
 
-// Scroll to Player Information section
+    // Scroll to Player Information section
     await tester.drag(
         find.byType(SingleChildScrollView), const Offset(0, -300));
 
