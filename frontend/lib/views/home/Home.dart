@@ -9,8 +9,8 @@ import 'package:frontend/views/team/player_search_page.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:provider/provider.dart';
-
-import '../../providers/auth_provider.dart';
+import 'package:frontend/views/home/booked.dart';
+// import '../../providers/auth_provider.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -21,17 +21,17 @@ class Home extends StatefulWidget {
 
 List<upcoming_bookings> bookings = [
   upcoming_bookings(
-      "Unique Warriors vs Spacers", "CRFC kalubowila", "8.00-9.00"),
-  upcoming_bookings("Lions vs Tigers", "Uni-Sports Kirulapone", "11.00-12.00"),
-  upcoming_bookings("FCK A vs FCK B", "Turf Wellawatta", "13.00-15.00"),
+      "Unique Warriors vs Spacers", "CRFC kalubowila", "8.00-9.00","assets/images/Futsal1.jpg"),
+  upcoming_bookings("Lions vs Tigers", "Uni-Sports Kirulapone", "11.00-12.00","assets/images/Futsal new.png"),
+  upcoming_bookings("FCK A vs FCK B", "Turf Wellawatta", "13.00-15.00","assets/images/Futsal new 2.png"),
 ];
-List<String> imagePaths = [
-"assets/images/Futsal1.jpg",
-  "assets/images/Futsal new.png"];
+// List<String> imagePaths = [
+// "assets/images/Futsal1.jpg",
+//   "assets/images/Futsal new.png"];
 List<teams> teamss = [
-  teams("Sky Riders", "6-A side", ""),
-  teams("Team Crisis", "5-A Side", ""),
-  teams("IITIANS", "5-A Side", "")
+  teams("Sky Riders", "6-A side","", "assets/images/futsallogo1.jpg"),
+  teams("Team Crisis", "5-A Side","","assets/images/futsallogo2.png"),
+  teams("IITIANS", "5-A Side","","assets/images/Futsallogo3.png"),
 ];
 
 Widget historyTemplate(teams items) {
@@ -45,7 +45,7 @@ Widget historyTemplate(teams items) {
         ClipRRect(
           borderRadius: BorderRadius.circular(5),
           child: Image.asset(
-            "assets/images/futsallogo1.jpg",
+            items.imagePath2,
 
             fit: BoxFit.cover,
             height: 129,
@@ -88,7 +88,7 @@ Widget historyTemplate(teams items) {
 
 Widget bookingTemplate(upcoming_bookings item) {
   return Container(
-    height: 250,
+    height: 200,
     width: 300,
     child: Card(
       elevation: 4.0,
@@ -99,7 +99,7 @@ Widget bookingTemplate(upcoming_bookings item) {
             ClipRRect(
               borderRadius: BorderRadius.circular(5),
               child: Image.asset(
-                "assets/images/Futsal1.jpg",
+                item.imagePath,
                 fit: BoxFit.cover,
                 height: 129,
                 width: 275,
@@ -124,12 +124,6 @@ Widget bookingTemplate(upcoming_bookings item) {
                 fontSize: 14,
               ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                // Add your onPressed logic here
-              },
-              child: Text('Check Booking'),
-            )
           ],
         ),
       ),
@@ -139,7 +133,7 @@ Widget bookingTemplate(upcoming_bookings item) {
 
 class _HomeState extends State<Home> {
 
-  late AuthProvider authProvider;
+  // late AuthProvider authProvider;
 
   @override
   Widget build(BuildContext context) {
@@ -514,10 +508,15 @@ class _HomeState extends State<Home> {
     );
   }
 }
-//Function to create the booked
+// Future<String> getToken() async {
+//   SharedPreferences prefs = await SharedPreferences.getInstance();
+//   String token = prefs.getString('token') ?? '';
+//   return token;
+// }
+// //Function to create the booked
 // Future<List<Booked>> getBooked() async {
 //   final response = await http.get(
-//     Uri.parse(''http://localhost:3000/Booked'),
+//     Uri.parse('http://localhost:3000/Booked'),
 //     headers: {
 //     'Content-Type': 'application/json',
 //     'Authorization': 'Bearer $token',
@@ -533,3 +532,4 @@ class _HomeState extends State<Home> {
 //     throw Exception('Failed to load booked list');
 //   }
 // }
+
