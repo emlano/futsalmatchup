@@ -25,6 +25,9 @@ List<upcoming_bookings> bookings = [
   upcoming_bookings("Lions vs Tigers", "Uni-Sports Kirulapone", "11.00-12.00"),
   upcoming_bookings("FCK A vs FCK B", "Turf Wellawatta", "13.00-15.00"),
 ];
+List<String> imagePaths = [
+"assets/images/Futsal1.jpg",
+  "assets/images/Futsal new.png"];
 List<teams> teamss = [
   teams("Sky Riders", "6-A side", ""),
   teams("Team Crisis", "5-A Side", ""),
@@ -43,6 +46,7 @@ Widget historyTemplate(teams items) {
           borderRadius: BorderRadius.circular(5),
           child: Image.asset(
             "assets/images/futsallogo1.jpg",
+
             fit: BoxFit.cover,
             height: 129,
             width: 200,

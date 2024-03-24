@@ -3,6 +3,11 @@ import 'package:frontend/models/header_app_bar.dart';
 import 'package:frontend/providers/auth_provider.dart';
 import 'package:frontend/logic/profile/user_repository.dart';
 import 'package:provider/provider.dart';
+import 'package:frontend/views/profile/player_profile.dart';
+import 'package:frontend/views/stadium/stadium_availability_page.dart';
+import 'package:frontend/views/team/create_team_page.dart';
+import 'package:frontend/views/team/player_search_page.dart';
+import 'package:frontend/views/home/Home.dart';
 
 class PlayerProfile extends StatefulWidget {
   @override
@@ -102,7 +107,142 @@ class _PlayerProfileState extends State<PlayerProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleAppBar(),
+      appBar: AppBar(
+        title: Text(
+          "Futsal MatchUp",
+          style: TextStyle(
+            fontFamily: 'DancingScript',
+            fontWeight: FontWeight.bold,
+            fontSize: 34,
+            color: Colors.teal,
+          ),
+        ),
+        centerTitle: true,
+      ),
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.teal,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.sports_soccer, size: 27),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      'Menu',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontFamily: 'inter',
+                        color: Colors.black,
+                        fontSize: 24,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              ListTile(
+                title: Row(
+                  children: [
+                    Icon(
+                      Icons.home,
+                      color: Colors.grey,
+                      size: 27,
+                    ),
+                    SizedBox(
+                      width: 3,
+                    ),
+                    Text('Home'),
+                  ],
+                ),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Home()));
+                },
+              ),
+
+              ListTile(
+                title: Row(
+                  children: [
+                    Icon(
+                      Icons.account_circle,
+                      color: Colors.grey,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text('User Profile'),
+                  ],
+                ),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => PlayerProfile()));
+                },
+              ),
+              ListTile(
+                title: Row(
+                  children: [
+                    Icon(
+                      Icons.stadium,
+                      color: Colors.grey,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text('Book a Stadium'),
+                  ],
+                ),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => StadiumPage()));
+                },
+              ),
+              ListTile(
+                title: Row(
+                  children: [
+                    Icon(
+                      Icons.add_box_sharp,
+                      color: Colors.grey,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text('Create a Team'),
+                  ],
+                ),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => CreateTeamPage()));
+                },
+              ),
+              ListTile(
+                title: const Row(
+                  children: [
+                    Icon(
+                      Icons.search,
+                      color: Colors.grey,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text('Search Players'),
+                  ],
+                ),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => PlayerSearchPage()));
+                },
+              ),
+            ],
+          ),
+        ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
