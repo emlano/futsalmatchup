@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/models/header_app_bar.dart';
+import 'package:frontend/providers/auth_provider.dart';
+import 'package:frontend/views/payment_paypal/paypal_payment.dart';
+import 'package:provider/provider.dart';
 
 // StatefulWidget to manage stateful behavior
 class StadiumDetailsPage extends StatefulWidget {
@@ -14,12 +17,14 @@ class StadiumDetailsPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _StadiumDetailsPageState createState() => _StadiumDetailsPageState(); // Creating state for the StadiumDetailsPage
+  _StadiumDetailsPageState createState() =>
+      _StadiumDetailsPageState(); // Creating state for the StadiumDetailsPage
 }
 
 class _StadiumDetailsPageState extends State<StadiumDetailsPage> {
   late String _selectedDay;
-  final Map<String, List<String>> _dayTimeSlots = { // Map containing day-wise time slots
+  final Map<String, List<String>> _dayTimeSlots = {
+    // Map containing day-wise time slots
     'Mon': [
       '8am - 9am',
       '9am - 10am',
@@ -93,6 +98,8 @@ class _StadiumDetailsPageState extends State<StadiumDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+
     return Scaffold(
       appBar: TitleAppBar(),
       body: SingleChildScrollView(
@@ -145,7 +152,8 @@ class _StadiumDetailsPageState extends State<StadiumDetailsPage> {
                   children: [
                     TableRow(
                       children: [
-                        _buildTableCell('Mon'), // Building table cell for each day
+                        _buildTableCell(
+                            'Mon'), // Building table cell for each day
                         _buildTableCell('Tue'),
                         _buildTableCell('Wed'),
                         _buildTableCell('Thu'),
@@ -160,7 +168,8 @@ class _StadiumDetailsPageState extends State<StadiumDetailsPage> {
               const SizedBox(height: 16),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: _buildTimeSlots(), // Building time slots for the selected day
+                children: _buildTimeSlots(
+                    context), // Building time slots for the selected day
               ),
             ],
           ),
@@ -178,7 +187,9 @@ class _StadiumDetailsPageState extends State<StadiumDetailsPage> {
         });
       },
       child: Container(
-        color: _selectedDay == text ? Colors.teal : Colors.white, // Highlighting selected day
+        color: _selectedDay == text
+            ? Colors.teal
+            : Colors.white, // Highlighting selected day
         padding: const EdgeInsets.all(8),
         child: Center(
           child: Text(
@@ -194,20 +205,23 @@ class _StadiumDetailsPageState extends State<StadiumDetailsPage> {
   }
 
   // Method to build time slots for the selected day
-  List<Widget> _buildTimeSlots() {
+  List<Widget> _buildTimeSlots(BuildContext context) {
     List<String>? dayTimeSlots = _dayTimeSlots[_selectedDay];
     if (dayTimeSlots == null) return [];
 
     return dayTimeSlots.map((timeSlot) {
-      return _buildTimeSlotButton(timeSlot); // Building time slot button for each time slot
+      return _buildTimeSlotButton(
+          context, timeSlot); // Building time slot button for each time slot
     }).toList();
   }
 
   // Widget to build time slot button
-  Widget _buildTimeSlotButton(String timeSlot) {
-    bool isReserved = timeSlot == '9am - 10am' || timeSlot == '1pm - 2pm'; // Checking if the time slot is reserved
+  Widget _buildTimeSlotButton(BuildContext context, String timeSlot) {
+    bool isReserved = timeSlot == '9am - 10am' ||
+        timeSlot == '1pm - 2pm'; // Checking if the time slot is reserved
     int index = _dayTimeSlots[_selectedDay]!.indexOf(timeSlot);
-    bool isBooked = _slotStatus[_selectedDay]![index]; // Checking if the time slot is booked
+    bool isBooked = _slotStatus[_selectedDay]![
+        index]; // Checking if the time slot is booked
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -223,13 +237,18 @@ class _StadiumDetailsPageState extends State<StadiumDetailsPage> {
           width: 180,
           child: ElevatedButton(
             onPressed: () {
+              if (!isReserved && !isBooked) {
+                // Allowing booking if the slot is not reserved or booked
 
-              if (!isReserved && !isBooked) { // Allowing booking if the slot is not reserved or booked
-            
-         
                 setState(() {
-                  _slotStatus[_selectedDay]![index] = true; // Updating slot status
+                  _slotStatus[_selectedDay]![index] =
+                      true; // Updating slot status
                 });
+
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CheckoutPage()));
               }
             },
             style: ElevatedButton.styleFrom(
@@ -237,7 +256,8 @@ class _StadiumDetailsPageState extends State<StadiumDetailsPage> {
                   ? Colors.grey // Grey background if the slot is reserved
                   : isBooked
                       ? Colors.red // Red background if the slot is booked
-                      : Colors.teal.shade100, // Teal background if the slot is available
+                      : Colors.teal
+                          .shade100, // Teal background if the slot is available
             ),
             child: Text(
               isReserved
@@ -255,4 +275,3 @@ class _StadiumDetailsPageState extends State<StadiumDetailsPage> {
     );
   }
 }
-
