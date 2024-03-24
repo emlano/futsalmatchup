@@ -7,8 +7,7 @@ import 'package:provider/provider.dart';
 import 'successful_page.dart';
 
 class PlayerRatingPage extends StatefulWidget {
-  final Map<String, dynamic>
-      playerInfo; // Player details received from player_search_[age]
+  final Map<String, dynamic> playerInfo;
   PlayerRatingPage({required this.playerInfo});
 
   @override
