@@ -30,15 +30,28 @@ describe("GET /teams/", () => {
 describe("GET /teams/:id", () => {
   test("should return teams with given id", async () => {
     const mockTeams = { id: 1, name: "team 1" };
+
+    const user = { user_id: 0, name: "user" };
+    const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+
     db.getTeamFromId.mockResolvedValue(mockTeams);
-    const response = await request(app).get("/teams/1");
+    const response = await request(app)
+      .get("/teams/1")
+      .set("Authorization", `Bearer ${token}`);
+
     expect(response.status).toBe(200);
     expect(response.body).toEqual(mockTeams);
   });
 
   test("should return 404 if team with given id is not found", async () => {
+    const user = { user_id: 0, name: "user" };
+    const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+
     db.getTeamFromId.mockResolvedValue(null);
-    const response = await request(app).get("/teams/999");
+    const response = await request(app)
+      .get("/teams/999")
+      .set("Authorization", `Bearer ${token}`);
+
     expect(response.status).toBe(404);
   });
 });

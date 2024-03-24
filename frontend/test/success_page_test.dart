@@ -6,7 +6,7 @@ void main() {
   testWidgets('SuccessfulPage Widget Test', (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(home: SuccessfulPage()));
 
-    // To Verify the initial state is as expected.
+    // Expect to find the success message texts
     expect(find.text('Rating Successfully'), findsOneWidget);
     expect(find.text('Submitted!'), findsOneWidget);
 

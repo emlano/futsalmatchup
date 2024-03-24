@@ -69,7 +69,7 @@ class SigninFormState extends State<SigninForm> {
                           loginProvider.phoneNo!);
 
                       authProvider.setToken(token);
-                      Navigator.pushNamed(context, '/profile');
+                      Navigator.pushNamed(context, '/home');
                     } catch (e) {
                       if (e is BadRequestException) {
                         const String err = "Bad request!";
