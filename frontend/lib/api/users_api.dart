@@ -10,7 +10,8 @@ import 'package:http/http.dart';
 
 class UserApi {
   static Future<http.Response> loginUser(Map user) async {
-    final res = await http.post(Uri.parse('http://localhost:3000/users/login'),
+    final res = await http.post(
+        Uri.parse('http://35.213.185.204:3000/users/login'),
         body: json.encode([user]),
         headers: {"Content-Type": "application/json"});
 
@@ -28,7 +29,8 @@ class UserApi {
   }
 
   static Future<http.Response> signupUser(Map user) async {
-    final res = await http.post(Uri.parse('http://localhost:3000/users/signup'),
+    final res = await http.post(
+        Uri.parse('http://35.213.185.204:3000/users/signup'),
         body: json.encode([user]),
         headers: {"Content-Type": "application/json"});
 

@@ -1,11 +1,11 @@
 FROM node:21
 WORKDIR /app
 
-COPY ./package* /app
+COPY ./package* /app/
 
 RUN npm ci
 
-COPY . /app
+COPY . /app/
 
 EXPOSE 3000
 
