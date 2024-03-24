@@ -65,6 +65,7 @@ class _PlayerSearchPageState extends State<PlayerSearchPage> {
 
   void addToTeam() {
     print('Player added to team');
+    Navigator.pop(context, playerNameController.text);
   }
 
   void ratePlayer() {
