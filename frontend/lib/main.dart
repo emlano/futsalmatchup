@@ -31,16 +31,15 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
           useMaterial3: true,
         ),
-        // home: const LoginScreen(title: "Futsal MatchUp"),
-        // routes: {
-        //   "/login": (context) => const LoginPage(),
-        //   "/signup": (context) => const SigninPage(),
-        //   "/home": (context) => const Home(),
-        //   "/profile": (context) => PlayerProfile(),
-        //   "/team": (context) => const CreateTeamPage(),
-        //   "/playerSearch": (context) => const PlayerSearchPage(),
-        // },
-        home: PlayerProfile(),
+        home: const Home(),
+        routes: {
+          "/login": (context) => const LoginPage(),
+          "/signup": (context) => const SigninPage(),
+          "/home": (context) => const Home(),
+          "/profile": (context) => PlayerProfile(),
+          "/team": (context) => const CreateTeamPage(),
+          "/playerSearch": (context) => const PlayerSearchPage(),
+        },
       ),
     );
   }

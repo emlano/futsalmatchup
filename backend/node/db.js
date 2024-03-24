@@ -463,6 +463,10 @@ async function deleteStadium(stadiumId) {
 
   return result;
 }
+async function getBooked() {
+  const [rows] = await pool.query("SELECT * FROM `Booked`;");
+  return rows;
+}
 
 module.exports = {
   getAllUsersExcept,
@@ -488,4 +492,5 @@ module.exports = {
   createNewStadium,
   updateStadium,
   deleteStadium,
+  getBooked,
 };

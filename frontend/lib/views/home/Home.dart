@@ -6,6 +6,11 @@ import 'package:frontend/views/profile/player_profile.dart';
 import 'package:frontend/views/stadium/stadium_availability_page.dart';
 import 'package:frontend/views/team/create_team_page.dart';
 import 'package:frontend/views/team/player_search_page.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:provider/provider.dart';
+
+import '../../providers/auth_provider.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -79,7 +84,7 @@ Widget historyTemplate(teams items) {
 
 Widget bookingTemplate(upcoming_bookings item) {
   return Container(
-    height: 205,
+    height: 250,
     width: 300,
     child: Card(
       elevation: 4.0,
@@ -115,6 +120,12 @@ Widget bookingTemplate(upcoming_bookings item) {
                 fontSize: 14,
               ),
             ),
+            ElevatedButton(
+              onPressed: () {
+                // Add your onPressed logic here
+              },
+              child: Text('Check Booking'),
+            )
           ],
         ),
       ),
@@ -123,6 +134,9 @@ Widget bookingTemplate(upcoming_bookings item) {
 }
 
 class _HomeState extends State<Home> {
+
+  late AuthProvider authProvider;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -166,6 +180,26 @@ class _HomeState extends State<Home> {
                 ],
               ),
             ),
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(
+                    Icons.home,
+                    color: Colors.grey,
+                    size: 27,
+                  ),
+                  SizedBox(
+                    width: 3,
+                  ),
+                  Text('Home'),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Home()));
+              },
+            ),
+
             ListTile(
               title: Row(
                 children: [
@@ -476,3 +510,22 @@ class _HomeState extends State<Home> {
     );
   }
 }
+//Function to create the booked
+// Future<List<Booked>> getBooked() async {
+//   final response = await http.get(
+//     Uri.parse(''http://localhost:3000/Booked'),
+//     headers: {
+//     'Content-Type': 'application/json',
+//     'Authorization': 'Bearer $token',
+//     },
+//   );
+//
+//   if (response.statusCode == 200) {
+//     final List<dynamic> jsonList = jsonDecode(response.body);
+//     final List<Booked> bookedList =
+//     jsonList.map((json) => Booked.fromJson(json)).toList();
+//     return bookedList;
+//   } else {
+//     throw Exception('Failed to load booked list');
+//   }
+// }

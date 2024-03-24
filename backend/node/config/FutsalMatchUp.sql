@@ -5,6 +5,13 @@ CREATE TABLE IF NOT EXISTS teams (
     team_id INT AUTO_INCREMENT PRIMARY KEY,
     team_name VARCHAR(100)
 );
+CREATE TABLE IF NOT EXISTS Booked(
+	booking_id INT AUTO_INCREMENT PRIMARY KEY,
+	stadium_name VARCHAR(100),
+    team VARCHAR(100),
+    times VARCHAR(100)
+);
+
 
 CREATE TABLE IF NOT EXISTS stadiums (
     stadium_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -175,3 +182,8 @@ INSERT INTO bookings (stadium_id, team_id, user_id, start_date_time, end_date_ti
 (8, 15, 18, '2024-03-08 11:00:00', '2024-03-08 12:30:00'),
 (9, 17, 20, '2024-03-09 13:00:00', '2024-03-09 14:30:00'),
 (10, 19, 2, '2024-03-10 19:00:00', '2024-03-10 20:30:00');
+
+INSERT INTO Booked(Booking_id,stadium_name,team,times) VALUES
+(1 , "CRFC Kalubowila" , "Unique warriors" , "6.00-7.00");
+
+
