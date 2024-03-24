@@ -36,5 +36,5 @@ jobs:
           INSTANCE_ZONE: ${{ secrets.COMPUTE_INSTANCE_ZONE }}
           INSTANCE_PROJECT: ${{ secrets.COMPUTE_INSTANCE_PROJECT }}
         run: |
-          gcloud compute ssh --zone "$INSTANCE_ZONE" "$INSTANCE_NAME" --project "$INSTANCE_PROJECT" --command "cd ~ && sudo docker-compose up -d"
+          gcloud compute ssh --zone "$INSTANCE_ZONE" "$INSTANCE_NAME" --project "$INSTANCE_PROJECT" --command "cd ~ && sudo docker-compose down && sudo docker-compose up -d --build"
 
