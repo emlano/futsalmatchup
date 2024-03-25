@@ -50,7 +50,7 @@ class UserRepository {
     try {
       if (token != null) {
         final response = await http.put(
-          Uri.parse('http://localhost:3000/users'),
+          Uri.parse('http://35.213.185.204:3000/users'),
           body: json.encode([profileData]),
           headers: {
             "Content-Type": "application/json",
