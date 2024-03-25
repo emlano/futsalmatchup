@@ -5,6 +5,7 @@ import 'package:frontend/views/home/Home.dart';
 import 'package:frontend/views/login/login_page.dart';
 import 'package:frontend/views/login/login_screen.dart';
 import 'package:frontend/views/login/signin_page.dart';
+import 'package:frontend/views/payment_paypal/paypal_payment.dart';
 import 'package:frontend/views/profile/player_profile.dart';
 import 'package:provider/provider.dart';
 import 'package:frontend/views/team/create_team_page.dart';
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
           "/profile": (context) => PlayerProfile(),
           "/team": (context) => const CreateTeamPage(),
           "/playerSearch": (context) => const PlayerSearchPage(),
+          "/payment": (context) => const CheckoutPage()
         },
       ),
     );
