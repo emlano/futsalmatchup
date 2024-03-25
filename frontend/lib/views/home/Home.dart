@@ -9,7 +9,7 @@ import 'package:frontend/views/team/player_search_page.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:provider/provider.dart';
-import 'package:frontend/views/home/booked.dart';
+import 'package:frontend/views/home/Booked.dart';
 // import '../../providers/auth_provider.dart';
 
 class Home extends StatefulWidget {
@@ -20,18 +20,20 @@ class Home extends StatefulWidget {
 }
 
 List<upcoming_bookings> bookings = [
-  upcoming_bookings(
-      "Unique Warriors vs Spacers", "CRFC kalubowila", "8.00-9.00","assets/images/Futsal1.jpg"),
-  upcoming_bookings("Lions vs Tigers", "Uni-Sports Kirulapone", "11.00-12.00","assets/images/Futsal new.png"),
-  upcoming_bookings("FCK A vs FCK B", "Turf Wellawatta", "13.00-15.00","assets/images/Futsal new 2.png"),
+  upcoming_bookings("Unique Warriors vs Spacers", "CRFC kalubowila",
+      "8.00-9.00", "assets/images/Futsal1.jpg"),
+  upcoming_bookings("Lions vs Tigers", "Uni-Sports Kirulapone", "11.00-12.00",
+      "assets/images/Futsal new.png"),
+  upcoming_bookings("FCK A vs FCK B", "Turf Wellawatta", "13.00-15.00",
+      "assets/images/Futsal new 2.png"),
 ];
 // List<String> imagePaths = [
 // "assets/images/Futsal1.jpg",
 //   "assets/images/Futsal new.png"];
 List<teams> teamss = [
-  teams("Sky Riders", "6-A side","", "assets/images/futsallogo1.jpg"),
-  teams("Team Crisis", "5-A Side","","assets/images/futsallogo2.png"),
-  teams("IITIANS", "5-A Side","","assets/images/Futsallogo3.png"),
+  teams("Sky Riders", "6-A side", "", "assets/images/futsallogo1.jpg"),
+  teams("Team Crisis", "5-A Side", "", "assets/images/futsallogo2.png"),
+  teams("IITIANS", "5-A Side", "", "assets/images/Futsallogo3.png"),
 ];
 
 Widget historyTemplate(teams items) {
@@ -46,7 +48,6 @@ Widget historyTemplate(teams items) {
           borderRadius: BorderRadius.circular(5),
           child: Image.asset(
             items.imagePath2,
-
             fit: BoxFit.cover,
             height: 129,
             width: 200,
@@ -132,7 +133,6 @@ Widget bookingTemplate(upcoming_bookings item) {
 }
 
 class _HomeState extends State<Home> {
-
   // late AuthProvider authProvider;
 
   @override
@@ -193,11 +193,10 @@ class _HomeState extends State<Home> {
                 ],
               ),
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Home()));
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Home()));
               },
             ),
-
             ListTile(
               title: Row(
                 children: [
